@@ -1,4 +1,4 @@
-scn NewAlchemyScript5
+scn DynamicLevelAlchemyStation
 
 ; variables for skill level
 int Nov		; novice
@@ -9,42 +9,6 @@ int Mas		; master
 
 int onGame	; variable to stop script from running in GameMode
 int alcLvl	; variable for alchemy level to run OnActivate
-
-Begin GameMode
-
-If onGame == 0
-	Return		; stops this script from running throughout the game
-EndIf
-; this block removes all the items we added based on our alchemy level
-If onGame == 1
-	If Nov == 1
-		PlayerREF.RemoveItemNS MortarPestle 1
-		PlayerREF.RemoveItemNS Alembic 1
-		PlayerREF.RemoveItemNS Calcinator 1
-		PlayerREF.RemoveItemNS Retort 1
-	ElseIf App == 1
-		PlayerREF.RemoveItemNS MortarPestleApprentice 1
-		PlayerREF.RemoveItemNS AlembicApprentice 1
-		PlayerREF.RemoveItemNS CalcinatorApprentice 1
-		PlayerREF.RemoveItemNS RetortApprentice 1
-	ElseIf Jor == 1
-		PlayerREF.RemoveItemNS MortarPestleJourneyman 1
-		PlayerREF.RemoveItemNS AlembicJourneyman 1
-		PlayerREF.RemoveItemNS CalcinatorJourneyman 1
-		PlayerREF.RemoveItemNS RetortJourneyman 1
-	ElseIf Exr == 1
-		PlayerREF.RemoveItemNS MortarPestleExpert 1
-		PlayerREF.RemoveItemNS AlembicExpert 1
-		PlayerREF.RemoveItemNS CalcinatorExpert 1
-		PlayerREF.RemoveItemNS RetortExpert 1
-	ElseIf Mas == 1
-		PlayerREF.RemoveItemNS MortarPestleMaster 1
-		PlayerREF.RemoveItemNS AlembicMaster 1
-		PlayerREF.RemoveItemNS CalcinatorMaster 1
-		PlayerREF.RemoveItemNS RetortMaster 1
-	EndIf
-EndIf
-End
 
 Begin OnActivate
 
@@ -60,10 +24,6 @@ set Mas to 0
 let alcLvl := PlayerREF.GetActorValue Alchemy	; variable to make the following section neat
 
 ; this block determines alchemy level, adds the respective items, and equips an alchemy item for use
-
-; alchemy level determination and AddItemNS works but equiping the item does not
-; the CS wiki remarks that EquipItem sometimes doesn't work right after AddItem
-; I imagine that is the issue, however adding a delay does not seem to work for me
 If alcLvl <= 24
 	PlayerREF.AddItemNS Alembic 1
 	PlayerREF.AddItemNS Calcinator 1
@@ -99,5 +59,42 @@ ElseIf alcLvl >= 100
 	PlayerREF.AddItemNS MortarPestleMaster 1
 	set Mas to 1
 	PlayerREF.EquipItemSilent MortarPestleMaster
+EndIf
+End
+
+Begin GameMode
+
+If onGame == 0
+	Return		; stops this script from running throughout the game
+EndIf
+; this block removes all the items we added based on our alchemy level
+If onGame == 1
+	If Nov == 1
+		PlayerREF.RemoveItemNS MortarPestle 1
+		PlayerREF.RemoveItemNS Alembic 1
+		PlayerREF.RemoveItemNS Calcinator 1
+		PlayerREF.RemoveItemNS Retort 1
+	ElseIf App == 1
+		PlayerREF.RemoveItemNS MortarPestleApprentice 1
+		PlayerREF.RemoveItemNS AlembicApprentice 1
+		PlayerREF.RemoveItemNS CalcinatorApprentice 1
+		PlayerREF.RemoveItemNS RetortApprentice 1
+	ElseIf Jor == 1
+		PlayerREF.RemoveItemNS MortarPestleJourneyman 1
+		PlayerREF.RemoveItemNS AlembicJourneyman 1
+		PlayerREF.RemoveItemNS CalcinatorJourneyman 1
+		PlayerREF.RemoveItemNS RetortJourneyman 1
+	ElseIf Exr == 1
+		PlayerREF.RemoveItemNS MortarPestleExpert 1
+		PlayerREF.RemoveItemNS AlembicExpert 1
+		PlayerREF.RemoveItemNS CalcinatorExpert 1
+		PlayerREF.RemoveItemNS RetortExpert 1
+	ElseIf Mas == 1
+		PlayerREF.RemoveItemNS MortarPestleMaster 1
+		PlayerREF.RemoveItemNS AlembicMaster 1
+		PlayerREF.RemoveItemNS CalcinatorMaster 1
+		PlayerREF.RemoveItemNS RetortMaster 1
+	EndIf
+set onGame to 0
 EndIf
 End
