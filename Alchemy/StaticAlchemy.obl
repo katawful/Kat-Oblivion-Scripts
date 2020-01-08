@@ -1,0 +1,145 @@
+Scn StaticAlchemy
+
+; define references, all integers
+int Novice
+int Apprentice
+int Journeyman
+int Expert
+int Master
+int Active ; for gamemode check: 0 = nothing; 1 = in alchemy menu; 2 = exit alchemy menu
+int iAlchemy ; for step of alchemy station
+
+Begin OnActivate
+; set skill level refs to 0
+	let Novice := 0
+	let Apprentice := 0
+	let Journeyman := 0
+	let Expert := 0
+	let Master := 0
+; on gamemode check
+	If Active == 0
+		Set Active to 1
+	Endif
+; resets alchemy station steps
+	If iAlchemy != 0
+		let iAlchemy := 0
+	Endif
+; determine skill level
+	If PlayerREF.GetActorValue Alchemy <= 24
+		Set Novice to 1
+	Elseif PlayerREF.GetActorValue Alchemy >= 25 && Player.GetActorValue Alchemy <= 49
+		Set Apprentice to 1
+	Elseif PlayerREF.GetActorValue Alchemy >= 50 && Player.GetActorValue Alchemy <= 74
+		Set Journeyman to 1
+	Elseif PlayerREF.GetActorValue Alchemy >= 75 && Player.GetActorValue Alchemy <= 99
+		Set Expert to 1
+	Elseif PlayerREF.GetActorValue Alchemy >= 100
+		Set Master to 1
+	Endif
+;-------------------------------------
+; add respective skill items
+     If Novice == 1
+          PlayerREF.AddItemNS Alembic 1
+          PlayerREF.AddItemNS Calcinator 1
+          PlayerREF.AddItemNS MortarPestle 1
+          PlayerREF.AddItemNS Retort 1
+	    let iAlchemy += 1 ; increments alchemy step
+          PlayerREF.EquipItemNS MortarPestle ; line was in every similar script
+										; i don't know why
+     Elseif Apprentice == 1
+          PlayerREF.AddItemNS AlembicApprentice 1
+          PlayerREF.AddItemNS CalcinatorApprentice 1
+          PlayerREF.AddItemNS MortarPestleApprentice 1
+          PlayerREF.AddItemNS RetortApprentice 1
+	    let iAlchemy += 1
+          PlayerREF.EquipItemNS MortarPestleApprentice
+
+     Elseif Journeyman == 1
+          PlayerREF.AddItemNS AlembicJourneyman 1
+          PlayerREF.AddItemNS CalcinatorJourneyman 1
+          PlayerREF.AddItemNS MortarPestleJourneyman 1
+          PlayerREF.AddItemNS RetortJourneyman 1
+	    let iAlchemy += 1
+          PlayerREF.EquipItemNS MortarPestleJourneyman
+
+     Elseif Expert == 1
+          PlayerREF.AddItemNS AlembicExpert 1
+          PlayerREF.AddItemNS CalcinatorExpert 1
+          PlayerREF.AddItemNS MortarPestleExpert 1
+          PlayerREF.AddItemNS RetortExpert 1
+	    let iAlchemy += 1
+          PlayerREF.EquipItemNS MortarPestleExpert
+
+     Elseif Master == 1
+          PlayerREF.AddItemNS AlembicMaster 1
+          PlayerREF.AddItemNS CalcinatorMaster 1
+          PlayerREF.AddItemNS MortarPestleMaster 1
+          PlayerREF.AddItemNS RetortMaster 1
+	    let iAlchemy += 1
+          PlayerREF.EquipItem MortarPestleMaster
+	Endif	
+;-------------------------------------
+End
+
+Begin Gamemode
+; gamemode check, stops script from running all the time
+	If Active == 0
+		Return
+; check if OnActivate was performed
+; and check if the alchemy step reached removed
+	Elseif Active == 1 && iAlchemy == 2
+		Set Active to 0
+		If Novice == 1
+               	PlayerREF.RemoveItemNS Alembic 1
+               	PlayerREF.RemoveItemNS Calcinator 1
+               	PlayerREF.RemoveItemNS MortarPestle 1
+               	PlayerREF.RemoveItemNS Retort 1
+			let iAlchemy := 0 ; reset alchemy steps
+			let Novice := 0 ; reset skill check
+				
+		Elseif Apprentice == 1
+               	PlayerREF.RemoveItemNS AlembicApprentice 1
+               	PlayerREF.RemoveItemNS CalcinatorApprentice 1
+              	PlayerREF.RemoveItemNS MortarPestleApprentice 1
+               	PlayerREF.RemoveItemNS RetortApprentice 1
+			let iAlchemy := 0
+			let Apprentice := 0
+
+		Elseif Journeyman == 1
+               	PlayerREF.RemoveItemNS AlembicJourneyman 1
+               	PlayerREF.RemoveItemNS CalcinatorJourneyman 1
+               	PlayerREF.RemoveItemNS MortarPestleJourneyman 1
+               	PlayerREF.RemoveItemNS RetortJourneyman 1
+			let iAlchemy := 0
+			let Journeyman := 0
+
+		Elseif Expert == 1
+               	PlayerREF.RemoveItemNS AlembicExpert 1
+               	PlayerREF.RemoveItemNS CalcinatorExpert 1
+               	PlayerREF.RemoveItemNS MortarPestleExpert 1
+               	PlayerREF.RemoveItemNS RetortExpert 1
+			let iAlchemy := 0
+			let Expert := 0
+
+		Elseif Master == 1
+               	PlayerREF.RemoveItemNS AlembicMaster 1
+               	PlayerREF.RemoveItemNS CalcinatorMaster 1
+               	PlayerREF.RemoveItemNS MortarPestleMaster 1
+               	PlayerREF.RemoveItemNS RetortMaster 1
+			let iAlchemy := 0
+			let Master := 0
+
+	Endif
+Endif
+End
+
+begin MenuMode 1040
+; begin MenuMode 1040 on proper step, increments iAlchemy
+	If iAlchemy == 1
+		let iAlchemy += 1
+	Endif
+End
+;<CSEBlock>
+;<CSECaretPos> 4505 </CSECaretPos>
+;</CSEBlock>
+
