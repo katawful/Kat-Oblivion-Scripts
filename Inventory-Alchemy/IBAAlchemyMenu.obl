@@ -10,7 +10,6 @@ short btnChoice		; this is the variable for the menu button we pick
 Begin OnActivate
 
 	If IBAonGameGlobal == 0
-		PrintC "IBAonGameGlobal is at %g and button activated", IBAonGameGlobal
 		set IBAonGameGlobal to 1	; set this to 1 since we started the script action
 	EndIf
 
@@ -21,9 +20,7 @@ End
 
 Begin GameMode
 
-
 If IBAonGameGlobal == 1
-PrintC "IBAonGameGlobal is at %g and menu used", IBAonGameGlobal
 ;--------------------Initial menu--------------------  
 	If menuChose == -1
 		MessageBox "What do you want to do?", "Deposit", "Retrieve", "View", "Done"
@@ -48,7 +45,6 @@ PrintC "IBAonGameGlobal is at %g and menu used", IBAonGameGlobal
 		StartQuest IBADepositAllQuest
 		set menuChose to 0		; set to 0 since we are done with the menu
 		set IBAonGameGlobal to 2	; set to 2 since we are in the second part
-		PrintC "IBAonGameGlobal is at %g and deposit used", IBAonGameGlobal
 	EndIf
 
 ;--------------------Retrieve-------------------- 
@@ -56,7 +52,6 @@ PrintC "IBAonGameGlobal is at %g and menu used", IBAonGameGlobal
 		StartQuest IBARetrieveAllQuest
 		set menuChose to 0
 		set IBAonGameGlobal to 2
-		PrintC "IBAonGameGlobal is at %g and retrieve used", IBAonGameGlobal
 	EndIf
 
 ;--------------------View--------------------  
@@ -77,19 +72,14 @@ EndIf
 If IBAonGameGlobal == 3					; this will only work when the quests are done
 	If GetQuestRunning IBADepositAllQuest == 1
 		StopQuest IBADepositAllQuest
-		Print "Deposit quest stopped"
 		set IBAonGameGlobal to 0		; set to 0 since the scripts are done
-		Print "Script stopped"
 		Return
 	ElseIf GetQuestRunning IBARetrieveAllQuest == 1
 		StopQuest IBARetrieveAllQuest
-		Print "Retrive quest stopped"
 		set IBAonGameGlobal to 0		; set to 0 since the scripts are done
-		Print "Script stopped"
 		Return
 	Else
 		set IBAonGameGlobal to 0
-		Print "Script stopped"
 		Return
 	EndIf
 EndIf
