@@ -1,0 +1,603 @@
+scn IBADepositAllScript
+
+; container ref ContainerREF
+; IBAonGameGlobal is the global we use to stop the quest scripts from running
+
+short ItemCount		; variable for each item in our inventory
+float fQuestDelayTime	; speed of quest
+
+Begin GameMode
+	set fQuestDelayTime to 0.01	; while this script is long it only runs once so this value isn't an issue
+
+	If ( Player.GetItemCount AlkanetFlower > 0 ) 
+		Set ItemCount to Player.GetItemCount AlkanetFlower
+		Player.RemoveItemNS AlkanetFlower ItemCount
+		ContainerREF.AddItemNS AlkanetFlower ItemCount
+	EndIf
+	If ( Player.GetItemCount AloeVeraLeaves > 0 ) 
+		Set ItemCount to Player.GetItemCount AloeVeraLeaves
+		Player.RemoveItemNS AloeVeraLeaves ItemCount
+		ContainerREF.AddItemNS AloeVeraLeaves ItemCount
+	EndIf
+	If ( Player.GetItemCount Ambrosia > 0 ) 
+		Set ItemCount to Player.GetItemCount Ambrosia
+		Player.RemoveItemNS Ambrosia ItemCount
+		ContainerREF.AddItemNS Ambrosia ItemCount
+	EndIf
+	If ( Player.GetItemCount Apple > 0 ) 
+		Set ItemCount to Player.GetItemCount Apple
+		Player.RemoveItemNS Apple ItemCount
+		ContainerREF.AddItemNS Apple ItemCount
+	EndIf
+	If ( Player.GetItemCount Arrowroot > 0 ) 
+		Set ItemCount to Player.GetItemCount Arrowroot
+		Player.RemoveItemNS Arrowroot ItemCount
+		ContainerREF.AddItemNS Arrowroot ItemCount
+	EndIf
+	If ( Player.GetItemCount Beef > 0 ) 
+		Set ItemCount to Player.GetItemCount Beef
+		Player.RemoveItemNS Beef ItemCount
+		ContainerREF.AddItemNS Beef ItemCount
+	EndIf
+	If ( Player.GetItemCount BergamotSeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount BergamotSeeds
+		Player.RemoveItemNS BergamotSeeds ItemCount
+		ContainerREF.AddItemNS BergamotSeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount Blackberry > 0 ) 
+		Set ItemCount to Player.GetItemCount Blackberry
+		Player.RemoveItemNS Blackberry ItemCount
+		ContainerREF.AddItemNS Blackberry ItemCount
+	EndIf
+	If ( Player.GetItemCount Bloodgrass > 0 ) 
+		Set ItemCount to Player.GetItemCount Bloodgrass
+		Player.RemoveItemNS Bloodgrass ItemCount
+		ContainerREF.AddItemNS Bloodgrass ItemCount
+	EndIf
+	If ( Player.GetItemCount BoarMeat > 0 ) 
+		Set ItemCount to Player.GetItemCount BoarMeat
+		Player.RemoveItemNS BoarMeat ItemCount
+		ContainerREF.AddItemNS BoarMeat ItemCount
+	EndIf
+	If ( Player.GetItemCount BogBeaconAscoCap01 > 0 ) 
+		Set ItemCount to Player.GetItemCount BogBeaconAscoCap01
+		Player.RemoveItemNS BogBeaconAscoCap01 ItemCount
+		ContainerREF.AddItemNS BogBeaconAscoCap01 ItemCount
+	EndIf
+	If ( Player.GetItemCount Bonemeal > 0 ) 
+		Set ItemCount to Player.GetItemCount Bonemeal
+		Player.RemoveItemNS Bonemeal ItemCount
+		ContainerREF.AddItemNS Bonemeal ItemCount
+	EndIf
+	If ( Player.GetItemCount BreadLoaf > 0 ) 
+		Set ItemCount to Player.GetItemCount BreadLoaf
+		Player.RemoveItemNS BreadLoaf ItemCount
+		ContainerREF.AddItemNS BreadLoaf ItemCount
+	EndIf
+	If ( Player.GetItemCount CairnBoleteCap > 0 ) 
+		Set ItemCount to Player.GetItemCount CairnBoleteCap
+		Player.RemoveItemNS CairnBoleteCap ItemCount
+		ContainerREF.AddItemNS CairnBoleteCap ItemCount
+	EndIf
+	If ( Player.GetItemCount Carrot > 0 ) 
+		Set ItemCount to Player.GetItemCount Carrot
+		Player.RemoveItemNS Carrot ItemCount
+		ContainerREF.AddItemNS Carrot ItemCount
+	EndIf
+	If ( Player.GetItemCount CheeseWedge > 0 ) 
+		Set ItemCount to Player.GetItemCount CheeseWedge
+		Player.RemoveItemNS CheeseWedge ItemCount
+		ContainerREF.AddItemNS CheeseWedge ItemCount
+	EndIf
+	If ( Player.GetItemCount CheeseWheel > 0 ) 
+		Set ItemCount to Player.GetItemCount CheeseWheel
+		Player.RemoveItemNS CheeseWheel ItemCount
+		ContainerREF.AddItemNS CheeseWheel ItemCount
+	EndIf
+	If ( Player.GetItemCount CinnabarPolyporeCap02 > 0 ) 
+		Set ItemCount to Player.GetItemCount CinnabarPolyporeCap02
+		Player.RemoveItemNS CinnabarPolyporeCap02 ItemCount
+		ContainerREF.AddItemNS CinnabarPolyporeCap02 ItemCount
+	EndIf
+	If ( Player.GetItemCount CinnabarPolyporeCap01 > 0 ) 
+		Set ItemCount to Player.GetItemCount CinnabarPolyporeCap01
+		Player.RemoveItemNS CinnabarPolyporeCap01 ItemCount
+		ContainerREF.AddItemNS CinnabarPolyporeCap01 ItemCount
+	EndIf
+	If ( Player.GetItemCount ClannfearClaws > 0 ) 
+		Set ItemCount to Player.GetItemCount ClannfearClaws
+		Player.RemoveItemNS ClannfearClaws ItemCount
+		ContainerREF.AddItemNS ClannfearClaws ItemCount
+	EndIf
+	If ( Player.GetItemCount CloudedFunnelCap > 0 ) 
+		Set ItemCount to Player.GetItemCount CloudedFunnelCap
+		Player.RemoveItemNS CloudedFunnelCap ItemCount
+		ContainerREF.AddItemNS CloudedFunnelCap ItemCount
+	EndIf
+	If ( Player.GetItemCount ColumbineRootPulp > 0 ) 
+		Set ItemCount to Player.GetItemCount ColumbineRootPulp
+		Player.RemoveItemNS ColumbineRootPulp ItemCount
+		ContainerREF.AddItemNS ColumbineRootPulp ItemCount
+	EndIf
+	If ( Player.GetItemCount Corn > 0 ) 
+		Set ItemCount to Player.GetItemCount Corn
+		Player.RemoveItemNS Corn ItemCount
+		ContainerREF.AddItemNS Corn ItemCount
+	EndIf
+	If ( Player.GetItemCount CrabMeat > 0 ) 
+		Set ItemCount to Player.GetItemCount CrabMeat
+		Player.RemoveItemNS CrabMeat ItemCount
+		ContainerREF.AddItemNS CrabMeat ItemCount
+	EndIf
+	If ( Player.GetItemCount DaedraHeart > 0 ) 
+		Set ItemCount to Player.GetItemCount DaedraHeart
+		Player.RemoveItemNS DaedraHeart ItemCount
+		ContainerREF.AddItemNS DaedraHeart ItemCount
+	EndIf
+	If ( Player.GetItemCount DaedraSilk > 0 ) 
+		Set ItemCount to Player.GetItemCount DaedraSilk
+		Player.RemoveItemNS DaedraSilk ItemCount
+		ContainerREF.AddItemNS DaedraSilk ItemCount
+	EndIf
+	If ( Player.GetItemCount DaedraVenin > 0 ) 
+		Set ItemCount to Player.GetItemCount DaedraVenin
+		Player.RemoveItemNS DaedraVenin ItemCount
+		ContainerREF.AddItemNS DaedraVenin ItemCount
+	EndIf
+	If ( Player.GetItemCount DaedrothTeeth > 0 ) 
+		Set ItemCount to Player.GetItemCount DaedrothTeeth
+		Player.RemoveItemNS DaedrothTeeth ItemCount
+		ContainerREF.AddItemNS DaedrothTeeth ItemCount
+	EndIf
+	If ( Player.GetItemCount DragonsTongue > 0 ) 
+		Set ItemCount to Player.GetItemCount DragonsTongue
+		Player.RemoveItemNS DragonsTongue ItemCount
+		ContainerREF.AddItemNS DragonsTongue ItemCount
+	EndIf
+	If ( Player.GetItemCount DreughWax > 0 ) 
+		Set ItemCount to Player.GetItemCount DreughWax
+		Player.RemoveItemNS DreughWax ItemCount
+		ContainerREF.AddItemNS DreughWax ItemCount
+	EndIf
+	If ( Player.GetItemCount DryadSaddlePolyporeCap > 0 ) 
+		Set ItemCount to Player.GetItemCount DryadSaddlePolyporeCap
+		Player.RemoveItemNS DryadSaddlePolyporeCap ItemCount
+		ContainerREF.AddItemNS DryadSaddlePolyporeCap ItemCount
+	EndIf
+	If ( Player.GetItemCount Ectoplasm > 0 ) 
+		Set ItemCount to Player.GetItemCount Ectoplasm
+		Player.RemoveItemNS Ectoplasm ItemCount
+		ContainerREF.AddItemNS Ectoplasm ItemCount
+	EndIf
+	If ( Player.GetItemCount ElfCupCap > 0 ) 
+		Set ItemCount to Player.GetItemCount ElfCupCap
+		Player.RemoveItemNS ElfCupCap ItemCount
+		ContainerREF.AddItemNS ElfCupCap ItemCount
+	EndIf
+	If ( Player.GetItemCount EmeticRussulaCap > 0 ) 
+		Set ItemCount to Player.GetItemCount EmeticRussulaCap
+		Player.RemoveItemNS EmeticRussulaCap ItemCount
+		ContainerREF.AddItemNS EmeticRussulaCap ItemCount
+	EndIf
+	If ( Player.GetItemCount FennelSeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount FennelSeeds
+		Player.RemoveItemNS FennelSeeds ItemCount
+		ContainerREF.AddItemNS FennelSeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount FireSalts > 0 ) 
+		Set ItemCount to Player.GetItemCount FireSalts
+		Player.RemoveItemNS FireSalts ItemCount
+		ContainerREF.AddItemNS FireSalts ItemCount
+	EndIf
+	If ( Player.GetItemCount FlaxSeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount FlaxSeeds
+		Player.RemoveItemNS FlaxSeeds ItemCount
+		ContainerREF.AddItemNS FlaxSeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount Flour > 0 ) 
+		Set ItemCount to Player.GetItemCount Flour
+		Player.RemoveItemNS Flour ItemCount
+		ContainerREF.AddItemNS Flour ItemCount
+	EndIf
+	If ( Player.GetItemCount FlyAmanitaCap > 0 ) 
+		Set ItemCount to Player.GetItemCount FlyAmanitaCap
+		Player.RemoveItemNS FlyAmanitaCap ItemCount
+		ContainerREF.AddItemNS FlyAmanitaCap ItemCount
+	EndIf
+	If ( Player.GetItemCount FoxgloveNectar > 0 ) 
+		Set ItemCount to Player.GetItemCount FoxgloveNectar
+		Player.RemoveItemNS FoxgloveNectar ItemCount
+		ContainerREF.AddItemNS FoxgloveNectar ItemCount
+	EndIf
+	If ( Player.GetItemCount FrostSalts > 0 ) 
+		Set ItemCount to Player.GetItemCount FrostSalts
+		Player.RemoveItemNS FrostSalts ItemCount
+		ContainerREF.AddItemNS FrostSalts ItemCount
+	EndIf
+	If ( Player.GetItemCount Garlic > 0 ) 
+		Set ItemCount to Player.GetItemCount Garlic
+		Player.RemoveItemNS Garlic ItemCount
+		ContainerREF.AddItemNS Garlic ItemCount
+	EndIf
+	If ( Player.GetItemCount GinkgoLeaf > 0 ) 
+		Set ItemCount to Player.GetItemCount GinkgoLeaf
+		Player.RemoveItemNS GinkgoLeaf ItemCount
+		ContainerREF.AddItemNS GinkgoLeaf ItemCount
+	EndIf
+	If ( Player.GetItemCount Ginseng > 0 ) 
+		Set ItemCount to Player.GetItemCount Ginseng
+		Player.RemoveItemNS Ginseng ItemCount
+		ContainerREF.AddItemNS Ginseng ItemCount
+	EndIf
+	If ( Player.GetItemCount GlowDust > 0 ) 
+		Set ItemCount to Player.GetItemCount GlowDust
+		Player.RemoveItemNS GlowDust ItemCount
+		ContainerREF.AddItemNS GlowDust ItemCount
+	EndIf
+	If ( Player.GetItemCount Grapes > 0 ) 
+		Set ItemCount to Player.GetItemCount Grapes
+		Player.RemoveItemNS Grapes ItemCount
+		ContainerREF.AddItemNS Grapes ItemCount
+	EndIf
+	If ( Player.GetItemCount GreenStainCupCap > 0 ) 
+		Set ItemCount to Player.GetItemCount GreenStainCupCap
+		Player.RemoveItemNS GreenStainCupCap ItemCount
+		ContainerREF.AddItemNS GreenStainCupCap ItemCount
+	EndIf
+	If ( Player.GetItemCount GreenStainShelfCap > 0 ) 
+		Set ItemCount to Player.GetItemCount GreenStainShelfCap
+		Player.RemoveItemNS GreenStainShelfCap ItemCount
+		ContainerREF.AddItemNS GreenStainShelfCap ItemCount
+	EndIf
+	If ( Player.GetItemCount Ham > 0 ) 
+		Set ItemCount to Player.GetItemCount Ham
+		Player.RemoveItemNS Ham ItemCount
+		ContainerREF.AddItemNS Ham ItemCount
+	EndIf
+	If ( Player.GetItemCount Harrada > 0 ) 
+		Set ItemCount to Player.GetItemCount Harrada
+		Player.RemoveItemNS Harrada ItemCount
+		ContainerREF.AddItemNS Harrada ItemCount
+	EndIf
+	If ( Player.GetItemCount HumanHeart > 0 ) 
+		Set ItemCount to Player.GetItemCount HumanHeart
+		Player.RemoveItemNS HumanHeart ItemCount
+		ContainerREF.AddItemNS HumanHeart ItemCount
+	EndIf
+	If ( Player.GetItemCount DarkHumanSkin > 0 ) 
+		Set ItemCount to Player.GetItemCount DarkHumanSkin
+		Player.RemoveItemNS DarkHumanSkin ItemCount
+		ContainerREF.AddItemNS DarkHumanSkin ItemCount
+	EndIf
+	If ( Player.GetItemCount ImpGall > 0 ) 
+		Set ItemCount to Player.GetItemCount ImpGall
+		Player.RemoveItemNS ImpGall ItemCount
+		ContainerREF.AddItemNS ImpGall ItemCount
+	EndIf
+	If ( Player.GetItemCount IronwoodNut > 0 ) 
+		Set ItemCount to Player.GetItemCount IronwoodNut
+		Player.RemoveItemNS IronwoodNut ItemCount
+		ContainerREF.AddItemNS IronwoodNut ItemCount
+	EndIf
+	If ( Player.GetItemCount SQ01Potato > 0 )
+		Set ItemCount to Player.GetItemCount SQ01Potato
+		Player.RemoveItemNS SQ01Potato ItemCount
+		ContainerREF.AddItemNS SQ01Potato ItemCount
+	EndIf
+	If ( Player.GetItemCount LadysMantleLeaves > 0 ) 
+		Set ItemCount to Player.GetItemCount LadysMantleLeaves
+		Player.RemoveItemNS LadysMantleLeaves ItemCount
+		ContainerREF.AddItemNS LadysMantleLeaves ItemCount
+	EndIf
+	If ( Player.GetItemCount LadysSmockLeaves > 0 ) 
+		Set ItemCount to Player.GetItemCount LadysSmockLeaves
+		Player.RemoveItemNS LadysSmockLeaves ItemCount
+		ContainerREF.AddItemNS LadysSmockLeaves ItemCount
+	EndIf
+	If ( Player.GetItemCount LavEnderSprig > 0 ) 
+		Set ItemCount to Player.GetItemCount LavEnderSprig
+		Player.RemoveItemNS LavEnderSprig ItemCount
+		ContainerREF.AddItemNS LavEnderSprig ItemCount
+	EndIf
+	If ( Player.GetItemCount Leek > 0 ) 
+		Set ItemCount to Player.GetItemCount Leek
+		Player.RemoveItemNS Leek ItemCount
+		ContainerREF.AddItemNS Leek ItemCount
+	EndIf
+	If ( Player.GetItemCount Lettuce > 0 ) 
+		Set ItemCount to Player.GetItemCount Lettuce
+		Player.RemoveItemNS Lettuce ItemCount
+		ContainerREF.AddItemNS Lettuce ItemCount
+	EndIf
+	If ( Player.GetItemCount Lichor > 0 ) 
+		Set ItemCount to Player.GetItemCount Lichor
+		Player.RemoveItemNS Lichor ItemCount
+		ContainerREF.AddItemNS Lichor ItemCount
+	EndIf
+	If ( Player.GetItemCount MandrakeRoot > 0 ) 
+		Set ItemCount to Player.GetItemCount MandrakeRoot
+		Player.RemoveItemNS MandrakeRoot ItemCount
+		ContainerREF.AddItemNS MandrakeRoot ItemCount
+	EndIf
+	If ( Player.GetItemCount MilkThistleSeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount MilkThistleSeeds
+		Player.RemoveItemNS MilkThistleSeeds ItemCount
+		ContainerREF.AddItemNS MilkThistleSeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount MinotaurHorn > 0 ) 
+		Set ItemCount to Player.GetItemCount MinotaurHorn
+		Player.RemoveItemNS MinotaurHorn ItemCount
+		ContainerREF.AddItemNS MinotaurHorn ItemCount
+	EndIf
+	If ( Player.GetItemCount MonkshoodRootPulp > 0 ) 
+		Set ItemCount to Player.GetItemCount MonkshoodRootPulp
+		Player.RemoveItemNS MonkshoodRootPulp ItemCount
+		ContainerREF.AddItemNS MonkshoodRootPulp ItemCount
+	EndIf
+	If ( Player.GetItemCount MorningGloryRootPulp > 0 ) 
+		Set ItemCount to Player.GetItemCount MorningGloryRootPulp
+		Player.RemoveItemNS MorningGloryRootPulp ItemCount
+		ContainerREF.AddItemNS MorningGloryRootPulp ItemCount
+	EndIf
+	If ( Player.GetItemCount MortFlesh > 0 ) 
+		Set ItemCount to Player.GetItemCount MortFlesh
+		Player.RemoveItemNS MortFlesh ItemCount
+		ContainerREF.AddItemNS MortFlesh ItemCount
+	EndIf
+	If ( Player.GetItemCount MotherwortSprig > 0 ) 
+		Set ItemCount to Player.GetItemCount MotherwortSprig
+		Player.RemoveItemNS MotherwortSprig ItemCount
+		ContainerREF.AddItemNS MotherwortSprig ItemCount
+	EndIf
+	If ( Player.GetItemCount MugwortSeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount MugwortSeeds
+		Player.RemoveItemNS MugwortSeeds ItemCount
+		ContainerREF.AddItemNS MugwortSeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount Mutton > 0 ) 
+		Set ItemCount to Player.GetItemCount Mutton
+		Player.RemoveItemNS Mutton ItemCount
+		ContainerREF.AddItemNS Mutton ItemCount
+	EndIf
+	If ( Player.GetItemCount Nightshade > 0 ) 
+		Set ItemCount to Player.GetItemCount Nightshade
+		Player.RemoveItemNS Nightshade ItemCount
+		ContainerREF.AddItemNS Nightshade ItemCount
+	EndIf
+	If ( Player.GetItemCount MS39Nirnroot > 0 ) 
+		Set ItemCount to Player.GetItemCount MS39Nirnroot
+		Player.RemoveItemNS MS39Nirnroot ItemCount
+		ContainerREF.AddItemNS MS39Nirnroot ItemCount
+	EndIf
+	If ( Player.GetItemCount OgresTeeth > 0 ) 
+		Set ItemCount to Player.GetItemCount OgresTeeth
+		Player.RemoveItemNS OgresTeeth ItemCount
+		ContainerREF.AddItemNS OgresTeeth ItemCount
+	EndIf
+	If ( Player.GetItemCount Onion > 0 ) 
+		Set ItemCount to Player.GetItemCount Onion
+		Player.RemoveItemNS Onion ItemCount
+		ContainerREF.AddItemNS Onion ItemCount
+	EndIf
+	If ( Player.GetItemCount Orange > 0 ) 
+		Set ItemCount to Player.GetItemCount Orange
+		Player.RemoveItemNS Orange ItemCount
+		ContainerREF.AddItemNS Orange ItemCount
+	EndIf
+	If ( Player.GetItemCount PaintedTrollFat > 0 ) 
+		Set ItemCount to Player.GetItemCount PaintedTrollFat
+		Player.RemoveItemNS PaintedTrollFat ItemCount
+		ContainerREF.AddItemNS PaintedTrollFat ItemCount
+	EndIf
+	If ( Player.GetItemCount Pear > 0 ) 
+		Set ItemCount to Player.GetItemCount Pear
+		Player.RemoveItemNS Pear ItemCount
+		ContainerREF.AddItemNS Pear ItemCount
+	EndIf
+	If ( Player.GetItemCount PeonySeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount PeonySeeds
+		Player.RemoveItemNS PeonySeeds ItemCount
+		ContainerREF.AddItemNS PeonySeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount Dark10Apple > 0 ) 
+		Set ItemCount to Player.GetItemCount Dark10Apple
+		Player.RemoveItemNS Dark10Apple ItemCount
+		ContainerREF.AddItemNS Dark10Apple ItemCount
+	EndIf
+	If ( Player.GetItemCount Potato > 0 ) 
+		Set ItemCount to Player.GetItemCount Potato
+		Player.RemoveItemNS Potato ItemCount
+		ContainerREF.AddItemNS Potato ItemCount
+	EndIf
+	If ( Player.GetItemCount PrimroseLeaves > 0 ) 
+		Set ItemCount to Player.GetItemCount PrimroseLeaves
+		Player.RemoveItemNS PrimroseLeaves ItemCount
+		ContainerREF.AddItemNS PrimroseLeaves ItemCount
+	EndIf
+	If ( Player.GetItemCount Pumpkin > 0 ) 
+		Set ItemCount to Player.GetItemCount Pumpkin
+		Player.RemoveItemNS Pumpkin ItemCount
+		ContainerREF.AddItemNS Pumpkin ItemCount
+	EndIf
+	If ( Player.GetItemCount Radish > 0 ) 
+		Set ItemCount to Player.GetItemCount Radish
+		Player.RemoveItemNS Radish ItemCount
+		ContainerREF.AddItemNS Radish ItemCount
+	EndIf
+	If ( Player.GetItemCount RatMeat > 0 ) 
+		Set ItemCount to Player.GetItemCount RatMeat
+		Player.RemoveItemNS RatMeat ItemCount
+		ContainerREF.AddItemNS RatMeat ItemCount
+	EndIf
+	If ( Player.GetItemCount RedwortFlower > 0 ) 
+		Set ItemCount to Player.GetItemCount RedwortFlower
+		Player.RemoveItemNS RedwortFlower ItemCount
+		ContainerREF.AddItemNS RedwortFlower ItemCount
+	EndIf
+	If ( Player.GetItemCount Rice > 0 ) 
+		Set ItemCount to Player.GetItemCount Rice
+		Player.RemoveItemNS Rice ItemCount
+		ContainerREF.AddItemNS Rice ItemCount
+	EndIf
+	If ( Player.GetItemCount RootPulp > 0 ) 
+		Set ItemCount to Player.GetItemCount RootPulp
+		Player.RemoveItemNS RootPulp ItemCount
+		ContainerREF.AddItemNS RootPulp ItemCount
+	EndIf
+	If ( Player.GetItemCount SQ09SlaughterfishScales > 0 ) 
+		Set ItemCount to Player.GetItemCount SQ09SlaughterfishScales
+		Player.RemoveItemNS SQ09SlaughterfishScales ItemCount
+		ContainerREF.AddItemNS SQ09SlaughterfishScales ItemCount
+	EndIf
+	If ( Player.GetItemCount SacredLotusSeeds > 0 ) 
+		Set ItemCount to Player.GetItemCount SacredLotusSeeds
+		Player.RemoveItemNS SacredLotusSeeds ItemCount
+		ContainerREF.AddItemNS SacredLotusSeeds ItemCount
+	EndIf
+	If ( Player.GetItemCount Scales > 0 ) 
+		Set ItemCount to Player.GetItemCount Scales
+		Player.RemoveItemNS Scales ItemCount
+		ContainerREF.AddItemNS Scales ItemCount
+	EndIf
+	If ( Player.GetItemCount ScampSkin > 0 ) 
+		Set ItemCount to Player.GetItemCount ScampSkin
+		Player.RemoveItemNS ScampSkin ItemCount
+		ContainerREF.AddItemNS ScampSkin ItemCount
+	EndIf
+	If ( Player.GetItemCount HouseServantPie > 0 ) 
+		Set ItemCount to Player.GetItemCount HouseServantPie
+		Player.RemoveItemNS HouseServantPie ItemCount
+		ContainerREF.AddItemNS HouseServantPie ItemCount
+	EndIf
+	If ( Player.GetItemCount SQ01PotatoBreadLoaf > 0 )
+		Set ItemCount to Player.GetItemCount SQ01PotatoBreadLoaf
+		Player.RemoveItemNS SQ01PotatoBreadLoaf ItemCount
+		ContainerREF.AddItemNS SQ01PotatoBreadLoaf ItemCount
+	EndIf
+	If ( Player.GetItemCount SomnaliusFrond > 0 ) 
+		Set ItemCount to Player.GetItemCount SomnaliusFrond
+		Player.RemoveItemNS SomnaliusFrond ItemCount
+		ContainerREF.AddItemNS SomnaliusFrond ItemCount
+	EndIf
+	If ( Player.GetItemCount SpiddalStick > 0 ) 
+		Set ItemCount to Player.GetItemCount SpiddalStick
+		Player.RemoveItemNS SpiddalStick ItemCount
+		ContainerREF.AddItemNS SpiddalStick ItemCount
+	EndIf
+	If ( Player.GetItemCount StJohnsWortNectar > 0 ) 
+		Set ItemCount to Player.GetItemCount StJohnsWortNectar
+		Player.RemoveItemNS StJohnsWortNectar ItemCount
+		ContainerREF.AddItemNS StJohnsWortNectar ItemCount
+	EndIf
+	If ( Player.GetItemCount SteelBlueEntolomaCap > 0 ) 
+		Set ItemCount to Player.GetItemCount SteelBlueEntolomaCap
+		Player.RemoveItemNS SteelBlueEntolomaCap ItemCount
+		ContainerREF.AddItemNS SteelBlueEntolomaCap ItemCount
+	EndIf
+	If ( Player.GetItemCount StinkhornCap > 0 ) 
+		Set ItemCount to Player.GetItemCount StinkhornCap
+		Player.RemoveItemNS StinkhornCap ItemCount
+		ContainerREF.AddItemNS StinkhornCap ItemCount
+	EndIf
+	If ( Player.GetItemCount Strawberry > 0 ) 
+		Set ItemCount to Player.GetItemCount Strawberry
+		Player.RemoveItemNS Strawberry ItemCount
+		ContainerREF.AddItemNS Strawberry ItemCount
+	EndIf
+	If ( Player.GetItemCount SummerBoleteCap > 0 ) 
+		Set ItemCount to Player.GetItemCount SummerBoleteCap
+		Player.RemoveItemNS SummerBoleteCap ItemCount
+		ContainerREF.AddItemNS SummerBoleteCap ItemCount
+	EndIf
+	If ( Player.GetItemCount Sweetcake > 0 ) 
+		Set ItemCount to Player.GetItemCount Sweetcake
+		Player.RemoveItemNS Sweetcake ItemCount
+		ContainerREF.AddItemNS Sweetcake ItemCount
+	EndIf
+	If ( Player.GetItemCount Sweetroll > 0 ) 
+		Set ItemCount to Player.GetItemCount Sweetroll
+		Player.RemoveItemNS Sweetroll ItemCount
+		ContainerREF.AddItemNS Sweetroll ItemCount
+	EndIf
+	If ( Player.GetItemCount Taproot > 0 ) 
+		Set ItemCount to Player.GetItemCount Taproot
+		Player.RemoveItemNS Taproot ItemCount
+		ContainerREF.AddItemNS Taproot ItemCount
+	EndIf
+	If ( Player.GetItemCount TigerLilyNectar > 0 ) 
+		Set ItemCount to Player.GetItemCount TigerLilyNectar
+		Player.RemoveItemNS TigerLilyNectar ItemCount
+		ContainerREF.AddItemNS TigerLilyNectar ItemCount
+	EndIf
+	If ( Player.GetItemCount TinderPolyporeCap > 0 ) 
+		Set ItemCount to Player.GetItemCount TinderPolyporeCap
+		Player.RemoveItemNS TinderPolyporeCap ItemCount
+		ContainerREF.AddItemNS TinderPolyporeCap ItemCount
+	EndIf
+	If ( Player.GetItemCount Tobacco > 0 ) 
+		Set ItemCount to Player.GetItemCount Tobacco
+		Player.RemoveItemNS Tobacco ItemCount
+		ContainerREF.AddItemNS Tobacco ItemCount
+	EndIf
+	If ( Player.GetItemCount Tomato > 0 ) 
+		Set ItemCount to Player.GetItemCount Tomato
+		Player.RemoveItemNS Tomato ItemCount
+		ContainerREF.AddItemNS Tomato ItemCount
+	EndIf
+	If ( Player.GetItemCount TrollFat > 0 ) 
+		Set ItemCount to Player.GetItemCount TrollFat
+		Player.RemoveItemNS TrollFat ItemCount
+		ContainerREF.AddItemNS TrollFat ItemCount
+	EndIf
+	If ( Player.GetItemCount VampireDust > 0 ) 
+		Set ItemCount to Player.GetItemCount VampireDust
+		Player.RemoveItemNS VampireDust ItemCount
+		ContainerREF.AddItemNS VampireDust ItemCount
+	EndIf
+	If ( Player.GetItemCount Venison > 0 ) 
+		Set ItemCount to Player.GetItemCount Venison
+		Player.RemoveItemNS Venison ItemCount
+		ContainerREF.AddItemNS Venison ItemCount
+	EndIf
+	If ( Player.GetItemCount VipersBuglossLeaves > 0 ) 
+		Set ItemCount to Player.GetItemCount VipersBuglossLeaves
+		Player.RemoveItemNS VipersBuglossLeaves ItemCount
+		ContainerREF.AddItemNS VipersBuglossLeaves ItemCount
+	EndIf
+	If ( Player.GetItemCount VoidSalts > 0 ) 
+		Set ItemCount to Player.GetItemCount VoidSalts
+		Player.RemoveItemNS VoidSalts ItemCount
+		ContainerREF.AddItemNS VoidSalts ItemCount
+	EndIf
+	If ( Player.GetItemCount WaterHyacinthNectar > 0 ) 
+		Set ItemCount to Player.GetItemCount WaterHyacinthNectar
+		Player.RemoveItemNS WaterHyacinthNectar ItemCount
+		ContainerREF.AddItemNS WaterHyacinthNectar ItemCount
+	EndIf
+	If ( Player.GetItemCount Watermelon > 0 ) 
+		Set ItemCount to Player.GetItemCount Watermelon
+		Player.RemoveItemNS Watermelon ItemCount
+		ContainerREF.AddItemNS Watermelon ItemCount
+	EndIf
+	If ( Player.GetItemCount WheatGrain > 0 ) 
+		Set ItemCount to Player.GetItemCount WheatGrain
+		Player.RemoveItemNS WheatGrain ItemCount
+		ContainerREF.AddItemNS WheatGrain ItemCount
+	EndIf
+	If ( Player.GetItemCount GoldenRodSeedPod > 0 ) 
+		Set ItemCount to Player.GetItemCount GoldenRodSeedPod
+		Player.RemoveItemNS GoldenRodSeedPod ItemCount
+		ContainerREF.AddItemNS GoldenRodSeedPod ItemCount
+	EndIf
+	If ( Player.GetItemCount WispStalkCaps > 0 ) 
+		Set ItemCount to Player.GetItemCount WispStalkCaps
+		Player.RemoveItemNS WispStalkCaps ItemCount
+		ContainerREF.AddItemNS WispStalkCaps ItemCount
+	EndIf
+	If ( Player.GetItemCount WormwoodLeaves > 0 ) 
+		Set ItemCount to Player.GetItemCount WormwoodLeaves
+		Player.RemoveItemNS WormwoodLeaves ItemCount
+		ContainerREF.AddItemNS WormwoodLeaves ItemCount
+	EndIf
+		set IBAonGameGlobal to 3	; set to 3 since we are done with this script
+End

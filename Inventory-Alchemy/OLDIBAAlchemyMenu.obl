@@ -1,0 +1,96 @@
+scn AlchemyMenu
+
+; ref container ContainerREF
+short Choosing
+short Choice
+; short onGame	 
+; IBAonGameGlobal is a Global, determines if script should run or not
+
+Begin OnActivate
+	If Choosing == 0
+		set Choosing to -1
+	EndIf
+set IBAonGameGlobal to 0			; set to 0 since we've started the script
+;If IBAonGameGlobal == 0
+	PrintC "IBAonGameGlobal is at %g", IBAonGameGlobal
+;EndIf
+End
+
+Begin GameMode
+;set IBAonGameGlobal to IBAonGameGlobal
+
+
+;set IBAonGameGlobal to -1		; initial value, does nothing
+;If IBAonGameGlobal == -1
+	PrintC "IBAonGameGlobal is at %g", IBAonGameGlobal
+;EndIf
+
+If IBAonGameGlobal == 0 			; we've activated the object and started the script
+PrintC "IBAonGameGlobal is at %g", IBAonGameGlobal
+;--------------------Initial menu-------------------- 
+	If Choosing == -1
+		MessageBox "What do you want to do?", "Deposit", "Retrieve", "View", "Done"
+		set Choosing to 1
+		set Choice to GetButtonPressed
+
+	ElseIf Choosing == 1
+		If Choice == -1
+			set Choice to GetButtonPressed
+		ElseIf Choice == 0
+			set Choosing to -10
+		ElseIf Choice == 1
+			set Choosing to -20
+		ElseIf Choice == 2
+			set Choosing to -30
+		ElseIf Choice == 3
+			set Choosing to 0
+		EndIf
+	EndIf
+
+;--------------------Deposit ingredients--------------------  
+
+	If Choosing == -10
+		StartQuest IBADepositAllQuest
+		set Choosing to 0
+		set IBAonGameGlobal to 1
+	EndIf
+
+;--------------------Retrieve ingredients-------------------- 
+
+	If Choosing == -20
+		StartQuest IBARetrieveAllQuest
+		set Choosing to 0
+		set IBAonGameGlobal to 1
+	EndIf
+
+;--------------------View ingredients--------------------  
+
+	If Choosing == -30
+		ContainerREF.Activate PlayerREF 0
+		set Choosing to 0
+		set IBAonGameGlobal to 2
+	EndIf
+
+;--------------------Done button--------------------  
+
+	If Choosing == 0
+		set IBAonGameGlobal to 2
+	EndIf
+	If IBAonGameGlobal == 1
+		PrintC "IBAonGameGlobal is at %g and a script block has worked", IBAonGameGlobal
+	EndIf
+EndIf
+
+;--------------------IBAonGameGlobal catch--------------------  
+	If IBAonGameGlobal == 2			; 2 means the quest script is done and shouldn't be running
+		PrintC "IBAonGameGlobal is at %g", IBAonGameGlobal
+		StopQuest IBADepositAllQuest
+		StopQuest IBARetrieveAllQuest
+		set IBAonGameGlobal to -1	; so we don't create a loop 
+			If IBAonGameGlobal == -1
+				PrintC "IBAonGameGlobal has returned to %g and looped", IBAonGameGlobal
+			EndIf
+		Return			; stop the quests and the script from running
+	EndIf
+
+End

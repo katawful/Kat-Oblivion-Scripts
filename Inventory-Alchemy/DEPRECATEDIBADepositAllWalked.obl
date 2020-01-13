@@ -1,0 +1,26 @@
+scn IBADepositAllWalkingScript
+
+short invPos	; our inventory position
+short invCount	; our inventory count
+short itemCount	; the number of the item of interest
+ref pInvObj	; the inventory object reference
+ref pCont	; the container reference
+float fQuestDelayTime	; sets our quest speed
+
+Begin GameMode
+
+set fQuestDelayTime to 0.01	; this script is short and only runs when needed so we are fine with this value
+set pCont to PlayerREF
+set invPos to 0
+set invCount to pCont.GetNumItems
+
+while invPos < invCount		; runs while the position is smaller than the total amount of items
+	set pInvObj to (pCont.GetInventoryObject invPos)	; set the current item to the current item position
+	If pInvObj.IsIngredient		; checks if current item is an ingredient
+		set itemCount to PlayerREF.GetItemCount pInvObj		; check the number of that item
+		PlayerREF.RemoveItemNS pInvObj itemCount	; remove from inventory
+		ContainerREF.AddItemNS pInvObj itemCount	; add to container
+	EndIf
+loop
+set IBAonGameGlobal to 3	; set this to 3 since the script is done
+End

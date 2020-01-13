@@ -1,0 +1,12 @@
+scn IBARetrieveAllScript
+
+; container  ref ContainerREF
+; IBAonGameGlobal is the global we use to stop the quest scripts from always running
+float fQuestDelayTime	; this lets the script running instantly, it is small and is stopped so it won't lag
+
+Begin GameMode
+	set fQuestDelayTime to 0.01	; 0.01 is as fast as possible, default is 5
+
+	ContainerREF.RemoveAllItems PlayerREF	; set ContainerREF on the container you wish to use
+		set IBAonGameGlobal to 3	; this script is done so we set this to 3
+End

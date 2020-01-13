@@ -1,0 +1,96 @@
+scn IBAAlchemyMenu
+
+; container ref := ContainerREF
+; IBAonGameGlobal is the global we use to stop the quest scripts from running
+
+short menuChose		; this is the variable for the menu option we pick
+short btnChoice		; this is the variable for the menu button we pick
+
+; have this block first so GameMode doesn't activate first
+Begin OnActivate
+
+	If IBAonGameGlobal == 0
+		PrintC "IBAonGameGlobal is at %g and button activated", IBAonGameGlobal
+		set IBAonGameGlobal to 1	; set this to 1 since we started the script action
+	EndIf
+
+	If menuChose == 0
+		set menuChose to -1	; set this value to -1 to initialize
+	EndIf
+End
+
+Begin GameMode
+
+
+If IBAonGameGlobal == 1
+PrintC "IBAonGameGlobal is at %g and menu used", IBAonGameGlobal
+;--------------------Initial menu--------------------  
+	If menuChose == -1
+		MessageBox "What do you want to do?", "Deposit", "Retrieve", "View", "Done"
+		set menuChose to 1
+		set btnChoice to GetButtonPressed
+	ElseIf menuChose == 1
+		If btnChoice == -1
+			set btnChoice to GetButtonPressed
+		ElseIf btnChoice == 0
+			set menuChose to 10	; deposit all
+		ElseIf btnChoice == 1
+			set menuChose to 20	; retrieve all
+		ElseIf btnChoice == 2
+			set menuChose to 30	; view container
+		ElseIf btnChoice == 3 
+			set menuChose to 2	; done, this is at 2 to not interfere with anything
+		EndIf
+	EndIf
+
+;--------------------Deposit--------------------  
+	If menuChose == 10
+		StartQuest IBADepositAllQuest
+		set menuChose to 0		; set to 0 since we are done with the menu
+		set IBAonGameGlobal to 2	; set to 2 since we are in the second part
+		PrintC "IBAonGameGlobal is at %g and deposit used", IBAonGameGlobal
+	EndIf
+
+;--------------------Retrieve-------------------- 
+	If menuChose == 20
+		StartQuest IBARetrieveAllQuest
+		set menuChose to 0
+		set IBAonGameGlobal to 2
+		PrintC "IBAonGameGlobal is at %g and retrieve used", IBAonGameGlobal
+	EndIf
+
+;--------------------View--------------------  
+	If menuChose == 30
+		ContainerREF.Activate PlayerREF	
+		set menuChose to 0
+		set IBAonGameGlobal to 3		; set this to 3 since they aren't attached to a quest
+	EndIf
+
+;--------------------Done--------------------  
+	If menuChose == 2
+		set menuChose to 0
+		set IBAonGameGlobal to 3
+	EndIf
+EndIf
+
+;--------------------Scripts done--------------------  
+If IBAonGameGlobal == 3					; this will only work when the quests are done
+	If GetQuestRunning IBADepositAllQuest == 1
+		StopQuest IBADepositAllQuest
+		Print "Deposit quest stopped"
+		set IBAonGameGlobal to 0		; set to 0 since the scripts are done
+		Print "Script stopped"
+		Return
+	ElseIf GetQuestRunning IBARetrieveAllQuest == 1
+		StopQuest IBARetrieveAllQuest
+		Print "Retrive quest stopped"
+		set IBAonGameGlobal to 0		; set to 0 since the scripts are done
+		Print "Script stopped"
+		Return
+	Else
+		set IBAonGameGlobal to 0
+		Print "Script stopped"
+		Return
+	EndIf
+EndIf
+End
