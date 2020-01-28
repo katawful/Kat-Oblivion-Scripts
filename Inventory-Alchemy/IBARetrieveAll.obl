@@ -1,13 +1,32 @@
-scn IBARetrieveAllScript
+scn IBA000RetrieveAll
 
 ; container ref for retrieval is ContainerREF
 ; IBAonGameGlobal is the global we use to stop the quest scripts from always running
 
+ref iter
+ref container
+short count
 float fQuestDelayTime	; this lets the script running instantly, it is small and is stopped so it won't lag
 
 Begin GameMode
-	set fQuestDelayTime to 0.01	; 0.01 is as fast as possible, default is 5
 
-	ContainerREF.RemoveAllItems PlayerREF	; set ContainerREF on the container you wish to use
-		set IBAonGameGlobal to 3	; this script is done so we set this to 3
+set fQuestDelayTime to 0.01	; 0.01 is as fast as possible, default is 5
+let container := ContainerREF	; since we are retrieving
+
+; ForEach loop
+; I expanded this to include the owner flag that doesn't make sense since I was running into issues with
+; ownership status not being kept sometimes. seems to be more robust
+ForEach iter <- container
+	let count := iter.GetRefCount
+	If iter.GetOwner && iter.GetOwner != PlayerREF
+		If iter.IsIngredient
+			iter.RemoveMeIR PlayerREF
+		EndIf
+	Else
+		If iter.IsIngredient
+			iter.RemoveMeIR PlayerREF
+		EndIf
+	EndIf
+Loop
+set IBAonGameGlobal to 3	; this script is done so we set this to 3
 End
