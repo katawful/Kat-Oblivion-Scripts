@@ -1,0 +1,32 @@
+scn IBADepositAllInventoryReferenceWalkScript
+
+; container ref for is ContainerREF
+; IBAonGameGlobal is the script we use to stop this script from always running
+
+ref iter	; the ref we use for iteration
+ref container	; the source container we use, PlayerREF in this case
+short count	; the variable we use for walking through our inventory
+float fQuestDelayTime	; sets quest speed
+
+Begin GameMode		; use on GameMode since we run this after a menu 
+
+set fQuestDelayTime to 0.01	; essentially lets this run every frame
+let container := PlayerREF	; set the container we walk to the Player
+;--------------------ForEach loop for inventory walk with InvRefs--------------------  
+ForEach iter <- container	; sets which container we are walking through
+	let count := iter.GetRefCount	; a count so we know how many items are in the current iteration
+	Print "Found " + $count + " " + iter.GetName + "(s)"
+	If iter.GetOwner && iter.GetOwner != PlayerREF	; separate the stolen and non-stolen inv refs
+		If iter.IsIngredient	; checking if the item is an ingredient
+			Print "Depositing " + $count + " " + iter.GetName + "(s)"
+			iter.RemoveMeIR ContainerREF	; move the ingredient to our container
+		EndIf
+	Else
+		If iter.IsIngredient	; checking if the item is an ingredient
+		Print "Depositing " + $count + " " + iter.GetName + "(s)"
+		iter.RemoveMeIR ContainerREF	; move the ingredient to our container
+		EndIf	
+	EndIf
+Loop
+set IBAonGameGlobal to 3	; script has finished so we can iterate this value
+End
