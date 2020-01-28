@@ -1,0 +1,127 @@
+scn IBA000RetrieveByEffect
+
+; container menu ref := RetrieveMenuREF
+; container ref := ContainerREF
+; IBAonGameGlobal is the global we use for script management
+
+; NOTE this script is a user-function and puts items in our inventory
+
+; this script needs values of ItemEffectID and ItemEffectActorValue from another script to function
+
+; for the inventory walk
+ref iter		; the inventory reference we iterate through
+ref container		; a reference for the container we are going to walk through (our ContainerREF in this case)
+short count		; determines the amount of item references we have
+
+; these variables determine which ingredients to pick up
+int ItemEffectID	; the item effect id returned as a long
+int ItemEffIDTemp	; temp value of above for sorting
+int ItemEffectAV	; the optional additional value for certain effects
+int ItemEffAVTemp		; temp value of above for sorting
+
+ref ItemID		; ID of the item for formid purposes
+
+; local variables to set ItemCountTotal in the quest script
+int ItemCount		; the amount of ingredients with the effect, not stolen
+int ItemCountStolen	; the amount of ingredients with the effect, stolen
+;quest ItemCountTotal	; all of the ingredients with the effects, stolen and not stolen
+
+Begin Function {ItemEffectID, ItemEffectAV} 
+
+let IBAGlobalQuest.conRefresh := 0	; set to zero since container doesn't need to be refreshed yet
+let container := ContainerREF	; the container we want to search through
+DebugPrint "effect %g, av %g", ItemEffectID, ItemEffectAV
+let ItemCount := 0
+let ItemCountStolen := 0
+
+ForEach iter <- container
+
+DebugPrint "ForEach loop has started/is working"
+	let count := iter.GetRefCount
+	let ItemID := iter.GetBaseObject	; so we work on the object id and not the item reference
+	DebugPrint "Found %g %i (s)", count, ItemID
+
+	If iter.IsIngredient == 1	; check if ingredient so we don't waste our time/grab potions as well
+		DebugPrint "Item %i is an ingredient", ItemID
+
+		; this section uses >= so that each successive block will run if you have above novice rank
+; expert/master
+		If IBAGlobalQuest.AlcRank >= 4		; check alchemy rank so we only grab if we can see it
+			DebugPrint "Our rank is expert/master"
+			let ItemEffAVTemp := GetNthEffectItemActorValue ItemID 3	; set these two variables temporarily
+			let ItemEffIDTemp := GetNthEffectItemCode ItemID 3
+				DebugPrint "item temp av is %g, item temp id is %g", ItemEffAVTemp, ItemEffIDTemp
+			If ItemEffAVTemp == ItemEffectAV && ItemEffIDTemp == ItemEffectID	; if those two temp variables are equal then we remove this item
+				DebugPrint "Item with the correct effect found"
+				DebugPrint "Removing %i container", ItemID
+				; this condition is so we have a count of the items we care about, stolen and non-stolen
+				If iter.GetOwner && iter.GetOwner != PlayerREF
+					let ItemCountStolen := iter.GetRefCount + ItemCountStolen	; we add to the variable we created instead of just setting it
+				Else									; solve the miscount problem i had
+					let ItemCount := iter.GetRefCount + ItemCount
+				EndIf
+				iter.RemoveMeIR PlayerREF	; remove item from container to player
+			EndIf
+		EndIf
+
+; journeyman
+		If IBAGlobalQuest.AlcRank >= 3		; check alchemy rank so we only grab if we can see it
+			DebugPrint "Our rank is journeyman"
+			let ItemEffAVTemp := GetNthEffectItemActorValue ItemID 2	; set these two variables temporarily
+			let ItemEffIDTemp := GetNthEffectItemCode ItemID 2
+				DebugPrint "item temp av is %g, item temp id is %g", ItemEffAVTemp, ItemEffIDTemp
+			If ItemEffAVTemp == ItemEffectAV && ItemEffIDTemp == ItemEffectID	; if those two temp variables are equal then we remove this item
+				DebugPrint "Item with the correct effect found"
+				DebugPrint "Removing %i container", ItemID
+				If iter.GetOwner && iter.GetOwner != PlayerREF
+					let ItemCountStolen := iter.GetRefCount + ItemCountStolen
+				Else
+					let ItemCount := iter.GetRefCount + ItemCount
+				EndIf
+				iter.RemoveMeIR PlayerREF	; remove item from container to player
+			EndIf
+		EndIf
+
+; apprentice
+		If IBAGlobalQuest.AlcRank >= 2		; check alchemy rank so we only grab if we can see it
+			DebugPrint "Our rank is apprentice"
+			let ItemEffAVTemp := GetNthEffectItemActorValue ItemID 1	; set these two variables temporarily
+			let ItemEffIDTemp := GetNthEffectItemCode ItemID 1
+				DebugPrint "item temp av is %g, item temp id is %g", ItemEffAVTemp, ItemEffIDTemp
+			If ItemEffAVTemp == ItemEffectAV && ItemEffIDTemp == ItemEffectID	; if those two temp variables are equal then we remove this item
+				DebugPrint "Item with the correct effect found"
+				DebugPrint "Removing %i container", ItemID
+				If iter.GetOwner && iter.GetOwner != PlayerREF
+					let ItemCountStolen := iter.GetRefCount + ItemCountStolen
+				Else
+					let ItemCount := iter.GetRefCount + ItemCount
+				EndIf
+				iter.RemoveMeIR PlayerREF	; remove item from container to player
+			EndIf
+		EndIf
+
+; novice
+		If IBAGlobalQuest.AlcRank >= 1		; check alchemy rank so we only grab if we can see it
+			DebugPrint "Our rank is novice"
+			let ItemEffAVTemp := GetNthEffectItemActorValue ItemID 0	; set these two variables temporarily
+			let ItemEffIDTemp := GetNthEffectItemCode ItemID 0
+				DebugPrint "item temp av is %g, item temp id is %g", ItemEffAVTemp, ItemEffIDTemp
+			If ItemEffAVTemp == ItemEffectAV && ItemEffIDTemp == ItemEffectID	; if those two temp variables are equal then we remove this item
+				DebugPrint "Item with the correct effect found"
+				DebugPrint "Removing %i container", ItemID
+				If iter.GetOwner && iter.GetOwner != PlayerREF
+					let ItemCountStolen := iter.GetRefCount + ItemCountStolen
+				Else
+					let ItemCount := iter.GetRefCount + ItemCount
+				EndIf
+				iter.RemoveMeIR PlayerREF	; remove item from container to player
+			EndIf
+		EndIf
+	EndIf
+Loop
+
+; this sets up some stuff for after the script runs
+let IBAGlobalQuest.ItemCountTotal := ItemCount + ItemCountStolen	; so we know how many items we picked up
+let IBAGlobalQuest.conRefresh := 1	; set to 1 since the container needs to be refreshed
+
+End

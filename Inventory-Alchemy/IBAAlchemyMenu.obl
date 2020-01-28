@@ -1,4 +1,4 @@
-scn IBAAlchemyMenu
+scn IBA000AlchemyMenu
 
 ; container ref := ContainerREF
 ; IBAonGameGlobal is the global we use to stop the quest scripts from running
@@ -9,7 +9,7 @@ short btnChoice		; this is the variable for the menu button we pick
 ; have this block first so GameMode doesn't activate first
 Begin OnActivate
 
-	If IBAonGameGlobal == 0
+	If IBAonGameGlobal != 0 || IBAonGameGlobal == 0
 		set IBAonGameGlobal to 1	; set this to 1 since we started the script action
 	EndIf
 
@@ -23,7 +23,7 @@ Begin GameMode
 If IBAonGameGlobal == 1
 ;--------------------Initial menu--------------------  
 	If menuChose == -1
-		MessageBox "What do you want to do?", "Deposit", "Retrieve", "View", "Done"
+		MessageBox "What do you want to do?", "Deposit all", "Retrieve all", "Retrieve by effect", "View", "Done"
 		set menuChose to 1
 		set btnChoice to GetButtonPressed
 	ElseIf menuChose == 1
@@ -34,8 +34,10 @@ If IBAonGameGlobal == 1
 		ElseIf btnChoice == 1
 			set menuChose to 20	; retrieve all
 		ElseIf btnChoice == 2
+			set menuChose to 25	; retrive by effect
+		ElseIf btnChoice == 3
 			set menuChose to 30	; view container
-		ElseIf btnChoice == 3 
+		ElseIf btnChoice == 4 
 			set menuChose to 2	; done, this is at 2 to not interfere with anything
 		EndIf
 	EndIf
@@ -54,6 +56,13 @@ If IBAonGameGlobal == 1
 		set IBAonGameGlobal to 2
 	EndIf
 
+;--------------------Retrieve effect--------------------  
+	If menuChose == 25
+		RetrieveMenuREF.Activate PlayerREF	; activate our container menu
+		set menuChose to 0
+		set IBAonGameGlobal to 2
+	EndIf
+
 ;--------------------View--------------------  
 	If menuChose == 30
 		ContainerREF.Activate PlayerREF	
@@ -68,19 +77,4 @@ If IBAonGameGlobal == 1
 	EndIf
 EndIf
 
-;--------------------Scripts done--------------------  
-If IBAonGameGlobal == 3					; this will only work when the quests are done
-	If GetQuestRunning IBADepositAllQuest == 1
-		StopQuest IBADepositAllQuest
-		set IBAonGameGlobal to 0		; set to 0 since the scripts are done
-		Return
-	ElseIf GetQuestRunning IBARetrieveAllQuest == 1
-		StopQuest IBARetrieveAllQuest
-		set IBAonGameGlobal to 0		; set to 0 since the scripts are done
-		Return
-	Else
-		set IBAonGameGlobal to 0
-		Return
-	EndIf
-EndIf
 End

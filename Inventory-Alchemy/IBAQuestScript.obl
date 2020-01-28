@@ -1,0 +1,139 @@
+scn IBA000QuestScript		; attached to the quest IBAGlobalQuest
+
+; this script is attached to a main quest to give us more control and quest variables
+; it mostly resets everything once the actions desired are performed
+
+; container ref := ContainerREF
+; retrieve container ref := RetrieveMenuREF
+; IBAonGameGlobal is for script management
+; IBAEmptyToken is the token we use to keep the container menu working
+
+float fQuestDelayTime	; sets quest speed
+
+ref IsToken		; ref for our token item, used to reset the container chest after use
+int AlcLvl		; for our alchemy level
+int AlcRank		; int to call for alchemy rank
+
+int doOnce		; to stop console spam
+int doNothing		; do nothing variable
+
+int conRefresh		; this is a flag that lets us refresh our container menu, its in here to be universal
+int ItemCountTotal	; this shows our item count of stuff we picked up
+
+
+Begin GameMode
+
+set fQuestDelayTime to 0.01	; set this fast
+SetDebugMode 1			; on for testing
+let doNothing := 0		; set to something, doesn't really matter what
+let doOnce := 0			; set up doOnce
+
+; this uninitializes ItemCountTotal when we don't want to refresh the container menu
+If ItemCountTotal >= 0 && conRefresh < 1	; basically this will only run during gamemode and if we don't need to refresh the container
+	let ItemCountTotal := -1		; uninitialize this
+EndIf
+
+; kill the quest script if nothing is going on and the menu is reset
+If IBAonGameGlobal == 0 && IsToken == IBAEmptyToken
+	Return
+EndIf
+
+; if you exit the container menu without doing anything
+If IBAonGameGlobal == 2 && IsToken == IBAEmptyToken
+	let IBAonGameGlobal := 3
+EndIf
+
+; one of the various scripts has finished and everything is set to nothing while we aren't in a menu
+If IBAonGameGlobal == 3
+	If GetQuestRunning IBADepositAllQuest == 1
+		StopQuest IBADepositAllQuest
+		DebugPrint "Deposit all quest stopped"
+		let IBAonGameGlobal := 0
+	ElseIf GetQuestRunning IBARetrieveAllQuest == 1
+		StopQuest IBARetrieveAllQuest
+		DebugPrint "Retrieve all quest stopped"
+		let IBAonGameGlobal := 0
+	Else
+		let IBAonGameGlobal := 0
+	EndIf
+EndIf
+
+; reset the container menu
+If conRefresh == 2	; we are in the second part of the refresh
+	If ItemCountTotal > 0
+		MessageBox "Found %g items and added them to your inventory", ItemCountTotal
+		let ItemCountTotal := -1	; uninitialize
+	ElseIf ItemCountTotal == 0
+		MessageBox "Found no items with this effect"
+		let ItemCountTotal := -1
+	EndIf
+	If GetMessageBoxType == 1	; a script message box is up
+		let doNothing := doNothing + 1	; do nothing basically
+	ElseIf GetMessageBoxType == 0
+		DebugPrint "No messagebox found, reseting container menu"
+		RetrieveMenuREF.Activate PlayerREF	; reactivate the menu 
+		let conRefresh := -1		; uninitialize this variable
+	EndIf
+EndIf
+
+
+End
+
+Begin MenuMode 1008	; runs while during a container menu
+
+; this closes out the menus so we can start to refresh
+If conRefresh == 1	; from our refresh user function
+	CloseAllMenus	; close all the menus
+	DebugPrint "Menus closed"
+	let conRefresh := 2	; set to the next part of the refresh since we can't refresh anymore
+EndIf
+
+; stop this running if we aren't in the active part of a script
+If IBAonGameGlobal != 2	; 2 is the active script number
+	Return
+EndIf
+
+; this section sets our alchemy rank so we don't grab ingredients with effects we don't know about
+let AlcLvl := PlayerREF.GetActorValue Alchemy
+
+If IBAonGameGlobal == 2			; run this only when needed
+	If AlcLvl <= 24
+		let AlcRank := 1	; for novice
+		If doOnce == 0
+			DebugPrint "Alchemy rank is novice"
+			let doOnce := 1
+		EndIf
+	ElseIf AlcLvl >= 25 && AlcLvl <= 49
+		let AlcRank := 2	; for apprentice 
+		If doOnce == 0
+			DebugPrint "Alchemy rank is apprentice"
+			let doOnce := 1
+		EndIf
+	ElseIf AlcLvl >= 50 && AlcLvl <= 74
+		let AlcRank := 3	; for journeyman
+		If doOnce == 0
+			DebugPrint "Alchemy rank is journeyman"
+			let doOnce := 1
+		EndIf
+	ElseIf AlcLvl >= 75
+		let AlcRank := 4	; for expert and higher
+		If doOnce == 0
+			DebugPrint "Alchemy rank is expert or master"
+			let doOnce := 1
+		EndIf
+	EndIf
+EndIf
+
+End
+
+; this is during a messagebox
+Begin MenuMode 1001
+
+If IsToken != IBAEmptyToken
+	PlayerREF.RemoveItemNS IsToken 1
+	RetrieveMenuREF.AddItemNS IsToken 1
+	let IsToken := IBAEmptyToken
+		DebugPrint "IsToken has been set to normal, menu reset"
+EndIf
+
+End
