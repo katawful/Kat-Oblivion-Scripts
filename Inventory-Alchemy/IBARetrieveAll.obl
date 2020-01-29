@@ -13,10 +13,12 @@ Begin GameMode
 set fQuestDelayTime to 0.01	; 0.01 is as fast as possible, default is 5
 let container := ContainerREF	; since we are retrieving
 
+DebugPrint "Retrieve all started"
 ; ForEach loop
 ; I expanded this to include the owner flag that doesn't make sense since I was running into issues with
 ; ownership status not being kept sometimes. seems to be more robust
 ForEach iter <- container
+DebugPrint "ForEach loop for retrieve all has started/is working"
 	let count := iter.GetRefCount
 	If iter.GetOwner && iter.GetOwner != PlayerREF
 		If iter.IsIngredient
@@ -28,5 +30,6 @@ ForEach iter <- container
 		EndIf
 	EndIf
 Loop
+DebugPrint "Retrieve all has stopped"
 set IBAonGameGlobal to 3	; this script is done so we set this to 3
 End

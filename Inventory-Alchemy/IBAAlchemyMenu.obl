@@ -46,6 +46,7 @@ If IBAonGameGlobal == 1
 	If menuChose == 10
 		StartQuest IBADepositAllQuest
 		set menuChose to 0		; set to 0 since we are done with the menu
+		let IBAGlobalQuest.scriptRun := 1
 		set IBAonGameGlobal to 2	; set to 2 since we are in the second part
 	EndIf
 
@@ -53,6 +54,7 @@ If IBAonGameGlobal == 1
 	If menuChose == 20
 		StartQuest IBARetrieveAllQuest
 		set menuChose to 0
+		let IBAGlobalQuest.scriptRun := 1
 		set IBAonGameGlobal to 2
 	EndIf
 

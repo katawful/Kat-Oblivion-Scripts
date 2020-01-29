@@ -14,6 +14,8 @@ ref IsToken		; ref for our token item, used to reset the container chest after u
 int AlcLvl		; for our alchemy level
 int AlcRank		; int to call for alchemy rank
 
+int scriptRun		; if our scripts are running or not
+
 int doOnce		; to stop console spam
 int doNothing		; do nothing variable
 
@@ -39,12 +41,13 @@ If IBAonGameGlobal == 0 && IsToken == IBAEmptyToken
 EndIf
 
 ; if you exit the container menu without doing anything
-If IBAonGameGlobal == 2 && IsToken == IBAEmptyToken
+If IBAonGameGlobal == 2 && IsToken == IBAEmptyToken && scriptRun == 0
 	let IBAonGameGlobal := 3
 EndIf
 
 ; one of the various scripts has finished and everything is set to nothing while we aren't in a menu
 If IBAonGameGlobal == 3
+	let scriptRun := 0
 	If GetQuestRunning IBADepositAllQuest == 1
 		StopQuest IBADepositAllQuest
 		DebugPrint "Deposit all quest stopped"
