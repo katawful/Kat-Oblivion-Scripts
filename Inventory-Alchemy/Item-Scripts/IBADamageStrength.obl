@@ -1,15 +1,15 @@
-scn IBA001DamageWillpower
+scn IBA001DamageStrength
 
 int ItemEffectIDMenu	; the item effect used as a long, temp so we can change this on the fly
 int ItemEffectAVMenu	; the optional value for certain effects, temporary
 ref ItemPickedUp	; a ref of the item we picked up
 
 Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
-let ItemPickedUp := IBA001DamageWillpowerItem
+let ItemPickedUp := IBA001DamageStrengthItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "DGAT"		; sets the effect
-let ItemEffectAVMenu := 2			; 2 is willpower
-DebugPrint "Item effect set to Damage Willpower"
+let ItemEffectAVMenu := 0			; 0 is strength
+DebugPrint "Item effect set to Damage Strength"
 DebugPrint "DGAT ID is %g, DGAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 
 let IBAGlobalQuest.IsToken := ItemPickedUp 

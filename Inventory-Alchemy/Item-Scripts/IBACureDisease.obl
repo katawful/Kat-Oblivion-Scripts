@@ -1,16 +1,16 @@
-scn IBA001DamageWillpower
+scn IBA001CureDisease
 
 int ItemEffectIDMenu	; the item effect used as a long, temp so we can change this on the fly
 int ItemEffectAVMenu	; the optional value for certain effects, temporary
 ref ItemPickedUp	; a ref of the item we picked up
 
-Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
-let ItemPickedUp := IBA001DamageWillpowerItem
+Begin OnAdd PlayerREF
+let ItemPickedUp := IBA001CureDiseaseItem
 
-let ItemEffectIDMenu := MagicEffectCodeFromChars "DGAT"		; sets the effect
-let ItemEffectAVMenu := 2			; 2 is willpower
-DebugPrint "Item effect set to Damage Willpower"
-DebugPrint "DGAT ID is %g, DGAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
+let ItemEffectIDMenu := MagicEffectCodeFromChars "CUDI"		; sets the effect
+let ItemEffectAVMenu := 256			; 256 is no actor value
+DebugPrint "Item effect set to Cure Disease"
+DebugPrint "CUDI ID is %g, CUDI AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 
 let IBAGlobalQuest.IsToken := ItemPickedUp 
 ; we wanna call the retrieve effect script right after here so we don't get the quest script all messed up
