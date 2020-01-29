@@ -4,12 +4,12 @@ int ItemEffectIDMenu	; the item effect used as a long, temp so we can change thi
 int ItemEffectAVMenu	; the optional value for certain effects, temporary
 ref ItemPickedUp	; a ref of the item we picked up
 
-Begin OnAdd PlayerREF
-let ItemPickedUp := IBA001CurePosionItem
+Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
+let ItemPickedUp := IBA001CurePoisonItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "CUPO"		; sets the effect
 let ItemEffectAVMenu := 256			; 256 is no actor value
-DebugPrint "Item effect set to Cure Poison"
+DebugPrint "Item effect set to CurePoison"
 DebugPrint "CUPO ID is %g, CUPO AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 
 let IBAGlobalQuest.IsToken := ItemPickedUp 

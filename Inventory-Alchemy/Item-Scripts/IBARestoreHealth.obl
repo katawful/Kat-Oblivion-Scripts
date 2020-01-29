@@ -7,10 +7,10 @@ ref ItemPickedUp	; a ref of the item we picked up
 Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001RestoreHealthItem
 
-let ItemEffectIDMenu := MagicEffectCodeFromChars "REHA"		; sets the effect
+let ItemEffectIDMenu := MagicEffectCodeFromChars "REHE"		; sets the effect
 let ItemEffectAVMenu := 256			; 256 is no actor value
 DebugPrint "Item effect set to RestoreHealth"
-DebugPrint "REHA ID is %g, REHA AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
+DebugPrint "REHE ID is %g, REHE AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 
 let IBAGlobalQuest.IsToken := ItemPickedUp 
 ; we wanna call the retrieve effect script right after here so we don't get the quest script all messed up
