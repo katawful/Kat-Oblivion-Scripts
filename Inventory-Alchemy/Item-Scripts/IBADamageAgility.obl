@@ -5,7 +5,7 @@ int ItemEffectAVMenu	; the optional value for certain effects, temporary
 ref ItemPickedUp	; a ref of the item we picked up
 
 Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
-let ItemPickedUp := IBA001AbsorbDamageItem
+let ItemPickedUp := IBA001DamageAgilityItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "DGAT"		; sets the effect
 let ItemEffectAVMenu := 3			; 3 is agility
