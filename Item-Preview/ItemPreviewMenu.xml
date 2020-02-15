@@ -1,0 +1,142 @@
+<rect name="itempreview_rect">
+	<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+	<font> <copy src="parent()" trait="font" /> </font>
+	<red> <copy src="parent()" trait="red" /> </red>
+	<green> <copy src="parent()" trait="green" /> </green>
+	<blue> <copy src="parent()" trait="blue" /> </blue>
+	<x>
+		<copy src="HUDInfoMenu" trait="_centerscreenx" />
+		<sub> 60 </sub>
+	</x>
+	<_add> 0 </_add>
+	<y>
+		<copy src="hudinfo_name" trait="y" />
+		<add>
+			<copy src="itempreview_rect" trait="_add" />
+		</add>
+	</y>
+	<width>
+		<copy> 320 </copy>
+	</width>
+	<height>
+		<copy> 320 </copy>
+	</height>
+	<_enabled> &false; </_enabled>
+	<_zoom> 33 </_zoom>
+	<visible> <copy src="me()" trait="_enabled" /> </visible>
+	<locus> &true; </true>
+
+	<image name="hudinfo_text_icon1">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &left; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 24 </sub>
+		</x>
+		<y>
+			<copy src="parent()" trait="y" />
+			<add> 20 </add>
+		</y>
+		<width> 32 </width> 
+		<height> 32 </height>
+		<locus> &true; </locus>
+	</image>
+
+	<image name="hudinfo_text_icon2">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &left; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 24 </sub>
+		</x>
+		<y>
+			<copy src="hudinfo_text_icon1" trait="y" />
+			<add> 20 </add>
+		</y>
+		<width> 32 </width> 
+		<height> 32 </height>
+		<locus> &true; </locus>
+	</image>
+
+	<image name="hudinfo_text_icon3">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &left; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 24 </sub>
+		</x>
+		<y>
+			<copy src="hudinfo_text_icon2" trait="y" />
+			<add> 20 </add>
+		</y>
+		<width> 32 </width> 
+		<height> 32 </height>
+		<locus> &true; </locus>
+	</image>
+
+	<image name="hudinfo_text_icon4">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &left; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 24 </sub>
+		</x>
+		<y>
+			<copy src="hudinfo_text_icon3" trait="y" />
+			<add> 20 </add>
+		</y>
+		<width> 32 </width> 
+		<height> 32 </height>
+		<locus> &true; </locus>
+	</image>
+
+	<text name="hudinfo_text">
+		<font> <copy src="parent()" trait="font" /> </font>
+		<red> <copy src="parent()" trait="red" /> </red>
+		<green> <copy src="parent()" trait="green" /> </green>
+		<blue> <copy src="parent()" trait="blue" /> </blue>
+		<justify> &left; </justify>
+		<x>
+			<copy src="parent()" trait="x" />
+		</x>
+
+		<y> 
+			<copy src="parent()" trait="y" />
+		</y>
+
+		<width> <copy src="parent()" trait="width" /> </width>
+		<height> <copy src="parent()" trait="height" /> </height>
+		<string>  </string>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+	</text>
+	<text name="hudinfo_text_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<font> <copy src="parent()" trait="font" /> </font>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<string> <copy src="hudinfo_text" trait="string" /> </string>
+		<justify> <copy src="hudinfo_text" trait="justify" /> </justify>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<x>
+			<copy src="hudinfo_text" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="hudinfo_text" trait="y" />
+			<add> 1 </add>
+		</y>
+	</text>
+</rect>

@@ -1,3 +1,4 @@
 !.gitignore
 /Inventory-Alchemy/Inventory-Based-Alchemy-Files/
 *.sh
+*.7z

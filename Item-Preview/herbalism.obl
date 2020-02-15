@@ -1,0 +1,180 @@
+scn lHerbalismQuestScript
+
+float fQuestDelayTime
+
+long lEffect
+long lActorValue
+short playerAlchemyLevel
+short iEffectNumber
+short resetName
+
+ref cFlora
+ref lastFlora
+ref cIngred
+ref tempEffect
+
+string_var alchText
+string_var AVText
+string_var replaceText
+string_var lastName
+
+Begin MenuMode
+GetMagicEffectIco
+
+	if resetName == 1
+		lastFlora.SetName $lastName
+		set resetName to 0
+		set lastFlora to 0
+	endif
+
+End
+
+
+Begin GameMode
+
+	if fQuestDelayTime != 0.0001
+		set fQuestDelayTime to 0.0001
+	endif
+	
+	if resetName == 2
+		lastFlora.SetName $lastName
+		set resetName to 0
+		set lastFlora to 0
+	endif
+	
+
+	set cFlora to GetCrosshairRef 
+	if cFlora == 0
+		if resetName == 1
+			set resetName to 2
+		endif
+		return
+	endif
+	
+	if IsFormValid cFlora
+		if cFlora.IsFlora == 0 && cFlora.IsIngredient == 0 
+			if resetName == 1
+				set resetName to 2
+			endif
+			return
+		endif
+		if cFlora.IsFlora == 1
+			if cFlora.IsHarvested == 1
+				if resetName == 1
+					set resetName to 2
+				endif
+				return
+			endif
+		endif
+		
+		;determin player alchemy level for ingredients
+		if player.GetBaseAV Alchemy >= GetGS iSkillExpertMin
+			let playerAlchemyLevel := 4
+		elseif player.GetBaseAV Alchemy >= GetGS iSkillJourneymanMin
+			let playerAlchemyLevel := 3
+		elseIf player.GetBaseAV Alchemy >= GetGS iSkillApprenticeMin
+			let playerAlchemyLevel := 2
+		else
+			let playerAlchemyLevel := 1
+		endIf
+		
+		if cFlora != lastFlora
+			if lastFlora != 0
+				lastFlora.SetName $lastName
+			endif
+			set lastFlora to cFlora
+			set lastName to cFlora.GetName
+			if cFlora.IsFlora == 1
+				set cIngred to cFlora.GetIngredient
+				let alchText := lastName + "%rEffects:%r"
+			elseif cFlora.IsIngredient == 1
+				set cIngred to cFlora.getBaseObject
+				let alchText := lastName + "%rEffects:%r"
+			endif	
+			set iEffectNumber to GetMagicItemEffectCount cIngred
+			if iEffectNumber > 0 
+				set lEffect to GetNthEffectItemCode cIngred 0
+				let alchText := alchText + GetMagicEffectNameC lEffect
+				
+				set lActorValue to GetNthEffectItemActorValue cIngred 0
+				let AVText := ActorValueToStringC lActorValue
+				let replaceText := "Skill|" + AVText
+				sv_Replace $replaceText alchText
+				let replaceText := "Attribute|" + AVText
+				sv_Replace $replaceText alchText
+			endif
+			
+			if iEffectNumber > 1
+				if playerAlchemyLevel > 1
+					set lEffect to GetNthEffectItemCode cIngred 1
+					let alchText := alchText + "%r" + GetMagicEffectNameC lEffect
+					
+					set lActorValue to GetNthEffectItemActorValue cIngred 1
+					let AVText := ActorValueToStringC lActorValue
+					let replaceText := "Skill|" + AVText
+					sv_Replace $replaceText alchText
+					let replaceText := "Attribute|" + AVText
+					sv_Replace $replaceText alchText
+				else
+					let alchText := alchText + "%r?"
+				endif
+			endif
+			
+			if iEffectNumber > 2
+				if playerAlchemyLevel > 2
+					set lEffect to GetNthEffectItemCode cIngred 2
+					let alchText := alchText + "%r" + GetMagicEffectNameC lEffect
+					
+					set lActorValue to GetNthEffectItemActorValue cIngred 2
+					let AVText := ActorValueToStringC lActorValue
+					let replaceText := "Skill|" + AVText
+					sv_Replace $replaceText alchText
+					let replaceText := "Attribute|" + AVText
+					sv_Replace $replaceText alchText
+				else
+					let alchText := alchText + "%r?"
+				endif
+			endif
+			
+			if iEffectNumber > 3
+				if playerAlchemyLevel > 3
+					set lEffect to GetNthEffectItemCode cIngred 3
+					let alchText := alchText + "%r" + GetMagicEffectNameC lEffect
+					
+					
+					let AVText := ActorValueToStringC lActorValue
+					let replaceText := "Skill|" + AVText
+					sv_Replace $replaceText alchText
+					let replaceText := "Attribute|" + AVText
+					sv_Replace $replaceText alchText
+				else
+					let alchText := alchText + "%r?"
+				endif
+			endif	
+
+			if cFlora.IsFlora == 1
+				cFlora.SetName $alchText
+			else			
+				setName $alchText cIngred
+			endif
+			set resetName to 1
+			
+		endif
+				
+		;setMenuFloatValue "visible" 1005 2		
+		;setMenuFloatValue "hudinfo_dest\visible" 1005 2
+		;setMenuStringValue "hudinfo_dest\string|%z", alchText 1005 		
+		;setMenuFloatValue "hudinfo_window\hudinfo_dest\visible" 1005 2
+		;setMenuStringValue "hudinfo_window\hudinfo_dest\string|%z", alchText 1005 
+		
+		;setMenuFloatValue "hudinfo_window\hudinfo_icons_texts\hudinfo_uses_icon\hudinfo_uses_text\visible" 1005 2
+		;setMenuStringValue "hudinfo_window\hudinfo_icons_texts\hudinfo_uses_icon\hudinfo_uses_text\string|test" 1005
+		
+		;setMenuFloatValue "hudinfo_window\hudinfo_icons_texts\hudinfo_uses_icon\hudinfo_uses_text\visible" 1005 2
+		;setMenuStringValue "hudinfo_window\hudinfo_icons_texts\hudinfo_uses_icon\hudinfo_uses_text\string|test" 1005
+		;setMenuStringValue "hudinfo_window\hudinfo_icons_texts\hudinfo_uses_icon\filename|Menus\Shared\all_small_activate_icons.dds" 1005
+
+		
+	endif
+
+End 
