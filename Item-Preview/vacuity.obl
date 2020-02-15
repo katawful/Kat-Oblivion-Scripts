@@ -1,0 +1,113 @@
+ 
+scn zzVacuityCoreQS
+
+; core script
+
+float fQuestDelayTime
+
+ref rCrosshairsCurrent
+ref rCrosshairsLast
+ref rTemp
+
+short sDoOnlyOnce
+short sShowGoldValue
+short sShowGoldIcon
+
+short sTotalGold
+short sUpdateInfo
+short sItemCount
+
+array_var aIterator
+
+string_var svText
+string_var svGold
+
+begin menuMode
+	let rCrosshairsLast := 0
+end
+
+begin gameMode
+	if ( fQuestDelayTime != 0.001 )
+		let fQuestDelayTime := 0.001
+	endIf
+
+	if ( sDoOnlyOnce == 0 )
+		let sDoOnlyOnce := 1
+		let sShowGoldValue := 1
+		let sShowGoldIcon := 1
+		let rCrosshairsLast := jailshoes
+	endIf
+
+	let rCrosshairsCurrent := getCrosshairRef
+
+	if ( rCrosshairsCurrent != rCrosshairsLast )
+		let rCrosshairsLast := rCrosshairsCurrent
+
+		if ( rCrosshairsCurrent == 0 )
+			if ( sUpdateInfo > 0 )
+				let sUpdateInfo := -1
+			endIf
+		elseIf ( rCrosshairsCurrent.getObjectType == 23 || (( rCrosshairsCurrent.getObjectType == 35 || rCrosshairsCurrent.getObjectType == 36 ) && rCrosshairsCurrent.getDead )) && ( rCrosshairsCurrent.getDistance player <= 170 )
+			if ( rCrosshairsCurrent.getLocked )
+				return
+			endIf
+
+			let sItemCount := 0
+
+			forEach aIterator <- rCrosshairsCurrent.getItems
+				let rTemp := aIterator[ "value" ]
+				let sItemCount += isPlayable2 rTemp
+			loop
+
+			if ( sItemCount )
+				if ( sShowGoldValue )
+					let sTotalGold := 0
+
+					forEach aIterator <- rCrosshairsCurrent.getItems
+						let rTemp := aIterator[ "value" ]
+						let sTotalGold += getFullGoldValue rTemp * rCrosshairsCurrent.getItemCount rTemp * isPlayable2 rTemp
+					loop
+
+					if ( sShowGoldIcon )
+						let sUpdateInfo := 2
+						let svGold := $sTotalGold
+					else
+						let svText := "Value: " + $sTotalGold + " septim(s)"
+						let sUpdateInfo := 1
+					endif
+				else
+					if ( sUpdateInfo > 0 )
+						let sUpdateInfo := -1
+					endIf
+				endIf
+			else
+				let svText := "( Empty )"
+				let sUpdateInfo := 1
+			endIf
+		else
+			if ( sUpdateInfo > 0 )
+				let sUpdateInfo := -1
+			endIf
+		endIf
+	endIf
+	
+	if ( sUpdateInfo )
+		if ( sUpdateInfo == 1 )				; --- show empty/non-icon gold
+			setMenuFloatValue "visible" 1005 2
+			setMenuFloatValue "hudinfo_dest\visible" 1005 2
+			setMenuStringValue "hudinfo_dest\string|%z", svText 1005 
+		elseIf ( sUpdateInfo == 2 )
+			if getMenuHasTrait "iteminfo_rect\x" 1005
+				let svText := "iteminfo_rect\hudinfo_value_icon\hudinfo_value_text"
+			else
+				let svText := "hudinfo_value_icon\hudinfo_value_text"
+			endIf
+			setMenuFloatValue "%z\user1" svText 1005 sTotalGold
+			setMenuStringValue "%z\string|%z" svText svGold 1005
+		elseIf ( sUpdateInfo == -1 )
+			let sUpdateInfo := 0
+		;	setMenuFloatValue "visible" 1005 1
+		;	setMenuFloatValue "hudinfo_dest\visible" 1005 1
+		endIf
+	endIf
+end

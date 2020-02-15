@@ -1,0 +1,57 @@
+scn IPEffectNameIconScript
+
+; quest is IPTestQuest (too lazy to change that)
+; svIconPath1-4 is what we want to write to
+; svEffNameNov, App, Jor, Exp, is what we wanna use as a source 
+
+; the long for our effect code
+long lEffect1
+long lEffect2
+long lEffect3
+long lEffect4
+
+ref rIng	; our ingredient reference from the other script
+
+Begin Function {rIng}
+
+; set the effect codes and icon paths depending on our rank
+	If IPTestQuest.iAlcRank == 4	; expert/master
+		let lEffect4 := GetNthEffectItemCode rIng 3
+		let IPTestQuest.svIconPath4 := GetMagicEffectIconC lEffect4
+
+		let lEffect3 := GetNthEffectItemCode rIng 2
+		let IPTestQuest.svIconPath3 := GetMagicEffectIconC lEffect3
+
+		let lEffect2 := GetNthEffectItemCode rIng 1
+		let IPTestQuest.svIconPath2 := GetMagicEffectIconC lEffect2
+
+		let lEffect1 := GetNthEffectItemCode rIng 0
+		let IPTestQuest.svIconPath1 := GetMagicEffectIconC lEffect1
+
+	ElseIf IPTestQuest.iAlcRank == 3	; journeyman
+		let lEffect3 := GetNthEffectItemCode rIng 2
+		let IPTestQuest.svIconPath3 := GetMagicEffectIconC lEffect3
+
+		let lEffect2 := GetNthEffectItemCode rIng 1
+		let IPTestQuest.svIconPath2 := GetMagicEffectIconC lEffect2
+
+		let lEffect1 := GetNthEffectItemCode rIng 0
+		let IPTestQuest.svIconPath1 := GetMagicEffectIconC lEffect1
+
+	ElseIf IPTestQuest.iAlcRank == 2	; apprentice
+		let lEffect2 := GetNthEffectItemCode rIng 1
+		let IPTestQuest.svIconPath2 := GetMagicEffectIconC lEffect2
+
+		let lEffect1 := GetNthEffectItemCode rIng 0
+		let IPTestQuest.svIconPath1 := GetMagicEffectIconC lEffect1
+
+	ElseIf IPTestQuest.iAlcRank == 1	; novice
+		let lEffect1 := GetNthEffectItemCode rIng 0
+		let IPTestQuest.svIconPath1 := GetMagicEffectIconC lEffect1
+
+	EndIf
+
+; reset our reference when we are done with the script
+let rIng := -1	
+
+End
