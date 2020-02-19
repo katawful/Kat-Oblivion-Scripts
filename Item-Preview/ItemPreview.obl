@@ -8,6 +8,7 @@ int iAlcRank		; get our rank
 int iDoOnce		; a do once, not sure if i'm gonna need this
 int iMenuToggle		; so we can control the menu
 int iFloat		; for test
+int iLength		; the length of our various strings
 
 ref rCurrentRef		; current ref for our use
 ref rLastRef
@@ -16,7 +17,7 @@ ref rIngRef		; the ref for our ingredient from the plant
 ref rIngredient		; whatever ingredient we are looking at so we can carry to our user function
 
 string_var svEmpty	; an empty string
-string_var svText	; the string we modify to show our effects
+string_var svEffect	; the string that prints Effects:
 
 string_var svEffNameNov	; string var for our effect name novice
 string_var svEffNameApp	; string var for our effect name apprentice
@@ -32,6 +33,7 @@ Begin GameMode
 
 let fQuestDelayTime := 0.0001		; set very fast
 let svEmpty := "%e"			; an empty string to populate the menu
+let svEffect := "Effects"		; set our Effects string
 
 If GetGameLoaded 	
 	set iDoOnce to 0	
@@ -73,20 +75,25 @@ let rCurrentRef := GetCrosshairRef	; see what's under our crosshair
 		tile_SetFloat "hudinfo_name\visible", 1005, 1
 
 		; set the various strings to nothing
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text\string|%z", svEmpty, 1005
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon1\filename|%z", svEmpty, 1005
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon2\filename|%z", svEmpty, 1005
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon3\filename|%z", svEmpty, 1005
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon4\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_main\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\hudinfo_text_1\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\hudinfo_text_2\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\hudinfo_text_3\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\hudinfo_text_4\string|%z", svEmpty, 1005
+
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\filename|%z", svEmpty, 1005
 
 		; kill all of our strings so we don't save them
-		sv_Destruct svText, svEmpty, svEffNameNov, svEffNameApp, svEffNameJor, svEffNameExp, svIconPath1, svIconPath2, svIconPath3, svIconPath4
+		sv_Destruct svEffect, svEmpty, svEffNameNov, svEffNameApp, svEffNameJor, svEffNameExp, svIconPath1, svIconPath2, svIconPath3, svIconPath4
 
 		; set our strings to nothing
-		let svEffNameExp := "        ?    "
-		let svEffNameJor := "        ?    "
-		let svEffNameApp := "        ?    "
-		let svEffNameNov := "        ?    "
+		let svEffNameExp := "        ?"
+		let svEffNameJor := "        ?"
+		let svEffNameApp := "        ?"
+		let svEffNameNov := "        ?"
 
 		; set our icon paths to nothing when we're done with them
 		let svIconPath1 := "empty"
@@ -107,10 +114,10 @@ let rCurrentRef := GetCrosshairRef	; see what's under our crosshair
 	If iDoOnce == 0
 
 		; set up null strings for effects we can't see
-		let svEffNameExp := "        ?    "
-		let svEffNameJor := "        ?    "
-		let svEffNameApp := "        ?    "
-		let svEffNameNov := "        ?    "
+		let svEffNameExp := "        ?"
+		let svEffNameJor := "        ?"
+		let svEffNameApp := "        ?"
+		let svEffNameNov := "        ?"
 
 		; set our icon paths to nothing to start with
 		let svIconPath1 := "empty"
@@ -143,6 +150,7 @@ let rCurrentRef := GetCrosshairRef	; see what's under our crosshair
 
 ; clear out rIngredient before starting
 let rIngredient := -1
+let iLength := 0
 
 ; item preview stuff
 If IsFormValid rCurrentRef		; check if the id we are looking at is even valid
@@ -187,20 +195,25 @@ If IsFormValid rCurrentRef		; check if the id we are looking at is even valid
 		sv_Insert "menus\icons\"  svIconPath3
 		sv_Insert "menus\icons\"  svIconPath4
 
-		let svText := ("    Effects: %r" + svEffNameNov + "%r" +  svEffNameApp + "%r" + svEffNameJor + "%r" + svEffNameExp)	; set the text we wanna use for the menu
-
+;		let iLength := ((((sv_Length svEffNameNov) + 1) / 2) * 8.9) + (2.5 * 8.9)
+;		tile_SetFloat "hudinfo_name\itempreview_rect\hudinfo_text_1\_length", 1005, iLength
 		tile_SetFloat "hudinfo_name\itempreview_rect\_enabled", 1005, 2	; make our menu visible
 
 		; set the position of our menu
 		tile_SetFloat "hudinfo_name\itempreview_rect\_add", 1005, 64 
 
 		; our icon paths
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon1\filename|%z", svIconPath1, 1005	; set the icon for the effect
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon2\filename|%z", svIconPath2, 1005	; set the icon for the effect
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon3\filename|%z", svIconPath3, 1005	; set the icon for the effect
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon4\filename|%z", svIconPath4, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\filename|%z", svIconPath1, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\filename|%z", svIconPath2, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\filename|%z", svIconPath3, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\filename|%z", svIconPath4, 1005	; set the icon for the effect
 
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text\string|%z", svText, 1005	; set the text of our menu
+		; set the text of our menu
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_main\string|%z", svEffect, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\hudinfo_text_1\string|%z", svEffNameNov, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\hudinfo_text_2\string|%z", svEffNameApp, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\hudinfo_text_3\string|%z", svEffNameJor, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\hudinfo_text_4\string|%z", svEffNameExp, 1005
 
 	EndIf
 
@@ -234,20 +247,23 @@ If IsFormValid rCurrentRef		; check if the id we are looking at is even valid
 		sv_Insert "menus\icons\"  svIconPath3
 		sv_Insert "menus\icons\"  svIconPath4
 
-		let svText := ("    Effects: %r" + svEffNameNov + "%r" +  svEffNameApp + "%r" + svEffNameJor + "%r" + svEffNameExp)	; set the text we wanna use for the menu
-
 		tile_SetFloat "hudinfo_name\itempreview_rect\_enabled", 1005, 2	; make our menu visible
 
 		; set the position of our menu
 		tile_SetFloat "hudinfo_name\itempreview_rect\_add", 1005, 32
 
 		; our icon paths
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon1\filename|%z", svIconPath1, 1005	; set the icon for the effect
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon2\filename|%z", svIconPath2, 1005	; set the icon for the effect
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon3\filename|%z", svIconPath3, 1005	; set the icon for the effect
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon4\filename|%z", svIconPath4, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\filename|%z", svIconPath1, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\filename|%z", svIconPath2, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\filename|%z", svIconPath3, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\filename|%z", svIconPath4, 1005	; set the icon for the effect
 
-		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text\string|%z", svText, 1005	; set the text of our menu
+		; set the text of our menu
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_main\string|%z", svEffect, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\hudinfo_text_1\string|%z", svEffNameNov, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\hudinfo_text_2\string|%z", svEffNameApp, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\hudinfo_text_3\string|%z", svEffNameJor, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\hudinfo_text_4\string|%z", svEffNameExp, 1005
 		
 
 		EndIf
