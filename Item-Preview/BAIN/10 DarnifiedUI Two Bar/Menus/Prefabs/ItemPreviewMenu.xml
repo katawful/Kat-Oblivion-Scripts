@@ -36,7 +36,7 @@
 			<add>
 				<copy src="itempreview_rect" trait="_add" />
 			</add>
-			<sub> 45 </sub>
+			<sub> 50 </sub>
 		</y>
 		<filename> menus\Kat\ItemPreview\item_preview_background.dds </filename>
 		<visible> <copy src="parent()" trait="_enabled" /> </visible>
@@ -57,6 +57,7 @@
 		</width>
 	</image>
 
+	<!-- TODO: make a second file of this with the slightly adjusted y value for the one bar background -->
 	<text name="hudinfo_text_main">
 		<font> <copy src="parent()" trait="font" /> </font>
 		<red> <copy src="parent()" trait="red" /> </red>
@@ -103,11 +104,11 @@
 		<justify> &center; </justify>
 		<x> 
 			<copy src="parent()" trait="x" />
-			<sub> 104 </sub>
+			<sub> 112 </sub>
 		</x>
 		<y>
 			<copy src="sibling(hudinfo_text_main)" trait="y" />
-			<add> 36 </add>
+			<add> 39 </add>
 		</y>
 		<width>
 			<copy> 64 </copy>
@@ -129,7 +130,7 @@
 			<justify> &left; </justify>
 			<x>
 				<copy src="parent()" trait="x" />
-				<add> 44 </add>
+				<add> 52 </add>
 			</x>
 			<y> 
 				<copy src="parent()" trait="y" />
@@ -198,7 +199,7 @@
 		<justify> &center; </justify>
 		<x> 
 			<copy src="parent()" trait="x" />
-			<sub> 104 </sub>
+			<sub> 112 </sub>
 		</x>
 		<y>
 			<copy src="sibling(hudinfo_text_icon_1)" trait="y" />
@@ -224,7 +225,7 @@
 			<justify> &left; </justify>
 			<x>
 				<copy src="parent()" trait="x" />
-				<add> 44 </add>
+				<add> 52 </add>
 			</x>
 			<y> 
 				<copy src="parent()" trait="y" />
@@ -293,7 +294,7 @@
 		<justify> &center; </justify>
 		<x> 
 			<copy src="parent()" trait="x" />
-			<sub> 104 </sub>
+			<sub> 112 </sub>
 		</x>
 		<y>
 			<copy src="sibling(hudinfo_text_icon_2)" trait="y" />
@@ -319,7 +320,7 @@
 			<justify> &left; </justify>
 			<x>
 				<copy src="parent()" trait="x" />
-				<add> 44 </add>
+				<add> 52 </add>
 			</x>
 			<y> 
 				<copy src="parent()" trait="y" />
@@ -388,7 +389,7 @@
 		<justify> &center; </justify>
 		<x> 
 			<copy src="parent()" trait="x" />
-			<sub> 104 </sub>
+			<sub> 112 </sub>
 		</x>
 		<y>
 			<copy src="sibling(hudinfo_text_icon_3)" trait="y" />
@@ -414,7 +415,7 @@
 			<justify> &left; </justify>
 			<x>
 				<copy src="parent()" trait="x" />
-				<add> 44 </add>
+				<add> 52 </add>
 			</x>
 			<y> 
 				<copy src="parent()" trait="y" />
