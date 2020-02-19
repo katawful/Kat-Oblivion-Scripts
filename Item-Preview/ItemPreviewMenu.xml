@@ -5,138 +5,473 @@
 	<green> <copy src="parent()" trait="green" /> </green>
 	<blue> <copy src="parent()" trait="blue" /> </blue>
 	<x>
-		<copy src="HUDInfoMenu" trait="_centerscreenx" />
-		<sub> 60 </sub>
+		<copy src="hudinfo_name" trait="x" />
 	</x>
 	<_add> 0 </_add>
 	<y>
 		<copy src="hudinfo_name" trait="y" />
 		<add>
-			<copy src="itempreview_rect" trait="_add" />
+			<copy src="me()" trait="_add" />
 		</add>
 	</y>
-	<width>
-		<copy> 320 </copy>
-	</width>
-	<height>
-		<copy> 320 </copy>
-	</height>
 	<_enabled> &false; </_enabled>
-	<_zoom> 33 </_zoom>
+	<!--maybe have this be editable by the player??-->
+	<_zoom> -1 </_zoom>
+	<_icon> 37.5 </_icon> <!-- this trait will determine our icon size in percent of side, use multiples of 2 for most even scaling -->
+	<_image> 25 </_image> <!-- for our image background -->
 	<visible> <copy src="me()" trait="_enabled" /> </visible>
-	<locus> &true; </true>
+	<locus> &false; </locus>
 
-	<image name="hudinfo_text_icon1">
-		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
-		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
-		<visible> <copy src="parent()" trait="_enabled" /> </visible>
-		<filename> empty </filename>
-		<justify> &left; </justify>
-		<x> 
-			<copy src="parent()" trait="x" />
-			<sub> 24 </sub>
+	<image name="itempreview_image">
+		<depth>
+			<copy src="hudinfo_name" trait="depth" />
+			<sub> 2 </sub>
+		</depth>
+		<x>
+			<copy src="hudinfo_name" trait="x" />
+			<sub> 128 </sub>
 		</x>
 		<y>
-			<copy src="parent()" trait="y" />
-			<add> 20 </add>
+			<copy src="hudinfo_name" trait="y" />
+			<add>
+				<copy src="itempreview_rect" trait="_add" />
+			</add>
+			<sub> 45 </sub>
 		</y>
-		<width> 32 </width> 
-		<height> 32 </height>
-		<locus> &true; </locus>
-	</image>
-
-	<image name="hudinfo_text_icon2">
-		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
-		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
+		<filename> menus\Kat\ItemPreview\item_preview_background.dds </filename>
 		<visible> <copy src="parent()" trait="_enabled" /> </visible>
-		<filename> empty </filename>
+		<zoom> <copy src="parent()" trait="_zoom" /> </zoom>
 		<justify> &left; </justify>
-		<x> 
-			<copy src="parent()" trait="x" />
-			<sub> 24 </sub>
-		</x>
-		<y>
-			<copy src="hudinfo_text_icon1" trait="y" />
-			<add> 20 </add>
-		</y>
-		<width> 32 </width> 
-		<height> 32 </height>
-		<locus> &true; </locus>
+		<height>
+			<copy> 1024 </copy>
+			<div> 100 </div>
+			<mul> <copy src="parent" trait="_image" /> </mul>
+		</height>
+		<width>
+			<copy> 1024 </copy>
+			<div> 100 </div>
+			<mul> 
+				<copy src="parent" trait="_image" /> 
+				<add> 0 </add>
+			</mul>
+		</width>
 	</image>
 
-	<image name="hudinfo_text_icon3">
-		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
-		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
-		<visible> <copy src="parent()" trait="_enabled" /> </visible>
-		<filename> empty </filename>
-		<justify> &left; </justify>
-		<x> 
-			<copy src="parent()" trait="x" />
-			<sub> 24 </sub>
-		</x>
-		<y>
-			<copy src="hudinfo_text_icon2" trait="y" />
-			<add> 20 </add>
-		</y>
-		<width> 32 </width> 
-		<height> 32 </height>
-		<locus> &true; </locus>
-	</image>
-
-	<image name="hudinfo_text_icon4">
-		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
-		<zoom> <copy src="parent()" trait="_zoom" /> </zoom> 
-		<visible> <copy src="parent()" trait="_enabled" /> </visible>
-		<filename> empty </filename>
-		<justify> &left; </justify>
-		<x> 
-			<copy src="parent()" trait="x" />
-			<sub> 24 </sub>
-		</x>
-		<y>
-			<copy src="hudinfo_text_icon3" trait="y" />
-			<add> 20 </add>
-		</y>
-		<width> 32 </width> 
-		<height> 32 </height>
-		<locus> &true; </locus>
-	</image>
-
-	<text name="hudinfo_text">
+	<text name="hudinfo_text_main">
 		<font> <copy src="parent()" trait="font" /> </font>
 		<red> <copy src="parent()" trait="red" /> </red>
 		<green> <copy src="parent()" trait="green" /> </green>
 		<blue> <copy src="parent()" trait="blue" /> </blue>
-		<justify> &left; </justify>
+		<justify> &center; </justify>
 		<x>
 			<copy src="parent()" trait="x" />
 		</x>
-
 		<y> 
 			<copy src="parent()" trait="y" />
 		</y>
-
 		<width> <copy src="parent()" trait="width" /> </width>
 		<height> <copy src="parent()" trait="height" /> </height>
 		<string>  </string>
 		<visible> <copy src="parent()" trait="_enabled" /> </visible>
 	</text>
-	<text name="hudinfo_text_s">
+
+	<text name="hudinfo_text_main_s">
 		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
 		<font> <copy src="parent()" trait="font" /> </font>
 		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
-		<string> <copy src="hudinfo_text" trait="string" /> </string>
-		<justify> <copy src="hudinfo_text" trait="justify" /> </justify>
+		<string> <copy src="sibling(hudinfo_text_main)" trait="string" /> </string>
+		<justify> <copy src="sibling(hudinfo_text_main)" trait="justify" /> </justify>
 		<red> 0 </red>
 		<blue> 0 </blue>
 		<green> 0 </green>
 		<x>
-			<copy src="hudinfo_text" trait="x" />
+			<copy src="sibling(hudinfo_text_main)" trait="x" />
 			<add> 1 </add>
 		</x>
 		<y>
-			<copy src="hudinfo_text" trait="y" />
+			<copy src="sibling(hudinfo_text_main)" trait="y" />
 			<add> 1 </add>
 		</y>
 	</text>
+
+
+	<image name="hudinfo_text_icon_1">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 104 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_main)" trait="y" />
+			<add> 36 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_1">
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<red> <copy src="itempreview_rect" trait="red" /> </red>
+			<green> <copy src="itempreview_rect" trait="green" /> </green>
+			<blue> <copy src="itempreview_rect" trait="blue" /> </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 44 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+
+		<text name="hudinfo_text_1_s">
+			<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+			<string> <copy src="sibling(hudinfo_text_1)" trait="string" /> </string>
+			<justify> <copy src="sibling(hudinfo_text_1)" trait="justify" /> </justify>
+			<red> 0 </red>
+			<blue> 0 </blue>
+			<green> 0 </green>
+			<x>
+				<copy src="sibling(hudinfo_text_1)" trait="x" />
+				<add> 1 </add>
+			</x>
+			<y>
+				<copy src="sibling(hudinfo_text_1)" trait="y" />
+				<add> 1 </add>
+			</y>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_1_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_1)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_1)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_1)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_1)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_1)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+
+	<image name="hudinfo_text_icon_2">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 104 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_1)" trait="y" />
+			<add> 24 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_2">
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<red> <copy src="itempreview_rect" trait="red" /> </red>
+			<green> <copy src="itempreview_rect" trait="green" /> </green>
+			<blue> <copy src="itempreview_rect" trait="blue" /> </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 44 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+
+		<text name="hudinfo_text_2_s">
+			<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+			<string> <copy src="sibling(hudinfo_text_2)" trait="string" /> </string>
+			<justify> <copy src="sibling(hudinfo_text_2)" trait="justify" /> </justify>
+			<red> 0 </red>
+			<blue> 0 </blue>
+			<green> 0 </green>
+			<x>
+				<copy src="sibling(hudinfo_text_2)" trait="x" />
+				<add> 1 </add>
+			</x>
+			<y>
+				<copy src="sibling(hudinfo_text_2)" trait="y" />
+				<add> 1 </add>
+			</y>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_2_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_2)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_2)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_2)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_2)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_2)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+
+	<image name="hudinfo_text_icon_3">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 104 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_2)" trait="y" />
+			<add> 24 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_3">
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<red> <copy src="itempreview_rect" trait="red" /> </red>
+			<green> <copy src="itempreview_rect" trait="green" /> </green>
+			<blue> <copy src="itempreview_rect" trait="blue" /> </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 44 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+
+		<text name="hudinfo_text_3_s">
+			<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+			<string> <copy src="sibling(hudinfo_text_3)" trait="string" /> </string>
+			<justify> <copy src="sibling(hudinfo_text_3)" trait="justify" /> </justify>
+			<red> 0 </red>
+			<blue> 0 </blue>
+			<green> 0 </green>
+			<x>
+				<copy src="sibling(hudinfo_text_3)" trait="x" />
+				<add> 1 </add>
+			</x>
+			<y>
+				<copy src="sibling(hudinfo_text_3)" trait="y" />
+				<add> 1 </add>
+			</y>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_3_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_3)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_3)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_3)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_3)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_3)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+
+	<image name="hudinfo_text_icon_4">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 104 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_3)" trait="y" />
+			<add> 24 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_4">
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<red> <copy src="itempreview_rect" trait="red" /> </red>
+			<green> <copy src="itempreview_rect" trait="green" /> </green>
+			<blue> <copy src="itempreview_rect" trait="blue" /> </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 44 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+
+		<text name="hudinfo_text_4_s">
+			<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+			<font> <copy src="itempreview_rect" trait="font" /> </font>
+			<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+			<string> <copy src="sibling(hudinfo_text_4)" trait="string" /> </string>
+			<justify> <copy src="sibling(hudinfo_text_4)" trait="justify" /> </justify>
+			<red> 0 </red>
+			<blue> 0 </blue>
+			<green> 0 </green>
+			<x>
+				<copy src="sibling(hudinfo_text_4)" trait="x" />
+				<add> 1 </add>
+			</x>
+			<y>
+				<copy src="sibling(hudinfo_text_4)" trait="y" />
+				<add> 1 </add>
+			</y>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_4_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_4)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_4)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_4)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_4)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_4)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
 </rect>
