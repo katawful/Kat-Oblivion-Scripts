@@ -1,0 +1,378 @@
+<rect name="itempreview_rect">
+	<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+	<font> <copy src="parent()" trait="font" /> </font>
+	<red> <copy src="parent()" trait="red" /> </red>
+	<green> <copy src="parent()" trait="green" /> </green>
+	<blue> <copy src="parent()" trait="blue" /> </blue>
+	<x>
+		<copy src="hudinfo_name" trait="x" />
+		<sub> 620 </sub>
+	</x>
+	<_add> 0 </_add>
+	<y>
+		<copy src="hudinfo_name" trait="y" />
+		<add> 3 </add>
+	</y>
+	<_enabled> &false; </_enabled>
+	<!--maybe have this be editable by the player??-->
+	<_zoom> -1 </_zoom>
+	<_icon> 37.5 </_icon> <!-- this trait will determine our icon size in percent of side, use multiples of 2 for most even scaling -->
+	<_image> 25 </_image> <!-- for our image background -->
+	<visible> <copy src="me()" trait="_enabled" /> </visible>
+	<locus> &false; </locus>
+
+	<image name="itempreview_image">
+		<depth>
+			<copy src="hudinfo_name" trait="depth" />
+			<sub> 2 </sub>
+		</depth>
+		<x>
+			<copy src="parent()" trait="x" />
+			<sub> 132 </sub>
+		</x>
+		<y>
+			<copy src="parent()" trait="y" />
+		</y>
+		<filename> menus\Kat\ItemPreview\item_preview_background.dds </filename>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<zoom> <copy src="parent()" trait="_zoom" /> </zoom>
+		<justify> &left; </justify>
+		<height>
+			<copy> 1024 </copy>
+			<div> 100 </div>
+			<mul> <copy src="parent" trait="_image" /> </mul>
+		</height>
+		<width>
+			<copy> 1024 </copy>
+			<div> 100 </div>
+			<mul> 
+				<copy src="parent" trait="_image" /> 
+				<add> 3 </add>
+			</mul>
+		</width>
+	</image>
+
+	<text name="hudinfo_text_main">
+		<include src="NorthernUI\fonts\normal-shadowed.xml" />
+		<red> 255 </red>
+		<green> 255 </green>
+		<blue> 255 </blue>
+		<justify> &center; </justify>
+		<x>
+			<copy src="parent()" trait="x" />
+			<add> 7 </add>
+		</x>
+		<y> 
+			<copy src="parent()" trait="y" />
+			<add> 54 </add>
+		</y>
+		<width> <copy src="parent()" trait="width" /> </width>
+		<height> <copy src="parent()" trait="height" /> </height>
+		<string>  </string>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+	</text>
+
+	<image name="hudinfo_text_icon_1">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 96 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_main)" trait="y" />
+			<add> 30 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_1">
+			<include src="NorthernUI\fonts\normal-shadowed.xml" />
+			<red> 255 </red>
+			<green> 255 </green>
+			<blue> 255 </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 28 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_1_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_1)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_1)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_1)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_1)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_1)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+
+	<image name="hudinfo_text_icon_2">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 96 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_1)" trait="y" />
+			<add> 26 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_2">
+			<include src="NorthernUI\fonts\normal-shadowed.xml" />
+			<red> 255 </red>
+			<green> 255 </green>
+			<blue> 255 </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 28 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_2_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_2)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_2)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_2)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_2)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_2)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+
+	<image name="hudinfo_text_icon_3">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 96 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_2)" trait="y" />
+			<add> 26 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_3">
+			<include src="NorthernUI\fonts\normal-shadowed.xml" />
+			<red> 255 </red>
+			<green> 255 </green>
+			<blue> 255 </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 28 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_3_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_3)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_3)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_3)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_3)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_3)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+
+	<image name="hudinfo_text_icon_4">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="itempreview_rect" trait="_zoom" /> </zoom> 
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> empty </filename>
+		<justify> &center; </justify>
+		<x> 
+			<copy src="parent()" trait="x" />
+			<sub> 96 </sub>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_3)" trait="y" />
+			<add> 26 </add>
+		</y>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<locus> &false; </locus>
+	
+		<text name="hudinfo_text_4">
+			<include src="NorthernUI\fonts\normal-shadowed.xml" />
+			<red> 255 </red>
+			<green> 255 </green>
+			<blue> 255 </blue>
+			<justify> &left; </justify>
+			<x>
+				<copy src="parent()" trait="x" />
+				<add> 28 </add>
+			</x>
+			<y> 
+				<copy src="parent()" trait="y" />
+			</y>
+			<width> <copy src="parent()" trait="width" /> </width>
+			<height> <copy src="parent()" trait="height" /> </height>
+			<string>  </string>
+			<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		</text>
+	</image>
+
+	<image name="hudinfo_text_icon_4_s">
+		<alpha> <copy src="parent()" trait="alpha" /> </alpha>
+		<zoom> <copy src="sibling(hudinfo_text_icon_4)" trait="zoom" /> </zoom>
+		<visible> <copy src="parent()" trait="_enabled" /> </visible>
+		<filename> <copy src="sibling(hudinfo_text_icon_4)" trait="filename" /> </filename>
+		<justify> <copy src="sibling(hudinfo_text_icon_4)" trait="justify" /> </justify>
+		<depth> <copy src="hudinfo_name" trait="depth" /> <sub> 1 </sub> </depth>
+		<red> 0 </red>
+		<blue> 0 </blue>
+		<green> 0 </green>
+		<width>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</width> 
+		<height>
+			<copy> 64 </copy>
+			<div> 100 </div>
+			<mul> <copy src="itempreview_rect" trait="_icon" /> </mul>
+		</height>
+		<x>
+			<copy src="sibling(hudinfo_text_icon_4)" trait="x" />
+			<add> 1 </add>
+		</x>
+		<y>
+			<copy src="sibling(hudinfo_text_icon_4)" trait="y" />
+			<add> 1 </add>
+		</y>
+	</image>
+</rect>
