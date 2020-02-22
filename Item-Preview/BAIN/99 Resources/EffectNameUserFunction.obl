@@ -1,0 +1,31 @@
+scn IPEffectNameScript
+
+ref rIng	; the reference of the ingredient we care about 
+
+Begin Function {rIng}
+
+	; set the effect names appropriately
+	If IPTestQuest.iAlcRank == 4	; expert/master
+		let IPTestQuest.svEffNameExp := GetNthEffectItemName rIng 3
+		let IPTestQuest.svEffNameJor := GetNthEffectItemName rIng 2
+		let IPTestQuest.svEffNameApp := GetNthEffectItemName rIng 1
+		let IPTestQuest.svEffNameNov := GetNthEffectItemName rIng 0
+
+	ElseIf IPTestQuest.iAlcRank == 3	; journeyman
+		let IPTestQuest.svEffNameJor := GetNthEffectItemName rIng 2
+		let IPTestQuest.svEffNameApp := GetNthEffectItemName rIng 1
+		let IPTestQuest.svEffNameNov := GetNthEffectItemName rIng 0
+
+	ElseIf IPTestQuest.iAlcRank == 2	; apprentice
+		let IPTestQuest.svEffNameApp := GetNthEffectItemName rIng 1
+		let IPTestQuest.svEffNameNov := GetNthEffectItemName rIng 0
+
+	ElseIf IPTestQuest.iAlcRank == 1	; novice
+		let IPTestQuest.svEffNameNov := GetNthEffectItemName rIng 0
+
+	EndIf
+
+; reset our reference when we are done with the script
+let rIng := -1	
+
+End
