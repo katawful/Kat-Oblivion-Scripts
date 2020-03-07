@@ -1,15 +1,15 @@
-scn IBA001AbsorbFatigue
+scn IBA002AbsorbFatigue
 
 int ItemEffectIDMenu	; the item effect used as a long, temp so we can change this on the fly
 int ItemEffectAVMenu	; the optional value for certain effects, temporary
 ref ItemPickedUp	; a ref of the item we picked up
 
 Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
-let ItemPickedUp := IBA001AbsorbFatigueItem
+let ItemPickedUp := IBA002AbsorbFatigueItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "ABFA"		; sets the effect
-let ItemEffectAVMenu := 256			; 256 is no actor value
-DebugPrint "Item effect set to Absorb Fatigue"
+let ItemEffectAVMenu := 256			; 256 is Type
+DebugPrint "Item effect set to AbsorbFatigue"
 DebugPrint "ABFA ID is %g, ABFA AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 
 let IBAGlobalQuest.IsToken := ItemPickedUp 
