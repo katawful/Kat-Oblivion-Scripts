@@ -8,7 +8,7 @@ Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001FortifyPersonalityItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "FOAT"		; sets the effect
-let ItemEffectAVMenu := 6			; 6 is personality
+let ItemEffectAVMenu := 6			; 6 is Personality
 DebugPrint "Item effect set to Fortify Personality"
 DebugPrint "FOAT ID is %g, FOAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 

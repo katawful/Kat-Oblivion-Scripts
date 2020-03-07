@@ -8,7 +8,7 @@ Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001DrainEnduranceItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "DRAT"		; sets the effect
-let ItemEffectAVMenu := 5			; 5 is endurance
+let ItemEffectAVMenu := 5			; 5 is Endurance
 DebugPrint "Item effect set to Drain Endurance"
 DebugPrint "DRAT ID is %g, DRAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 

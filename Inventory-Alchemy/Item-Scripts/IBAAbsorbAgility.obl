@@ -1,14 +1,14 @@
-scn IBA001AbsorbAgility
+scn IBA002AbsorbAgility
 
 int ItemEffectIDMenu	; the item effect used as a long, temp so we can change this on the fly
 int ItemEffectAVMenu	; the optional value for certain effects, temporary
 ref ItemPickedUp	; a ref of the item we picked up
 
 Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
-let ItemPickedUp := IBA001AbsorbAgilityItem
+let ItemPickedUp := IBA002AbsorbAgilityItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "ABAT"		; sets the effect
-let ItemEffectAVMenu := 3			; 3 is agility
+let ItemEffectAVMenu := 3			; 3 is Agility
 DebugPrint "Item effect set to Absorb Agility"
 DebugPrint "ABAT ID is %g, ABAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 

@@ -1,0 +1,20 @@
+scn IBA002FortifyMercantile
+
+int ItemEffectIDMenu	; the item effect used as a long, temp so we can change this on the fly
+int ItemEffectAVMenu	; the optional value for certain effects, temporary
+ref ItemPickedUp	; a ref of the item we picked up
+
+Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
+let ItemPickedUp := IBA002FortifyMercantileItem
+
+let ItemEffectIDMenu := MagicEffectCodeFromChars "FOSK"		; sets the effect
+let ItemEffectAVMenu := 29			; 29 is Mercantile
+DebugPrint "Item effect set to Fortify Mercantile"
+DebugPrint "FOSK ID is %g, FOSK AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
+
+let IBAGlobalQuest.IsToken := ItemPickedUp 
+; we wanna call the retrieve effect script right after here so we don't get the quest script all messed up
+Call IBA000RetrieveByEffect ItemEffectIDMenu ItemEffectAVMenu
+DebugPrint "Function called and returned to the item script"
+
+End 

@@ -8,7 +8,7 @@ Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001RestoreWillpowerItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "REAT"		; sets the effect
-let ItemEffectAVMenu := 2			; 2 is willpower
+let ItemEffectAVMenu := 2			; 2 is Willpower
 DebugPrint "Item effect set to Restore Willpower"
 DebugPrint "REAT ID is %g, REAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 

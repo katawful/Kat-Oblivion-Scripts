@@ -8,7 +8,7 @@ Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001RestoreSpeedItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "REAT"		; sets the effect
-let ItemEffectAVMenu := 4			; 4 is speed
+let ItemEffectAVMenu := 4			; 4 is Speed
 DebugPrint "Item effect set to Restore Speed"
 DebugPrint "REAT ID is %g, REAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 

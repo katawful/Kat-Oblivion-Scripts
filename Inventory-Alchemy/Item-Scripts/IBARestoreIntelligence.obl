@@ -8,7 +8,7 @@ Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001RestoreIntelligenceItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "REAT"		; sets the effect
-let ItemEffectAVMenu := 1			; 1 is intelligence
+let ItemEffectAVMenu := 1			; 1 is Intelligence
 DebugPrint "Item effect set to Restore Intelligence"
 DebugPrint "REAT ID is %g, REAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 

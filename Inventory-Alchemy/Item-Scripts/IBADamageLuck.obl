@@ -8,7 +8,7 @@ Begin OnAdd PlayerREF	; starts only when we add this item to our inventory
 let ItemPickedUp := IBA001DamageLuckItem
 
 let ItemEffectIDMenu := MagicEffectCodeFromChars "DGAT"		; sets the effect
-let ItemEffectAVMenu := 7			; 7 is luck
+let ItemEffectAVMenu := 7			; 7 is Luck
 DebugPrint "Item effect set to Damage Luck"
 DebugPrint "DGAT ID is %g, DGAT AV is %g", ItemEffectIDMenu, ItemEffectAVMenu
 
