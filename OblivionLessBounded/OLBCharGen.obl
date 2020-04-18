@@ -1,0 +1,11 @@
+scn CharGenQuest
+
+float fQuestDelayTime	; for quest script timing
+
+Begin GameMode
+
+If GetStage CharacterGen == 0
+	set GameHour to 7
+	SetStage CharacterGen 5
+EndIf
+End

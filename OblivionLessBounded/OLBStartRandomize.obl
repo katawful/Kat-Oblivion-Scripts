@@ -1,0 +1,14 @@
+scn OLBStartRandomizeScript
+
+array_var aStart	; the array of start locations we make
+
+Begin Function {}
+
+; create array of possible start locations
+let aStart := ar_Construct Array
+let aStart[0] := CGPlayerStartMarkerOLBElv
+
+; set our ref to move to 
+let OLBQuest.rStart := aStart[0]
+
+End

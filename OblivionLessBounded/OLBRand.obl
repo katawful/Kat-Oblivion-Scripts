@@ -1,0 +1,127 @@
+scn OLBRandomization
+
+int iKeyPressed		; for iskeypressed3
+int iDoOnce		; do once
+int iButton		; for our button press
+int iButton2		; passes the button we pressed
+int iMessage		; tell if we are in the right mode
+
+float fQuestDelayTime
+
+ref rStart		; the ref to where we start the game
+
+Begin GameMode
+
+let fQuestDelayTime := 0.0001
+
+; check if we've created our character or not
+If GetStage CharacterGen == 5
+	SetStage CharacterGen 7
+	; disable the keys that control game actions, they still function
+	; has small delay???
+	DisableMouse
+	DisableKey 17	;w
+	DisableKey 18	;e
+	DisableKey 19	;r
+	DisableKey 20	;t
+	DisableKey 30	;a
+	DisableKey 31	;s
+	DisableKey 32	;d
+	DisableKey 33	;f
+	DisableKey 46	;c
+	DisableKey 16	;q
+	DisableKey 15	;tab
+	DisableKey 59	;f1
+	DisableKey 60	;f2
+	DisableKey 61	;f3
+	DisableKey 62	;f4
+EndIf
+
+; we've created our character
+If GetStage CharacterGen == 7
+	If iDoOnce != 1
+		Message "Welcome to Oblivion Less Bound!"
+		Message "The game will be paused until you press X"
+		let iDoOnce := 1
+	EndIf
+	let iMessage := -1
+	; use the X key to start the randomization
+	let iKeyPressed := 0
+	If (IsKeyPressed3 45) && (iKeyPressed == 0)
+		let iKeyPressed := 1
+		SetStage OLBQuest 10
+	ElseIf (IsKeyPressed3 45 == 0) && iKeyPressed
+		let iKeyPressed := 0
+	EndIf
+	SetStage CharacterGen 8
+EndIf
+
+If GetStage OLBQuest == 10
+	; reenable our mouse and keyboard functions so we can play the game
+	EnableMouse
+	EnableKey 17	;w
+	EnableKey 18	;e
+	EnableKey 19	;r
+	EnableKey 20	;t
+	EnableKey 30	;a
+	EnableKey 31	;s
+	EnableKey 32	;d
+	EnableKey 33	;f
+	EnableKey 46	;c
+	EnableKey 16	;q
+	EnableKey 15	;tab
+	EnableKey 59	;f1
+	EnableKey 60	;f2
+	EnableKey 61	;f3
+	EnableKey 62	;f4
+	let iButton2 := -1
+	If iMessage == -1
+		let iMessage := 1
+		Print "iMessage at 1"
+	EndIf
+
+	If iMessage == 1
+		MessageBox "Your start will now be randomized", "Ok"
+		Print "iMesssage is at 2"
+	EndIf
+
+	If iMessage == 2
+		let iMessage := -1
+		Print "iMessage is at -1"
+		PrintC "iButton is at %g", iButton
+	EndIf
+
+	If iButton == 0
+		PrintC "iButton is at %g", iButton
+		let iMessage := 3
+	EndIf
+
+	If iMessage == 3
+		SetStage OLBQuest 20
+	EndIf
+EndIf
+
+If GetStage OLBQuest == 20
+	If iDoOnce == 1
+		Print "4"
+		Call OLBClassBirthRandomizeScript
+		Call OLBStartRandomizeScript
+		PlayerREF.MoveTo rStart
+		let iDoOnce := 2
+	EndIf
+	SetStage OLBQuest 30
+EndIf
+
+If GetStage OLBQuest == 30
+	Print "5"
+	StopQuest OLBQuest
+	Return
+EndIf
+End
+
+Begin MenuMode 1001
+
+let iButton := GetButtonPressed
+let iMessage := 2
+
+End
