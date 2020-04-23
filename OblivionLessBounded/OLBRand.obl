@@ -35,6 +35,7 @@ If GetStage CharacterGen == 5
 	DisableKey 60	;f2
 	DisableKey 61	;f3
 	DisableKey 62	;f4
+	Print "Keys disabled"
 EndIf
 
 ; we've created our character
@@ -43,15 +44,18 @@ If GetStage CharacterGen == 7
 		Message "Welcome to Oblivion Less Bound!"
 		Message "The game will be paused until you press X"
 		let iDoOnce := 1
+		Print "messages sent"
 	EndIf
-	let iMessage := -1
+	let iMessage := -2
 	; use the X key to start the randomization
-	let iKeyPressed := 0
-	If (IsKeyPressed3 45) && (iKeyPressed == 0)
-		let iKeyPressed := 1
+;	let iKeyPressed := 0
+	If (IsKeyPressed3 45)
+;		let iKeyPressed := 1
 		SetStage OLBQuest 10
-	ElseIf (IsKeyPressed3 45 == 0) && iKeyPressed
-		let iKeyPressed := 0
+		Print "Stage 7 done"
+		Print "WTF"
+;	ElseIf (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
+;		let iKeyPressed := 0
 	EndIf
 	SetStage CharacterGen 8
 EndIf
@@ -74,21 +78,20 @@ If GetStage OLBQuest == 10
 	EnableKey 60	;f2
 	EnableKey 61	;f3
 	EnableKey 62	;f4
-	let iButton2 := -1
-	If iMessage == -1
+	let iButton := -1
+	If iMessage == -2
 		let iMessage := 1
 		Print "iMessage at 1"
 	EndIf
 
 	If iMessage == 1
 		MessageBox "Your start will now be randomized", "Ok"
-		Print "iMesssage is at 2"
+		Print "messagebox sent"
 	EndIf
 
 	If iMessage == 2
-		let iMessage := -1
-		Print "iMessage is at -1"
-		PrintC "iButton is at %g", iButton
+		let iMessage := -2
+		Print "iMessage is at -2"
 	EndIf
 
 	If iButton == 0
@@ -119,9 +122,12 @@ If GetStage OLBQuest == 30
 EndIf
 End
 
-Begin MenuMode 1001
+Begin MenuMode 2
 
+Print "HELP"
 let iButton := GetButtonPressed
 let iMessage := 2
+Print "iMesssage is at 2"
+PrintC "iButton is at %g", iButton
 
 End
