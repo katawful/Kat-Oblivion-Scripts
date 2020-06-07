@@ -1,0 +1,11 @@
+scn OLBNewspaperScript
+
+; this script is used when the "Emperor is missing" newspaper is picked up somehow
+; it leads the player to traverse the sewers to find him
+
+Begin OnAdd
+
+SetStage OLBMQ 20
+OLBDeadMythicDawnRef.Enable
+
+End

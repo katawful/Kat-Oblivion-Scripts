@@ -2,13 +2,26 @@ scn OLBStartRandomizeScript
 
 array_var aStart	; the array of start locations we make
 
+int iRand		; our random number
+int iRandSize		; passed random size
+int iSize		; array size
+
+ref rStart
+
 Begin Function {}
 
 ; create array of possible start locations
 let aStart := ar_Construct Array
 let aStart[0] := CGPlayerStartMarkerOLBElv
+let aStart[1] := CGPlayerStartMarkerOLBWat
+let aStart[2] := CGPlayerStartMarkerOLBAnv
 
 ; set our ref to move to 
-let OLBQuest.rStart := aStart[0]
+let iSize := ar_Size aStart
+let iRandSize := ( iSize - 1 )
+let iRand := ( Rand 0 iSize )
+let rStart := aStart[iRand]
+
+PlayerREF.MoveTo rStart
 
 End

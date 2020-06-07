@@ -1,0 +1,156 @@
+scn OLBMQMainScript
+
+int bEmperorAlive	; This is bool tells us if the emperor is alive or not
+int bInSewers		; This bool tells us if we are in the sewers or not
+int bBaurusDown		; This bool tells us if Baurus is unconscious or not
+int bSentJail		; This bool tells us if we are going to jail or not
+
+int tQuestLog		; This is a flag for when we need to update quest logs but not quest stage
+
+int iDoOnce
+int iTemp
+int iQuest		; This is just a flag
+
+float fQuestDelayTime
+float fPlayerX
+float fPlayerY
+
+Begin GameMode
+
+; NOTE I need to set up the proper quest to have the right variable
+; but for now I can just set up a blank variable for testing
+; NOTE quest stage 20 is for picking up the newspaper, use 40 stage intervals for clarity
+
+let fQuestDelayTime := 0.01
+
+let bEmperorAlive := 0		; the emperor hasn't been killed yet
+
+If ( GetStage OLBMQ != 5 ) && ( GetStage OLBMQ < 6 )
+	SetStage OLBMQ 5
+	let bInSewers := 0
+	let bSentJail := 0
+EndIf
+
+If ( GetStage OLBMQ < 20 )	; 20 starts the first quest option, everything before is below this
+	let tQuestLog := 0
+	OLBDeadMythicDawnRef.Disable
+EndIf
+
+If ( GetStage OLBMQ == 20 )	; 20 starts the "Emperor is Missing" quest loop, we gotta search the sewers
+	If ( PlayerREF.GetInWorldspace Tamriel )
+		let fPlayerX := PlayerREF.GetPos X
+		let fPlayerY := PlayerREF.GetPos Y
+		If ( fPlayerX < 48444 ) && (fPlayerX > 46600 ) && ( fPlayerY > 82556 ) && ( fPlayerY < 83979 )
+			SetStage OLBMQ 22
+		EndIf
+		let fPlayerX := -1	; uninitialize the GetPos functions
+		let fPlayerY := -1
+		let iDoOnce := 0
+	EndIf
+EndIf
+
+If ( GetStage OLBMQ == 22 )	; 22 is when we find an assassin at the sewer entrance so we go in
+	SetStage CharacterGen 90
+	If ( iDoOnce == 0 )
+		If ( PlayerREF.GetInCell ImperialSewers03 )
+			let bInSewers := 1
+			SetStage OLBMQ 24
+			let iDoOnce := 1
+		EndIf
+	EndIf
+EndIf
+
+; 24 is us entering the sewers
+If ( GetStage OLBMQ == 24 )
+	If ( iDoOnce == 1 )
+		UrielSeptimRef.MoveToMarker OLBUrielMarker
+		BaurusRef.MoveToMarker OLBBaurusMarker
+		GlenroyRef.MoveToMarker OLBGlenroyMarker
+
+		; for some reason i could only set baurus to nonessential with this script
+		BaurusRef.SetRefEssential 0
+
+		UrielSeptimRef.Kill
+		GlenroyRef.Kill
+		BaurusRef.Kill
+		let bBaurusDown := 1	; Baurus is down, we need to heal him
+
+		let iDoOnce := 2
+	EndIf
+	let fPlayerX := PlayerREF.GetPos X
+	let fPlayerY := PlayerREF.GetPos Y
+	If ( PlayerREF.GetInCell ImperialDungeon03 ) && ( fPlayerX < 2976 ) && (fPlayerX > 2521 ) && ( fPlayerY < 10507 ) && ( fPlayerY > 9997 )
+		let tQuestLog := 251
+		SetStage OLBMQ 26
+	EndIf
+	let fPlayerX := -1	; uninitialize the GetPos functions
+	let fPlayerY := -1
+EndIf
+
+; this is check to stop the emperor from being naked
+If ( GetStage OLBMQ > 24 )
+	If GetGameLoaded
+		UrielSeptimRef.MoveToMarker OLBUrielMarker
+		BaurusRef.MoveToMarker OLBBaurusMarker
+		GlenroyRef.MoveToMarker OLBGlenroyMarker
+		UrielSeptimRef.Kill
+		GlenroyRef.Kill
+		BaurusRef.Kill
+	EndIf
+EndIf
+
+
+If ( bSentJail == 2 )
+Print "we getting sent to kjail"
+	If ( GetStage OLBMQ == 50 )
+		If ( PlayerREF.GetInWorldspace ICArboretumDistrict ) || ( PlayerREF.GetInWorldspace ICArenaDistrict ) || ( PlayerREF.GetInWorldspace ICElvenGardensDistrict ) || ( PlayerREF.GetInWorldspace ICImperialPalace ) || ( PlayerREF.GetInWorldspace ICImperialPrisonDistrict ) || ( PlayerREF.GetInWorldspace ICMarketDistrict ) || ( PlayerREF.GetInWorldspace ICTalosPlazaDistrict ) || ( PlayerREF.GetInWorldspace ICTempleDistrict ) || ( PlayerREF.GetInWorldspace ICTheArcaneUniversity )
+			Print "in right place"
+			PlayerREF.MoveToMarker CGPlayerStartMarker
+		EndIf
+	Else
+		PlayerREF.GoToJail		; this gets us out of a bad loop if called at the wrong time
+		let bSentJail := 0
+	EndIf
+EndIf
+
+; we healed baurus and need talk to him
+If ( GetStage OLBMQ == 35 )
+	If ( iDoOnce == 2 )
+		BaurusRef.Resurrect 1
+		let iDoOnce := 3
+	EndIf
+	SetStage CharacterGen 95
+EndIf
+;PrintC "bSentJail is %g", bSentJail
+
+; we have gotten the amulet and talked to baurus
+If ( GetStage CharacterGen == 97 )
+	If ( iDoOnce == 3 )
+		; NOTE I put this into a condition so that
+		; we have multiple quest loops so this makes things neat and organized
+		If ( GetStage OLBMQ < 40 ) && ( GetStage OLBMQ >= 20 )
+			SetStage OLBMQ 40
+		EndIf
+		let bEmperorAlive := 1
+		let iDoOnce := 4
+	EndIf
+	If ( iDoOnce == 4 )
+		SetStage CharacterGen 100
+		let iDoOnce := 5
+		StopQuest OLBMQ
+	EndIf
+EndIf
+
+End
+
+Begin MenuMode 1009
+
+Print "menumode"
+; 50 starts the loop of us getting sent to the dungeon with valen dreth
+If ( GetStage OLBMQ == 50 )
+	let bSentJail := 1
+	PrintC "sent jail is %g", bSentJail
+
+EndIf
+
+End
