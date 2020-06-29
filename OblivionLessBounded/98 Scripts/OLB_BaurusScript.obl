@@ -112,24 +112,31 @@ End
 
 ; Oblivion Less Bound quest stuff
 ; Needs to be above the GameMode block cause there's a return statement there
+; This active block is so we can't talk to Baurus while he's "injured"
 
 Begin OnActivate
 
+	; Baurus is on the ground
 If ( GetStage OLBMQ == 26 )
 	MessageBoxEX "You hear a faint whisper%r     'Amulet... Emperor...'"
 	SetStage OLBMQ 27
+	; we've gotten the amulet from the emperor
 ElseIf ( GetStage OLBMQ == 30 )
 	MessageBoxEX "You hear another whipser%r  'please... help... me...' |Heal him"
 	let iDoOnce := 0
 	let iBaurusHealed := 1 
+	; At these two points in time, when Baurus is still on the ground and we haven't gotten the amulet
+	; and he hasn't fully gotten up yet, do nothing
 ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 )
 	let iNothing := 0
+	; At any other point in time just acitvate him
 Else
 	Activate
 EndIf
 
 End
 
+; This menumode block just lets us know when baurus is healed or not
 Begin MenuMode 1001
 
 	If ( iBaurusHealed == 1 )
@@ -188,11 +195,13 @@ If Getstage charactergen >= 18 && Getstage charactergen < 22
 EndIf
 
 ; NOTE following added by OLB
+; If Baurus is healed then advance the stage
 If ( iBaurusHealed == 2 )
 	SetStage OLBMQ 35
 	let iBaurusHealed := -1
 EndIf
 
+; This part makes sure that Baurus can't be activated while getting up
 If ( GetStage CharacterGen == 95 )
 	If ( iDoOnce == 0 )
 		let fTimer := 3

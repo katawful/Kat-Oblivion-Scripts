@@ -4,6 +4,7 @@ int bEmperorAlive	; This is bool tells us if the emperor is alive or not
 int bInSewers		; This bool tells us if we are in the sewers or not
 int bBaurusDown		; This bool tells us if Baurus is unconscious or not
 int bSentJail		; This bool tells us if we are going to jail or not
+int bJailQuest		; This flag exists if we are gonna do the jail option
 
 int tQuestLog		; This is a flag for when we need to update quest logs but not quest stage
 
@@ -12,8 +13,9 @@ int iTemp
 int iQuest		; This is just a flag
 
 float fQuestDelayTime
-float fPlayerX
+float fPlayerX		; This gives us the player coordinates
 float fPlayerY
+float fTemp1
 
 Begin GameMode
 
@@ -101,16 +103,8 @@ EndIf
 
 
 If ( bSentJail == 2 )
-Print "we getting sent to kjail"
-	If ( GetStage OLBMQ == 50 )
-		If ( PlayerREF.GetInWorldspace ICArboretumDistrict ) || ( PlayerREF.GetInWorldspace ICArenaDistrict ) || ( PlayerREF.GetInWorldspace ICElvenGardensDistrict ) || ( PlayerREF.GetInWorldspace ICImperialPalace ) || ( PlayerREF.GetInWorldspace ICImperialPrisonDistrict ) || ( PlayerREF.GetInWorldspace ICMarketDistrict ) || ( PlayerREF.GetInWorldspace ICTalosPlazaDistrict ) || ( PlayerREF.GetInWorldspace ICTempleDistrict ) || ( PlayerREF.GetInWorldspace ICTheArcaneUniversity )
-			Print "in right place"
-			PlayerREF.MoveToMarker CGPlayerStartMarker
-		EndIf
-	Else
-		PlayerREF.GoToJail		; this gets us out of a bad loop if called at the wrong time
-		let bSentJail := 0
-	EndIf
+	let bJailQuest := 0
+	PlayerREF.MoveToMarker CGPlayerStartMarker
 EndIf
 
 ; we healed baurus and need talk to him
@@ -145,11 +139,25 @@ End
 
 Begin MenuMode 1009
 
-Print "menumode"
-; 50 starts the loop of us getting sent to the dungeon with valen dreth
-If ( GetStage OLBMQ == 50 )
-	let bSentJail := 1
-	PrintC "sent jail is %g", bSentJail
+;Print "menumode"
+If ( bSentJail == 1 )
+	; This checks if we're in the IC proper, not the areas outside
+	If ( PlayerREF.GetInWorldspace ICArboretumDistrict ) || ( PlayerREF.GetInWorldspace ICArenaDistrict ) || ( PlayerREF.GetInWorldspace ICElvenGardensDistrict ) || ( PlayerREF.GetInWorldspace ICImperialPalace ) || ( PlayerREF.GetInWorldspace ICImperialPrisonDistrict ) || ( PlayerREF.GetInWorldspace ICMarketDistrict ) || ( PlayerREF.GetInWorldspace ICTalosPlazaDistrict ) || ( PlayerREF.GetInWorldspace ICTempleDistrict ) || ( PlayerREF.GetInWorldspace ICTheArcaneUniversity ) 
+		If ( GetStage OLBMQ <= 20 ) || ( GetStage OLBMQ >= 40 ) ; basically we don't wanna be in another possible quest option
+			; This had to be split up cause it was too long
+			let bJailQuest := 1
+			Print "1"
+			PrintC "bjail is %g", bJailQuest
+		Else
+			let bJailQuest := 0
+			Print "2"
+			PrintC "bjail is %g", bJailQuest
+		EndIf
+	Else
+		let bJailQuest := 0
+		Print "3"
+		PrintC "bjail is %g", bJailQuest
+	EndIf
 
 EndIf
 

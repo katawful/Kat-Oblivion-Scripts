@@ -11,6 +11,7 @@ begin OnActivate
 	; NOTE OLB changes this
 	if IsActionRef player == 1 && GetDead == 1 && GetStage OLBMQ != 26 && GetStage OLBMQ != 27 && GetStage OLBMQ != 30
 		BaurusRef.SayTo player CharGenVoice
+	; the following three ifs are for OLB's MQ changes
 	ElseIf ( GetStage OLBMQ == 26 )
 		MessageBox "I'm too late, he's dead"
 	ElseIf ( GetStage OLBMQ == 27 )

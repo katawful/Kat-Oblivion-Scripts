@@ -54,7 +54,7 @@ int iSpIndex		; the index of the found spell
 
 ; skill flags - only contains the ones that make sense to flag
 ; are "boolean" values, 0 false, 1 true
-; NOTE remove the uncommented vars if not needed
+; NOTE remove the commented vars if not needed
 ;int bBlade
 ;int bBlunt
 ;int bHandToHand
@@ -87,6 +87,7 @@ Begin Function {}
 ;; Flag important skills for later
 let iIndex := 0
 While ( iIndex <= 6 )
+	; we are looking for the correct skill that the player has
 	let iTemp := PlayerREF.GetClassSkill iIndex
 	If ( iTemp >= 20 && iTemp <= 25 )
 		If iTemp == 19
@@ -180,6 +181,8 @@ let iArmNum += 1
 
 ; load main armor array with sub armor arrays
 ; NOTE: keep an eye on this, not sure if its the best way to dynamically add to array type arrays
+; NOTE: there also needs to be an equal amount of arrays and iIndex values, plus iArmNum must be one more than iIndex and no other value
+; if I can think of a better way to do this then I will implement it, it does seem to work fine however
 let iIndex := 0
 While ( iIndex < iArmNum )
 	let aArmor[iIndex] := aPeasantArm
@@ -204,11 +207,14 @@ Loop
 
 ; add random array from main to our working array
 let iArmorSize := ar_Size aArmor		; returns numeric size
+; we pass the random array we want to a temp array
+; for some reason this effectively turns the 
 let aArmCurr := aArmor[Rand 0 iArmorSize]
 let iArmCurrSize := ar_Size aArmCurr
 
 ; work through the equipment loop
 ; we need the types separate so we don't equip more weapons than possible
+
 let iIndex := 0				; set our index to 0 to walk through any array
 While (iIndex < iArmCurrSize)
 	let rTemp := aArmCurr[iIndex]	; assign a temp ref to the current array value
@@ -267,6 +273,7 @@ let aNothingWep[0] := JewelryRing1Brass		; Brass Ring
 
 ; load main weapon array with sub weapon arrays
 ; NOTE this should work as long as its incremented properly
+; see the NOTE up above for more clarity
 let iIndex := 0
 While ( iIndex < iWepNum )
 	let aWeapon[iIndex] := aBanditWep
@@ -383,7 +390,7 @@ If bAlteration == 1
 		If iTemp == 0
 			Break
 		EndIf
-		; we need to tell if the random spell we got is a duplicate of 
+		; NOTE: we need to tell if the random spell we got is a duplicate of 
 		; one we already added to the player
 		; we don't wanna add the same spell twice
 

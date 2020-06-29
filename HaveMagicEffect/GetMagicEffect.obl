@@ -1,0 +1,163 @@
+scn 001GetMagicEffect
+
+; This script gets the magic effect from a highlighted spell menu element and prints to console
+
+float fQuestDelayTime
+
+int iIndex		; array index
+int iAVNPCSize		; the size of our array
+int iAVPlaSize		; the size of the player array
+int iAVEffSize		; the size of the player effect array
+
+int iEffectCount	; the number of effects on a spell
+int iEffIndex		; the index for the player effect list array
+int iEffCurr		; the current effect number (an index)
+int iFind		; the index used for finding
+
+int iTemp1		; temp integer to store array values
+int iTemp2
+int iTemp3
+
+array_var aNPCList	; contains the spell list for a NPC
+array_var aNPCEffList	; contains the effects the NPC has
+array_var aPlayerList	; the spell list for the player
+array_var aPlaEffList	; the effect the player has
+array_var aSameEffList	; list of effects that are the same between the player and NPC
+
+string_var sSpellEffect	; for our spell effect
+string_var sSpellName	; for our spell name
+string_var sEffChar	; the 4 letter char for the effect ref
+
+ref rSpell	; our spell
+ref rActor	; the actor reference
+ref rCross	; the crosshair reference
+ref rPlay	; the base id of the playerref
+ref rTemp1	; a temp reference to pass of array values as a ref
+ref rTemp2
+
+Begin GameMode
+
+let fQuestDelayTime := 0.0001
+
+; get the actor ref under our crosshair
+let rCross := GetCrosshairRef	; set the actor ref to the actor we are looking at
+
+If rCross.IsActor	; check if the reference isn't actor
+	let rActor := rCross.GetBaseObject
+Else
+	Return	; kill the script
+EndIf
+
+PrintC "the current ref is: %n", rActor
+
+
+; set up the player spell list
+let aPlayerList := ar_Construct Array
+let rPlay := PlayerREF.GetBaseObject
+let aPlayerList := GetSpells rPlay
+let aPlaEffList := ar_Construct Array
+let iAVPlaSize := ar_Size aPlayerList
+let iEffIndex := 0
+Print "player arrays constructed"
+
+let iIndex := 0
+
+; populate the player effect array
+While iIndex < iAVPlaSize
+	let rTemp1 := aPlayerList[iIndex]
+	let iEffectCount := GetMagicItemEffectCount rTemp1	; get the number of effects on the current spell
+	let iEffCurr := 0
+	; use an if as a while loop so we don't get nesting issues
+	If iEffCurr < iEffectCount	; iterate through the spell effects and add it to the index
+		let aPlaEffList[iEffIndex] := GetNthEffectItemCode rTemp1 iEffCurr	; add the spell based on our current effect number
+		let iEffIndex := iEffIndex + 1	; increment the effect index
+		let iEffCurr := iEffCurr + 1	; iterate the current effect number
+	EndIf
+	let iIndex += 1
+Loop
+Print "Player effect array populated"
+
+let iIndex := 0
+let iAVEffSize := ar_Size aPlaEffList
+
+; read through the player effect array, not really needed
+While iIndex < iAVEffSize
+	let iTemp1 := aPlaEffList[iIndex]
+	let sEffChar := GetMagicEffectCharsC iTemp1
+	PrintC "The player spell effect is: %z", sEffChar
+	let iIndex += 1
+Loop
+
+let iIndex := 0
+let iEffIndex := 0
+
+; construct the NPC arrays
+let aNPCList := ar_Construct Array
+let aNPCList := GetSpells rActor	; returns an array of spell references (not baseid)
+let iAVNPCSize := ar_Size aNPCList
+Print "npc array constructed"
+let aNPCEffList := ar_Construct Array
+
+; populate the npc effect array
+While iIndex < iAVNPCSize
+	let rSpell := aNPCList[iIndex]
+;	PrintC "The spell ref is: %n", rSpell
+	let iTemp1 := GetNthEffectItemCode rSpell 0
+	let sEffChar := GetMagicEffectCharsC iTemp1
+	PrintC "the spell char is: %z", sEffChar
+	let iEffectCount := GetMagicItemEffectCount rSpell
+	let iEffCurr := 0
+	; populate the npc effect list array
+	If iEffCurr < iEffectCount
+		let aNPCEffList[iEffIndex] := GetNthEffectItemCode rSpell iEffCurr
+		let iEffIndex += 1
+		let iEffCurr += 1
+	EndIf
+	let iIndex += 1
+Loop
+
+let iIndex := 0
+let iEffIndex := 0
+let iFind := 0
+
+; compare the two effect lists and store them in an array
+let aSameEffList := ar_Construct Array
+While iIndex < iAVEffSize
+	If iFind < ar_Size aNPCEffList
+		let iTemp1 := aNPCEffList[iFind]
+		let iTemp3 := ar_Find iTemp1 aPlaEffList
+		let aSameEffList[iEffIndex] := aPlaEffList[iTemp3]
+		let iTemp2 := aSameEffList[iEffIndex]
+		If iTemp2 == -99999.0
+			ar_Erase aSameEffList iEffIndex
+			let iIndex += 1
+			let iFind += 1
+			let iTemp1 := -1
+			let iTemp2 := -1
+			let iTemp3 := -1
+		Else
+			let sEffChar := GetMagicEffectCharsC iTemp2
+			PrintC "effect found: %z", sEffChar
+			let iIndex += 1
+			let iFind += 1
+			let iTemp1 := -1
+			let iTemp2 := -1
+			let iTemp3 := -1
+			let iEffIndex += 1
+		EndIf
+	EndIf
+Loop
+
+End
+
+
+; run only during the spell purchase menu
+Begin MenuMode 1037
+
+let sSpellName := tile_GetString "effect_text\string", 2, 1037
+;let rSpell := GetActiveMenuSelection
+;let sSpellEffect := GetNthEffectItemName sSpellName 0
+PrintC "The spell name is: %n or %z", rSpell, sSpellName
+PrintC "The spell effect i: %z", sSpellEffect
+
+End

@@ -3,6 +3,7 @@ scn OLBRandomization
 int iKeyPressed		; for iskeypressed3
 int iDoOnce		; do once
 int iMessage		; tell if we are in the right mode
+int iTemp
 
 int bHaveRestoration	; quest flag for restoration
 int bHaveAlchemy	; quest flag for alchemy
@@ -53,6 +54,10 @@ If GetStage OLBQuest == 10
 
 	If iMessage == 1
 		MessageBox "Your start will now be randomized", "Ok"
+		let iTemp := GetStage Charactergen
+		PrintC "charactergen stage is: %g", iTemp
+		let iTemp := GetStage OLBMQ
+		PrintC "olbmq stage is: %g", iTemp
 	EndIf
 
 	If iMessage == 3
@@ -79,8 +84,8 @@ EndIf
 
 If GetStage OLBQuest == 30
 ; NOTE start main quest change here
-	StopQuest OLBQuest
-	Return
+	;StopQuest OLBQuest
+	;Return
 EndIf
 End
 

@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<style type="text/css">
+	/* body */ 
+	body {
+	
+	padding: 10%;
+	}
+	/* headings */
+	h1 {
+	
+	font-size: 150%;
+	
+	font-weight: normal;
+	}
+	h2 {
+	
+	font-size: 130%;
+	
+	font-weight: normal;
+	
+	margin-top: 40px;
+	}
+	h3 {
+	
+	font-size: 110%;
+	
+	font-weight: normal;
+	
+	margin-top: 30px;
+	
+	color: #000099;
+	
+	background-color: #ffffff;
+	}
+	h4 {
+	
+	font-size: 100%;
+	
+	font-weight: bold;
+	
+	margin-bottom: 0px;
+	}
+	h5 {
+	
+	font-size: 100%;
+	
+	font-weight: bold;
+	
+	margin-bottom: 0px;
+	
+	color: #000099;
+	
+	background-color: #ffffff;
+	}
+	/* tables */
+	table {
+	
+	border: 1px solid black;
+	
+	margin: 20px 0px 20px 0px;
+	}
+	caption {
+	
+	text-align: left;
+	
+	margin-bottom: 10px;
+	}
+	td, th {
+	
+	padding: 5px;
+	}
+	tr.alt {
+	
+	color: black;
+	
+	background-color: #dedede;
+	}
+	code.alt {
+	
+	color: 770000;
+	
+	background-color: #dedede;
+	}
+	table.functionIndex td{
+	
+	padding: 0px 30px 0px 5px;
+	}
+	/* lists */
+	ul {
+	
+	list-style-type: none;
+	}
+	/* box highlighting */
+	.boxhl {
+	
+	border: 1px dotted black;
+	
+	padding: 8px;
+	
+	color: #000000;
+	
+	background-color: #eeeeff;
+	}
+	/* box hl for calling conventions */
+	.code {
+	
+	border: 1px solid black;
+	
+	padding: 20px;
+	
+	font-family: monospace;
+	
+	color: #770000;
+	
+	background-color: #ffffff;
+	}
+	/* code box */
+	pre {
+	
+	color: #770000;
+	
+	background-color: #ffffff;
+	}
+	/* code syntax */
+	code.s {
+	
+	margin-left: 40px;
+	
+	font-weight: normal;
+	
+	color: #770000;
+	
+	background-color: #ffffff;
+	}
+	/* code syntax in descriptive text */
+	code {
+	
+	color: #000000;
+	
+	background-color: #ffffff;
+	}
+	/* optional parameters */
+	span.op {
+	
+	font-style: italic;
+	
+	color: #666666;
+	
+	background-color: #ffffff;
+	}
+	/* message box examples */
+	pre.msgbox {
+	
+	color: #777700;
+	
+	background-color: #ffffff;
+	
+	font-family: serif;
+	}
+	/* indentation and text alignment */
+	.ind {
+	
+	margin-left: 40px;
+	}
+	.c {
+	
+	text-align: center;
+	}
+	.l {
+	
+	text-align: left;
+	}
+	/* links */
+	.f {
+	
+	color: #3333cc;
+	
+	background-color: white;
+	}
+	a:link.f{
+	
+	text-decoration: none;
+	
+	color: #3333cc;
+	
+	background-color: white;
+	}
+	a:visited.f {
+	
+	text-decoration: none;
+	
+	color: #3333cc;
+	
+	background-color: white;
+	}
+	a:focus.f {
+	
+	text-decoration: underline;
+	
+	color: #0000ff;
+	
+	background-color: white;
+	}
+	a:hover.f {
+	
+	text-decoration: underline;
+	
+	color: #0000ff;
+	
+	background-color: white;
+	}
+	a:active.f {
+	
+	text-decoration: none;
+	
+	color: #ff0000;
+	
+	background-color: white;
+	}
+	a:link.cf{
+	
+	text-decoration: none;
+	
+	color: #3333cc;
+	
+	background-color: white;
+	}
+	a:visited.cf {
+	
+	text-decoration: none;
+	
+	color: #3333cc;
+	
+	background-color: white;
+	}
+	a:focus.cf {
+	
+	text-decoration: underline;
+	
+	color: #0000ff;
+	
+	background-color: white;
+	}
+	a:hover.cf {
+	
+	text-decoration: underline;
+	
+	color: #0000ff;
+	
+	background-color: white;
+	}
+	a:active.cf {
+	
+	text-decoration: none;
+	
+	color: #ff0000;
+	
+	background-color: white;
+	}
+	a:link img {
+	
+	border-style: none;
+	}
+	a:visited img {
+	
+	border-style: none;
+	}
+	</style>
+
+	<title>MenuQue Command Documentation</title>
+
+	<meta name="keywords" content="OBSE, plugin, menuque, oblivion, scripting, modding" />
+</head>
+
+<body>
+
+<h1>MenuQue Command Documentation</h1>
+
+<h2>Table of Contents</h2>
+
+<ul>
+	<li><a href="#UI_Functions">UI Functions</a></li>
+	<li><a href="#Menu_Functions">Menu Functions</a></li>
+	<li><a href="#Quest_Functions">Quest Functions</a></li>
+	<li><a href="#Skill_Functions">Skill Functions</a></li>
+	<li><a href="#Font_Functions">Font Functions</a></li>
+	<li><a href="#Map_Functions">Map Functions</a></li>
+	<li><a href="#Mouse_Functions">Mouse Functions</a></li>
+	<li><a href="#Menu_Events">Menu Event Handlers</a></li>
+	<li><a href="#Type_Codes">Type Codes</a></li>
+</ul>
+
+
+<h2><a id="UI_Functions">UI Functions</a></h3>
+
+Return information about the user interface. When the term "active menu" is used, it refers to the menu over which the mouse cursor is positioned when the command is called. Some functions accept an optional parameter specifying the specific menu you are interested in, assuming that menu is currently open.
+
+<p>Each induvidual component within a menu is called a tile. The UI functions from OBSE provide basic means of reading or changing their traits. But it can happen that multiple tiles have the same name, resulting in only one getting accessed. Other situations like needing to access the 'nth' element of a component or perform an action directly on the active component. In these cases more control is needed. All tile_XXX functions use the same core system by which a menu component is specified, meaning they all have the same range of tiles they can access. Which is pretty much anything.</p>
+
+
+
+<h3>Tile Functions</h3>
+
+Here's a standard example of a tile_XXX function, keep in mind that each function may have additional parameters and different return values. This is merely to illustrate the core principles. <br />
+<code class="s">(return_value:any) tile_XXX componentPath:formatString menuType:int</code><br />
+
+<p>First is the component path, with these functions it is now possible to access an induvidual element not through its exact name but by using its index. It works by substituting the name within the component path with a hash character followed by a number (e.g. <code>name#nth</code>). The name can be omitted to accept all components regardless of their names. <!--If the name ends with an underscore (_) then only those first letters in the name need to be the same for the component to be accepted.-->
+And "nth" is the index of the desired component within its parent's list. The indexing starts at 1. To iterate in reverse direction (from bottom-to-top) negative values can be used.</P>
+
+A simple example which accesses the first child element of "background".<br />
+<pre>
+	tile_GetFloat "background\#1\width", 1001
+	; Using a variable....
+	set var to 1
+	tile_GetFloat "background\"#%g\width", var, 1001
+</pre>
+
+Second is with how the root of the function is determined. Usually it will be the root of the menumode specified but there are also a couple of special values to access other parts of the UI (things that aren't directly part of any menu). They are:
+<p style="font-family: monospace; margin-left: 40px;">
+	1: Strings, this is where the content of "strings.xml" and any XML files in "Data\Menus\Strings". <br />
+	2: Active, uses the currently active tile as the root.<br />
+
+<p>Examples:</p>
+<pre>
+	; Changes the base string used by the BreathMenu to 'Oxygen'
+	tile_SetString "_breath|Oxygen", 1
+	; Gets the base string used in the TrainingMenu for how many times you've trained in its raw form (without the actual numbers in it)
+	tile_GetString "_timestrained", 1
+
+	; Set the user1 value to 100 for the active element
+	tile_SetFloat "user1", 2, 100
+	; Get the name of the active element (equivalent to GetActiveMenuComponent)
+	tile_GetName "\", 2
+</pre>
+
+<p><a id="tile_GetFloat" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/tile_GetFloat">tile_GetFloat</a> - returns the value of a float or boolean trait of the specified tile.<br />
+<code class="s">(value:float) tile_GetFloat  trait:formatString  menuType:int</code></p>
+
+<p><a id="tile_GetString" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/tile_GetString">tile_GetString</a> - returns the value of a string trait of the specified tile.<br />
+<code class="s">(value:string_var) tile_GetString  trait:formatString  menuType:int</code></p>
+
+<p><a id="tile_SetFloat" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/tile_SetFloat">tile_SetFloat</a> - sets the value of a float or boolean trait of the specified tile.<br />
+<code class="s">(success:bool) tile_SetFloat  trait:formatString  menuType:int  newValue:float  <span class="op">canCreate:bool</span></code></p>
+
+<p><a id="tile_SetString" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/tile_SetString">tile_SetString</a> - sets the value of a string trait of the specified tile. The new value follows the trait name, separated from it by a pipe character. i.e. "elementName\traitName|newValue". (If calling from the console, replace the pipe character with the '@' character).<br />
+<code class="s">(success:bool) tile_SetString  traitAndNewValue:formatString  menuType:int  <span class="op">canCreate:bool</span></code></p>
+
+<p><a id="tile_GetInfo" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/tile_GetInfo">tile_GetInfo</a> - returns certain info for the specified tile.<br />
+<code class="s">(info:int) tile_GetInfo  component:formatString  menuType:int  whichInfo:int</code></p>
+
+<p>The following types of info can be retrieved:</p>
+<p style="font-family: monospace; margin-left: 40px;">
+&nbsp;0: Counts number of child elements.<br />
+&nbsp;1: Returns the index of the element within its parent's list.<br />
+-1: Same as above only the direction is reversed.<br />
+&nbsp;2: Same as above except it only checks elements with the same name.<br />
+-2: Same as above only the direction is reversed.<br />
+</p>
+
+<p><a id="tile_GetName" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/tile_GetName">tile_GetName</a> - returns the name (or full name) for the specified tile.<br />
+<code class="s">(name:string_var) tile_GetName  component:formatString  menuType:int  <span class="op">fullName:bool</span></code></p>
+
+
+
+
+<h3>Insert XML Functions</h3>
+
+<p><a id="InsertXML" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/InsertXML">InsertXML</a> - inserts an XML file or content of a string into the specified menu component. The file is relative to <code>Data\Menus\Prefabs</code> and should include the extension. Any top-level traits that already exist in the target component will be overwritten. Elements will not, they are always created regardless of existing elements with the same name. It is a very powerful function as it also allows you to change or override the raw content of the in-memory menu (but without modifying the xml file itself).<br />
+<code class="s">(success:bool) InsertXML fileOrString:formatString menuType:int<span class="op"> whichChild:int bReverseOrder:bool</span></code></p>
+
+<p><a id="InsertXMLTemplate" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/InsertXMLTemplate">InsertXMLTemplate</a> - inserts a template from the menu's xml in the specified component. The component path follows the template name, separated from it by a pipe character. i.e. "template_name|elementName". (If calling from the console, replace the pipe character with the '@' character). Optionally you can add the new name to the formatString (with another separator ofcourse) to give the new template instance a unique name. <br />
+<code class="s">(nothing) InsertXMLTemplate templateAndComponent:formatString menuType:int<span class="op"> whichChild:int bReverse:int</span></code></p>
+
+<p>Examples:</p>
+<pre>
+	string_var statMiscPage
+	let statMiscPage := "stat_layout\stat_background\stat_p5\stat_p5_window\stat_p5_window_pane"
+	; adding an extra misc stat to the menu and name it "Extra_Stat"
+	InsertXMLTemplate "stat_misc_template|%z|Extra_Stat", statMiscPage, 1003
+	; setting the various traits for this new misc stat
+	SetMenuFloatValue "%z\Extra_Stat\listindex", statMiscPage, 1003, 4
+	SetMenuStringValue "%z\Extra_Stat\user1|Special Kills", statMiscPage, 1003
+	SetMenuFloatValue "%z\Extra_Stat\user2", statMiscPage, 1003, 103
+</pre>
+
+
+<h3>Text Edit Functions</h3>
+
+<p><a id="IsTextEditInUse" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/IsTextEditInUse">IsTextEditInUse</a> - Several menus have a component where you can type a name for whatever product might come from that menu. This function will let you check if the user is typing or if the typing box is active.<br />
+<code class="s">(inUse:bool) IsTextEditInUse menuType:int</code></p>
+<p>The following menus have a typing box by default but MenuQue also provide modders with a way to add custom typing boxes to any menu.</p><p style="font-family: monospace; margin-left: 40px;">1036: RaceSex<br />
+1040: Alchemy<br />
+1041: Spellmaking<br />
+1042: Enchantment <br />
+1048: SigilStone<br />
+1051: TextEdit<br />
+</p>
+<p><a id="GetTextEditBox" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetTextEditString">GetTextEditBox</a> - Returns the component that is currently being used for textedit.<br />
+<code class="s">(component:string_var) GetTextEditBox</code></p>
+<p><a id="GetTextEditString" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetTextEditString">GetTextEditString</a> - Returns the typed text in the current or most recent textedit box. Works for both the default boxes aswell as any custom boxes.<br />
+<code class="s">(text:string_var) GetTextEditString</code></p>
+<p><a id="SetTextEditString" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/SetTextEditString">SetTextEditString</a> - Sets the text for the current textedit box, default or custom does not matter, only that it is active. Return true if text is successfully changed<br />
+<code class="s">(success:bool) SetTextEditString text:formatString <span class="op">cursorIndex:int</span></code></p>
+
+
+
+<h2><a id="Menu_Functions">Menu Functions</a></h3>
+
+<p><a id="ShowMagicPopupMenu" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/ShowMagicPopupMenu">ShowMagicPopupMenu</a> - shows or hides the MagicPopup menu. Needs to be called each time when a different item/spell/etc is selected in the relevant menu. <br />
+<code class="s">(nothing) ShowMagicPopupMenu bShow:bool</code></p>
+
+<p><a id="ShowLevelUpMenu" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/ShowLevelUpMenu">ShowLevelUpMenu</a> - opens the levelup menu. <br />
+<code class="s">(nothing) ShowLevelUpMenu </code></p>
+
+<p><a id="ShowTrainingMenu" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/ShowTrainingMenu">ShowTrainingMenu</a> - opens a training menu for the specified skill. Can be called during gamemode or menumode, no character needs to be involved. Can be called on a reference and use its training service (if any) instead. Use optional parameter to override the training cost calculations. <br />
+<code class="s">(nothing) <span class="op">reference.</span>ShowTrainingMenu skillCode:int level:int<span class="op"> cost:int</span></code></p>
+
+<p><a id="GetTrainingMenuSkill" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetTrainingMenuSkill">GetTrainingMenuSkill</a> - returns the training skill used by the training menu <br />
+<code class="s">(trainingSkill:int) GetTrainingMenuSkill </code></p>
+
+<p><a id="GetTrainingMenuLevel" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetTrainingMenuLevel">GetTrainingMenuLevel</a> - returns the training level used by the training menu <br />
+<code class="s">(trainingLevel:int) GetTrainingMenuLevel </code></p>
+
+<p><a id="GetTrainingMenuCost" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetTrainingMenuCost">GetTrainingMenuCost</a> - returns the training cost used by the training menu <br />
+<code class="s">(trainingCost:int) GetTrainingMenuCost </code></p>
+
+<p><a id="ShowTextEditMenu" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/ShowTextEditMenu">ShowTextEditMenu</a> - Opens up a basic textedit menu which is normally only used for typing the name for the custom class. <br />
+<code class="s">(nothing) ShowTextEditMenu promptText:formatString </code></p>
+
+<p><a id="ShowGenericMenu" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/ShowGenericMenu">ShowGenericMenu</a> - opens the given generic menu, filepath is relative to <code>Data\Menus\Generic\</code> and should include the extension. Name of the menu does not matter but the <code>&lt;class&gt; trait</code> does, it needs to be &GenericMenu;. Passing a value above 0 as the second argument will make only an element with that <code>&lt;id&gt;</code> trait close the menu when clicked. Otherwise a value of anything above 0 will close the menu. 
+
+Other notes are that any element with an <code>&lt;id&gt;</code> trait that isn't -1 will close the menu when it is clicked. Use <code>GetGenericButtonPressed</code> to get some control over which element/button/etc. was clicked. <br />
+<code class="s">(nothing) ShowGenericMenu filePath:string<span class="op"> closingID:int</span></code></p>
+
+<p>Examples:</p>
+<pre>
+	; Open up a SkillPerk-generic menu and fill in the data. Ingame it'll 
+	; look exactly the same as any other (game generated) SkillPerk menu.
+	ShowGenericMenu "skill_perk.xml"
+	SetMenuStringValue "user0|Menus\Class\Attributes\load_image_light_armor.dds", 1011
+	SetMenuStringValue "user1|Congratulations! You've reached a unique level in light armor.", 1011
+	SetMenuStringValue "user2|Ok", 1011
+</pre>
+
+<p><a id="GetGenericButtonPressed" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetGenericButtonPressed">GetGenericButtonPressed</a> - returns the id of the last choice made (or the last button/element clicked) in a generic menu. Works almost exactly the same as <code>GetButtonPressed</code> where the function will return the value only once and then return -1 until a new choice in a generic menu was made. The return value does not necessarily start at 0 or be in a sequenced order, it all depens on how each <code>&lt;id&gt;</code> trait is defined in the XML. <br />
+<code class="s">(buttonID:int) GetGenericButtonPressed</code></p>
+
+<p>Examples:</p>
+<pre>
+	; Open up a QuestAdded (generic) menu and use its layout as a better looking choice/messagebox menu.
+	short state
+	short button
+	if state == 0
+		set state to 1
+		ShowGenericMenu "quest_added.xml"
+		SetMenuStringValue "user0|Quest Choice", 1011
+		SetMenuStringValue "user1|The Path Splits....", 1011
+		SetMenuStringValue "user2|30th of Last Seed, 3E433", 1011
+		SetMenuStringValue "user3|Upon following the path to the city I noticed a sidepath. It may be a shortcut but it may also be filled with dangerous creatures and bandits....", 1011
+		SetMenuStringValue "user4|Icons\Quest\icon_mages_guild.dds", 1011
+		SetMenuStringValue "user5|Continue along the path", 1011
+		SetMenuStringValue "user7|Explore the sidepath", 1011
+		SetMenuFloatValue "user6", 1011, 2
+	elseif state == 1
+		; Get the player's choice
+		set button to GetGenericButtonPressed
+		if button == 1 ; id of the first button is 1
+			; Continue along the path
+			set state to 3
+		elseif button == 2 ; id of the second button is 2
+			; Explore the sidepath
+			set state to 4
+		endif
+	endif
+</pre>
+<pre>
+	; Open up a SkillPerk (generic) menu for Restoration (expert level)
+	short state
+	short button
+	string_var text
+	if state == 0
+		set state to 1
+		ShowGenericMenu "skill_perk.xml"
+		set text to GetTexturePath SkillRestoration
+		SetMenuStringValue "user0|%z", text, 1011
+		set text to GetDescription SkillRestoration, 2
+		SetMenuStringValue "user1|%z.", text, 1011
+		SetMenuStringValue "user2|Ok", 1011
+	elseif state == 1
+		; no need to do anything choice-specific, except maybe reset state
+	endif
+</pre>
+
+
+<h2><a id="Quest_Functions">Quest Functions</a></h3>
+
+<p><a id="mqGetCurrentQuests" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqGetCurrentQuests">mqGetCurrentQuests</a> - returns an array with the active quests with a matching <code>questState</code>. By default it will return all running quests with atleast one known log entry. <strong>Semi-Deprecated by </strong><a href="http://obse.silverlock.org/obse_command_doc.html#GetCurrentQuests">GetCurrentQuests</a><br />
+<code class="s">(currentQuests:array) mqGetCurrentQuests<span class="op"> <a href="#Quest_States">questState</a>:int</span></code></p>
+
+<p><a id="mqGetCompletedQuests" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqGetCompletedQuests">mqGetCompletedQuests</a> - returns an array with the completed quests<br />
+<code class="s">(completedQuests:array) mqGetCompletedQuests</code></p>
+
+<p><a id="mqGetQuestCompleted" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqGetQuestCompleted">mqGetQuestCompleted</a> - returns 1 if the specified quest is marked as 'completed'. <strong>Deprecated by </strong><a href="http://obse.silverlock.org/obse_command_doc.html#IsQuestComplete">IsQuestComplete</a><br />
+<code class="s">(completed:bool) mqGetQuestCompleted quest:ref</code></p>
+
+<p><a id="mqUncompleteQuest" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqUncompleteQuest">mqUncompleteQuest</a> - removes the 'completed' flag from the specified quest. <strong>Deprecated by </strong><a href="http://obse.silverlock.org/obse_command_doc.html#UncompleteQuest">UncompleteQuest</a><br />
+<code class="s">(nothing) mqUncompleteQuest quest:ref</code></p>
+
+<p><a id="mqGetActiveQuest" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqGetActiveQuest">mqGetActiveQuest</a> - gets the player's active quest, if any. <strong>Deprecated by</strong> <a href="http://obse.silverlock.org/obse_command_doc.html#GetActiveQuest">GetActiveQuest</a><br />
+<code class="s">(quest:ref) mqGetActiveQuest</code></p>
+
+<p><a id="mqSetActiveQuest" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqSetActiveQuest">mqSetActiveQuest</a> - sets the player's active quest, only works when the quest has atleast one known log entry. <strong>Deprecated by </strong><a href="http://obse.silverlock.org/obse_command_doc.html#SetActiveQuest">SetActiveQuest</a><br />
+<code class="s">(success:bool) mqSetActiveQuest quest:ref</code></p>
+
+<p><a id="mqGetActiveQuestTargets" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/mqGetActiveQuestTargets">mqGetActiveQuestTargets</a> - returns an array with information about the current quest targets, each index holds a Stringmap that contains: <br />
+<pre>
+	"target" (ref): The actual quest target
+	"door" (ref): The door leading to the target (if any)
+</pre>
+<code class="s">(questTargets:array) mqGetActiveQuestTargets</code></p>
+
+
+
+
+<h2><a id="Skill_Functions">Skill Functions</a></h3>
+
+<p>The following skill commands have been overwritten to accommodate new skills. They all have an 'F' version that accepts an avToken instead of an actor value code.</p>
+<ul><li>IncrementPlayerSkillUseC</li>
+<li>TriggerPlayerSkillUseC</li>
+<li>ModPlayerSkillExpC</li>
+<li>GetPlayerSkillUseC</li>
+<li>GetPlayerSkillAdvancesC</li>
+<li>SetPlayerSkillAdvancesC</li>
+<li>GetRequiredSkillExpC*</li>
+<li>GetSkillUseIncrementC</li>
+<li>SetSkillUseIncrementC</li>
+<li>GetSkillGoverningAttributeC</li>
+<li>SetSkillGoverningAttributeC</li>
+<li>GetSkillSpecializationC*</li>
+<li>SetSkillSpecializationC*</li></ul>
+<p>Other commands that do not affect skills themselves. They do not have an 'F' version. </p>
+<ul><li>ActorValueToStringC</li>
+<li>GetBookSkillTaught</li>
+<li>SetBookSkillTaught</li>
+<li>GetTrainerSkill</li>
+<li>SetTrainerSkillC*</li></ul>
+<p>* Note: does not (yet) exist and is added by MenuQue itself. Will automatically be overwritten once added to OBSE. Ofcourse they'll remain backwards compatible.</p>
+
+<p><a id="GetSkillCode" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetSkillCode">GetSkillCode</a> - returns the code associated with the supplied avtoken. <br />
+<code class="s">(skillCode:int) GetSkillCode avToken:ref</code></p>
+
+<p><a id="GetSkillForm" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetSkillForm">GetSkillForm</a> - returns the skill form for the given code. <br />
+<code class="s">(skillForm:ref) GetSkillForm skillCode:int</code></p>
+
+<p><a id="GetAllSkills" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetAllSkills">GetAllSkills</a> - returns an array with codes for all skills, default and new. <br />
+<code class="s">(skillCodes:array) GetAllSkills </code></p>
+
+<p>Examples: </p>
+<pre>
+array_var skills
+array_var iter
+int skillCode
+int spec
+int attr
+ref skillForm
+string_var attrName
+string_var skillName
+string_var skillDesc
+
+....
+
+let skills := GetAllSkills
+ForEach iter <- skills
+	let skillCode := *iter
+	let skillName := ActorValueToStringC skillCode
+	let spec := GetSkillSpecializationC skillCode
+	let attr := GetSkillGoverningAttributeC skillCode
+	let attrName := ActorValueToStringC attr
+	
+	let skillForm := GetSkillForm skillCode
+	let skillDesc := GetDescription skillForm
+
+	Print "Skill " + skillName + " w/ code " + $skillCode + " specialized for " + $spec + " and governed by " + attrName
+	Print "Description is: " + skillDesc
+Loop
+</pre>
+
+
+
+<h2><a id="Font_Functions">Font Functions</a></h3>
+
+<p>MenuQue allows for the loading of extra fonts to be used ingame (up to a maximum of 25 extra fonts). To add a font place its two files in "Data\Fonts\Extra", each time the game starts every font in that folder will be added. Like the default fonts, the extra fonts have a unique id assigned to them, this is a number between 7 and 32 and depends on the combination of fonts that are loaded. It will remain the same for the duration of the session. Modders can request this id using <a href="#GetFontLoaded"><tt>GetFontLoaded</tt></a> and subsequently use any UI function to change an element's <code>&lt;font&gt;</code> trait to this new id.</p>
+
+<p><a id="GetFontLoaded" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetFontLoaded">GetFontLoaded</a> - returns the id of the specified font. If not present return value is 0. Can also be used with the default fonts. <br />
+<code class="s">(fontID:int) GetFontLoaded font:formatString</code></p>
+<p>Example:</p>
+<pre>
+	short fontID
+	; get the fontID for "DarN_LG_Kingthings_Petrock_18", since it will
+	; be static we only need to retrieve it once per session
+	if GetGameLoaded || GetGameRestarted
+		set fontID to GetFontLoaded "DarN_LG_Kingthings_Petrock_18"
+		if fontID
+			Print "Found %qDarN_LG_Kingthings_Petrock_18%q with ID of " + $fontID
+			;font has a valid ID
+			if fontID <= 5
+				;font is a default one, doesn't really matter in this case
+				;but it shows how it can be checked with GetFontLoaded
+			endif
+			SetMenuFloatValue "_myElement\_myText\font", 1004, fontID
+		else
+			Print "Could not find %qDarN_LG_Kingthings_Petrock_18%q"
+		endif
+	endif
+</pre>
+<p><a id="GetLoadedFonts" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetLoadedFonts">GetLoadedFonts</a> - returns a StringMap with all loaded fonts. There will be an element for each font, key is name of the font and value is its ID. You can filter the fonts for being a default (1) or extra font (2), when omitted the function will return all loaded fonts. <br />
+<code class="s">(loadedFonts:StringMap) GetLoadedFonts filter:int</code></p>
+<p>Example:</p>
+<pre>
+	array_var fonts
+	array_var it
+	....
+	Print "Getting all fonts...."
+	let fonts := GetLoadedFonts
+	ForEach it <- fonts
+		Print "Found font %q" + it["Key"] + "%q with ID of " + $(it["Value"])
+	Loop
+</pre>
+
+
+<h2><a id="Map_Functions">Map Functions</a></h3>
+
+<p><a id="GetWorldMapData" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetWorldMapData">GetWorldMapData</a> - returns a stringmap containing data about the worldspace's map. You can pass an optional worldspace, else the current one is used. If it is parented by another worldspace then that one's data will be returned. If <code>bFindMap</code> is true and the used worldspace does not have a mapimage (Oblivion worlds for example) the function will fall back to whatever worldspace the mapmenu is using at that point. The stringmap contains the following keys:<br />
+<ul>
+	<li type=square>"Image" - the map's filename, e.g. "Menus\Map\world\Cyrodiil_Resized.dds" (only if the worldspace had a mapimage)</li>
+	<li type=square>"Width" - the width, or usable x dimension</li>
+	<li type=square>"Height" - the height, or usable y dimension</li>
+	<li type=square>"NW Cell X" - cell coordinate</li>
+	<li type=square>"NW Cell Y" - cell coordinate</li>
+	<li type=square>"SE Cell X" - cell coordinate</li>
+	<li type=square>"SE Cell Y" - cell coordinate</li>
+	<li type=square>"Worldspace" - the worldspace that was used for the mapdata, usually the same as current/passed worldspace or its parent</li>
+</ul>
+<code class="s">(mapData:stringmap) GetWorldMapData<span class="op"> worldspace:ref bFindMap:bool</span></code></p>
+
+<p><a id="SetWorldMapData" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/SetWorldMapData">SetWorldMapData</a> - sets the data for the worldspace. You can pass an optional worldspace, else the current one is used. If it is parented by another worldspace then the parent's data will be returned. The function expects the same fields as what GetWorldMapData returns with the exception of the "Worldspace" field (it is ignored). By default the function always operates on the parent worldspace (if any) because the game ignores the map data if it has a parent worldspace. <br />
+<code class="s">(nothing) SetWorldMapData mapData:array_var <span class="op"> worldspace:ref</span></code></p>
+
+<p><a id="GetWorldMapDoor" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetWorldMapDoor">GetWorldMapDoor</a> - attempts to retrieve the door that leads to the <code>target worldspace</code> as used by the worldmap. When an optional worldspace is supplied it takes precedence. By default the returned door is to the can also be to a worldspace that has the same parent. To get the door to the actual <code>target worldspace</code> pass 1 as the first argument. It will always return the door leading to the worldspace. <br />
+<code class="s">(door:ref) GetWorldMapDoor <span class="op">bUseFinal:bool targetWorldspace:ref</span></code></p>
+
+
+<!-- Hiding these two functions until I can put them to use in my MiniMap, don't want someone else to snatch away the price before I get a chance to compete... :P
+<p><a id="GetLocalMapSeen" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetLocalMapSeen">GetLocalMapSeen</a> - returns value between 1 and 4 depending on if a certain area would be seen on the localmap. When inside an interior with a northmarker the position will need to be rotated in order to match how the local map works. When called on a reference its position will be used instead and any rotation will be done automatically.<br />
+<code class="s">(seen:int) <span class="op">reference.</span>GetLocalMapSeen<span class="op"> posX:float posY:float posZ:float</span></code></p>
+
+<p><a id="UpdateLocalMap" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/UpdateLocalMap">UpdateLocalMap</a> - gives the specified menu component the exact appearance as the local map. Futher positioning is required as the local map is divided into grids and it center position stays the same while the player is within such a grid. Needs to be called each time you want your local map to be updated, not recommended to call each frame as the function is a bit slow.<br />
+<code class="s">(nothing) UpdateLocalMap trait:formatString menuType:int</code></p>
+-->
+
+
+
+<h2><a id="Mouse_Functions">Mouse Functions</a></h3>
+
+<p><a id="GetMousePos" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetMousePos">GetMousePos</a> - returns the current X or Y coordinate of the mouse cursor in menumode. Unlike GetCursorPos which can get behind when the mouse is moved at a rapid pace, this function will always return the correct position. Specify 'X' or 'Y' for the axis. Optional parameter to change the format of the returned coordinate (percentage based, resolution based or screen-size based).</p>
+<p>Mode is 0 for a value between zero and one (this is the default). Use 1 as mode to return a value between zero and the user's resolution (width for 'X' and height for 'Y'). To return a value between zero and the UI screen-size use 2. This can be different from the user's resolution. The exact UI-screen-size depends on the resolution ratio (not the resolution itself) and it is what the <code>&lt;src="screen()" trait="width"&gt;</code> and <code>&lt;src="screen()" trait="height"&gt;</code> in the xml files refer to. For the 'Y' axis this is always <code>960</code> and for the 'X' axis this is <code>1280/(4/3)*&lt;ratio&gt;</code>
+<p>Regardless of the mode the starting positon (0,0) is always in the upper left corner of the screen.<br />
+<code class="s">(position:float) GetMousePos axis:char<span class="op"> mode:int</span></code></p>
+
+<p><a id="GetMouseImage" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetMouseImage">GetMouseImage</a> - returns the filename used by the mouse <br />
+<code class="s">(image:string_var) GetMouseImage</code></p>
+
+<p><a id="SetMouseImage" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/SetMouseImage">SetMouseImage</a> - sets the filename used by the mouse. <br />
+<code class="s">(nothing) SetMouseImage filename:formatString</code></p>
+
+
+
+
+<h2><a id="Menu_Events">Menu Event Handlers</a></h3>
+
+<p>Similar to the OBSE v0019 Event Handlers, a menu event handler is a user-defined function designed to respond to menu events. Rather than calling the function directly, the scripter uses <a href="#SetMenuEventHandler">SetMenuEventHandler</a> to register it as a handler for a specific menu event. When the associated menu event occurs, MenuQue will invoke any handlers for that event, passing information about the event to the function through its arguments.</p>
+<p>There are two types of menu events: events that involve the menu itself and events that involve a specific menu element. </p>
+<table>	<caption style="font-size: 110%; color: #000099; background-color: #ffffff;">Events</caption>    
+<tr><th align="left" width="35%">Name</th> <th align="left" width="35%">Parameters</th> <th align="left" width="60%">Notes</th></tr>
+	<tr><td>OnOpen</td><td>menuType:int</td></tr>
+	<tr><td>OnClose</td><td>menuType:int</td></tr>
+	<tr><td>OnClick</td><td>menuType:int, tile:string, id:int</td></tr>
+	<tr><td>OnMouseover</td><td>menuType:int, tile:string, id:int</td></tr>
+	<!--<tr><td>OnTextEdit</td><td>menuType:int, userText:string, tilePath:string</td><td>Invoked just before a TextEdit box is toggled on, second parameter contains the initial text.</td></tr>
+	<tr><td>OnTextEditDone</td><td>menuType:int, userText:string, tilePath:string</td><td>Invoked just after a TextEdit box is toggled off, second parameter contains the final text typed by the user.</td></tr>-->
+</table>
+
+<p>These menu events are much milder than OBSE's game events because it happens during menumode, where fewer things are processed. With <code>OnClick</code> and <code>OnMouseover</code> you can input the specific id of the element you are interested in and if the full path of the element is desired. </p>
+
+<p>It is recommended that you prefer to filter events as strictly as possible to allow MenuQue to avoid calling your handler for events you're not interested in. Further, once an event handler becomes unneeded, use RemoveMenuEventHandler to remove it; this prevents MenuQue from having to check against the defunct handler when processing events. Be aware that event handler scripts are invoked at the moment the event is registered by the game. For example, an OnOpen handler is invoked when a menu is opened (or enabled) but before it gets its content. Things like the inventory list, spell list or map markers, they are all handled after their respective OnOpen events have been invoked. But you can still modify the menu with the UI functions like normal.</p>
+
+<p><a id="SetMenuEventHandler" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/SetMenuEventHandler">SetMenuEventHandler</a> - registers a user-defined function as a handler for the specified event. If the function script returns a value, it will be ignored. A <code>menuFilter</code> is always required and for events involving a menu component an <code>idFilter</code> can also be specified. Note that due to coding limitations you have to assign your user script to a ref variable and then use that with the function itself. <br />
+<code class="s">(success:bool) SetMenuEventHandler eventID:string script:ref menuFilter:int</code><br />
+<code class="s">(success:bool) SetMenuEventHandler eventID:string script:ref menuFilter:int <span class="op">idFilter:int</span></code></p>
+Example usage:
+<code><pre>
+	scn FnOnOpen
+	short menu
+
+	begin Function { menu }
+		; will be invoked when the menu is opened
+		printc "MenuMode %g >> Opened", menu
+		if menu == 1009 ;dialog was openened
+			;do stuff
+		elseif menu == 1034 ;persuasion opened
+			;do other stuff
+		endif
+	end
+	--------------
+	scn FnOnClick
+	short menu
+	short id
+	string_var tile
+
+	begin Function { menu, tile, id }
+		printc "MenuMode %g >> Clicked %g (%z)", menu, id, tile
+		;do stuff
+	end
+	--------------
+	scn FnOnClickDialogGoodbye
+	short menu
+	short id
+	string_var tile
+
+	begin Function { menu, tile, id }
+		; this handler will only be invoked for the goodbye button in the dialog,
+		; meaning the 'menu' and 'id' arguments will always be 1009 and 3 
+		printc "Clicked Dialog::GoodBye"
+	end
+	---------------
+	scn SomeQuestScript
+	ref func
+	begin gamemode
+		if getGameRestarted
+			; wanna be informed when player goes into dialog
+			let func := FnOpOpen
+			SetMenuEventHandler "OnOpen", func, 1009
+
+			; wanna be informed when player clicks _anything_ in dialog
+			let func := FnOnClick
+			SetMenuEventHandler "OnClick", func, 1009
+
+			; only interested in when the "goodbye" button is clicked
+			let func := FnOnClickDialogGoodbye
+			SetMenuEventHandler "OnClick", func, 1009, 3
+		endif
+	end
+</pre></code>
+
+<p><a id="RemoveMenuEventHandler" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/RemoveMenuEventHandler">RemoveMenuEventHandler</a> - removes the specified script as an event handler for the specified menu event. For <code>OnClick</code> and <code>OnMouseover</code> an optional argument can be supplied to 
+only remove handlers that were registered with that specific id. If omitted, all menu event handlers matching the script, menu event and menu type will be removed. Returns true if at least one matching event handler was found and removed, false otherwise.<br />
+<code class="s">(success:bool) RemoveMenuEventHandler eventID:string script:ref menuFilter:int</code><br />
+<code class="s">(success:bool) RemoveMenuEventHandler eventID:string script:ref menuFilter:int <span class="op">idFilter:int </span></code></p>
+
+<p><a id="GetMenuEventType" class="f" href="http://cs.elderscrolls.com/constwiki/index.php/GetMenuEventType">GetMenuEventType</a> - When called from within an event handler, returns the name of the menu event currently being handled, as defined <a href="#Menu_Events">above</a>.<br />
+<code class="s">(eventType:string) GetMenuEventType</code></p>
+
+
+<h2><a id="Type_Codes">Type Codes</a></h2>
+
+<h3><a id="Quest_States">Quest States</a></h3>
+
+<p>The states of a running quest.</p><ul>
+	<li>0: Uncompleted</li>
+	<li>1: Uncompleted and a log entry</li>
+	<li>2: Uncompleted and a known log entry</li>
+</ul>
+
+<h3><a id="Menu_Type">Menu Types</a></h3>
+
+<ul>
+	<li>1001: Message</li>
+	<li>1002: Inventory</li>
+	<li>1003: Stats</li>
+	<li>1004: HUDMain</li>
+	<li>1005: HUDInfo</li>
+	<li>1006: HUDReticle</li>
+	<li>1007: Loading</li>
+	<li>1008: Container, Barter</li>
+	<li>1009: Dialog</li>
+	<li>1010: HUDSubtitle</li>
+	<li>1011: Generic</li>
+	<li>1012: SleepWait</li>
+	<li>1013: Pause</li>
+	<li>1014: LockPick</li>
+	<li>1015: Options</li>
+	<li>1016: Quantity</li>
+	<li>1017: Audio</li>
+	<li>1018: Video</li>
+	<li>1019: VideoDisplay</li>
+	<li>1020: Gameplay</li>
+	<li>1021: Controls</li>
+	<li>1022: Magic</li>
+	<li>1023: Map</li>
+	<li>1024: MagicPopup</li>
+	<li>1025: Negotiate</li>
+	<li>1026: Book</li>
+	<li>1027: LevelUp</li>
+	<li>1028: Training</li>
+	<li>1030: Class</li>
+	<li>1032: Skills</li>
+	<li>1034: Persuasion</li>
+	<li>1035: Repair</li>
+	<li>1036: RaceSex</li>
+	<li>1037: SpellPurchase</li>
+	<li>1038: Load</li>
+	<li>1039: Save</li>
+	<li>1040: Alchemy</li>
+	<li>1041: SpellMaking</li>
+	<li>1042: Enchantment</li>
+	<li>1043: EffectSetting</li>
+	<li>1044: Main</li>
+	<li>1045: Breath</li>
+	<li>1046: QuickKeys</li>
+	<li>1047: Credits</li>
+	<li>1048: SigilStone</li>
+	<li>1049: Recharge</li>
+	<li>1051: TextEdit</li>
+</ul>
+
+
+<h3><a id="Map_Marker_States">Map Marker States</a></h3>
+
+<p>The states of a map marker. Is it visible, can it be traveled to or is it even enabled.</p><ul>
+	<li>0: Visible and can travel </li>
+	<li>1: Visible</li>
+	<li>2: Enabled</li>
+</ul>
+
+<h3><a id="Map_Marker_Types">Map Marker Types</a></h3>
+
+<p>Note: Types starting at 13 are an unofficial standard created by Map Marker Overhaul.</p><ul>
+	<li>&nbsp; 1: Camp</li>
+	<li>&nbsp; 2: Cave</li>
+	<li>&nbsp; 3: City</li>
+	<li>&nbsp; 4: Elven Ruin</li>
+	<li>&nbsp; 5: Fort Ruin</li>
+	<li>&nbsp; 6: Mine</li>
+	<li>&nbsp; 7: Landmark</li>
+	<li>&nbsp; 8: Tavern</li>
+	<li>&nbsp; 9: Settlement</li>
+	<li>10: Daedric Shrine</li>
+	<li>11: Oblivion Gate</li>
+	<li>13: Ayleid Well</li>
+	<li>14: Wayshrine</li>
+	<li>15: Magical Stone</li>
+	<li>16: Spire</li>
+	<li>17: Obelisk of Order</li>
+	<li>18: House</li>
+	<li>19: Player marker (flag)</li>
+	<li>20: Player marker (Q flag)</li>
+	<li>21: Player marker (i flag)</li>
+	<li>22: Player marker (? flag)</li>
+	<li>23: Harbor/dock</li>
+	<li>24: Stable</li>
+	<li>25: Castle</li>
+	<li>26: Farm</li>
+	<li>27: Chapel</li>
+	<li>28: Merchant</li>
+	<li>29: Ayleid Step</li>
+	<li>30: Shivering Isles gate</li>
+	<li>31: Sewer</li>
+	<!--<li>40: Entered Cave</li>
+	<li>41: Completed Cave</li>
+	<li>42: Entered Ruin</li>
+	<li>43: Completed Ruin</li>
+	<li>44: Entered Fort</li>
+	<li>45: Completed Fort</li>
+	<li>46: Entered Mine</li>
+	<li>47: Completed Mine</li>
+	<li>48: Closed Oblivion Gate</li>
+	<li>49: Cleared Camp</li>
+	<li>50: Closed Obelisk</li>
+	<li>51: Entered Sewer</li>
+	<li>52: Completed Sewer</li>-->
+</ul>
+
+<h2><a id="Deprecated_Functions">Deprecated Functions</a></h2>
+
+<p>These functions should no longer be used.</p><ul>
+	<li>MenuChild Functions - use <a href="#UI_Functions">tile_XXX</a> and hash notation.</li>
+	<li>MenuActive Functions - use <a href="#UI_Functions">tile_XXX</a> and <code>menuType 1</code>.</li>
+	<li>MenuGlobal Functions - use <a href="#UI_Functions">tile_XXX</a> and <code>menuType 2</code>. </li>
+	<li>CreateMenuFloatValue - use <a href="#tile_SetFloat">tile_SetFloat</a> with optional <code>canCreate</code> flag.</li>
+	<li>CreateMenuStringValue - use <a href="#tile_SetString">tile_SetString</a> with optional <code>canCreate</code> flag.</li>
+</ul>
+
+
+<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a></p></body>

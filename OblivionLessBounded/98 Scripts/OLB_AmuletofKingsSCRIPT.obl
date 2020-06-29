@@ -12,6 +12,7 @@ end
 
 Begin OnAdd
 
+; We've picked up the Amulet from the Emperor
 If ( GetStage OLBMQ == 27 )
 	SetStage OLBMQ 30
 EndIf

@@ -6,8 +6,11 @@ array_var aBirth	; array of all the birthsigns
 ref rTemp		; temp ref
 ref rTemp1
 
+int iTemp
+
 Begin Function {}
 
+; Set up all the array for classes
 let aClasses := ar_Construct Array
 let aClasses[0] := Acrobat
 let aClasses[1] := Agent
@@ -47,12 +50,17 @@ let aBirth[10] := BirthSignThief
 let aBirth[11] := BirthSignTower
 let aBirth[12] := BirthSignWarrior
 
-; randomize stuff and apply it to PlayerREF
-let rTemp := aClasses[Rand 0 20]
-PrintC "Random class is: %n", rTemp
+;; Randomize the class and birthsign
+; set a tempref to a random class using the size of the array
+let iTemp := ar_Size aClasses
+let rTemp := aClasses[Rand 0 iTemp]
+;PrintC "Random class is: %n", rTemp
 PlayerREF.SetClass rTemp
-let rTemp1 := aBirth[Rand 0 12]
-PrintC "Random birthsign is: %n", rTemp1
+
+; set tempref to a random birthsign using the size of the array
+let iTemp := ar_Size aBirth
+let rTemp1 := aBirth[Rand 0 iTemp]
+;PrintC "Random birthsign is: %n", rTemp1
 SetPlayerBirthsign rTemp1
 
 

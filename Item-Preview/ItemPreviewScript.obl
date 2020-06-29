@@ -1,0 +1,297 @@
+scn ItemPreviewScript
+
+; this requires MenuQue to work
+float fQuestDelayTime	; quest speed
+
+int iAlcLvl		; get our level
+int iAlcRank		; get our rank
+int iDoOnce		; a do once, not sure if i'm gonna need this
+int iMenuToggle		; so we can control the menu
+int iFloat		; for test
+int iLength		; the length of our various strings
+int iBuildItOnce
+
+ref rCurrentRef		; current ref for our use
+ref rLastRef
+ref rRefBase		; our base object for our ref
+ref rIngRef		; the ref for our ingredient from the plant
+ref rIngredient		; whatever ingredient we are looking at so we can carry to our user function
+
+string_var svEmpty	; an empty string
+string_var svEffect	; the string that prints Effects:
+
+string_var svEffNameNov	; string var for our effect name novice
+string_var svEffNameApp	; string var for our effect name apprentice
+string_var svEffNameJor	; string var for our effect name journeyman
+string_var svEffNameExp	; string var for our effect name expert
+
+string_var svIconPath1	; a string for our icon path, we use this for our menu
+string_var svIconPath2	; a string for our icon path, we use this for our menu
+string_var svIconPath3	; a string for our icon path, we use this for our menu
+string_var svIconPath4	; a string for our icon path, we use this for our menu
+
+Begin GameMode
+
+let fQuestDelayTime := 0.0001		; set very fast
+let svEmpty := "%e"			; an empty string to populate the menu
+let svEffect := "Effects"		; set our Effects string
+
+If GetGameLoaded 	
+	set iDoOnce to 0	
+EndIf
+
+
+let rCurrentRef := GetCrosshairRef	; see what's under our crosshair
+
+; various checks for objects we don't care about
+	If IsFormValid rCurrentRef == 0		; check if the form we are working with can even be used
+		let iMenuToggle := 1
+		let rCurrentRef := -1		; set to nothing
+		let rLastRef := -1		; LAULA: set to nothing too, so if you move mouse away and then over the same plant again, the menu comes back
+		Return				; kill the script
+	EndIf
+
+	If rCurrentRef.IsIngredient == 0 && rCurrentRef.IsFlora == 0
+		let iMenuToggle := 1
+		let rCurrentRef := -1
+		let rLastRef := -1		; LAULA: set to nothing too, so if you move mouse away and then over the same plant again, the menu comes back
+		Return
+	EndIf
+
+	If rCurrentRef.IsFlora == 1
+		If rCurrentRef.IsHarvested
+			let iMenuToggle := 1
+			let rCurrentRef := -1
+			let rLastRef := -1		; LAULA: set to nothing too, so if you move mouse away and then over the same plant again, the menu comes back
+			Return
+		EndIf
+	EndIf
+	
+	
+; disable the menu after its done
+	If iMenuToggle == 1
+
+		tile_SetFloat "hudinfo_name\itempreview_rect\_enabled", 1005, 1
+		tile_SetFloat "visible", 1005, 1
+		tile_SetFloat "hudinfo_name\visible", 1005, 1
+
+		; set the various strings to nothing
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_main\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\hudinfo_text_1\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\hudinfo_text_2\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\hudinfo_text_3\string|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\hudinfo_text_4\string|%z", svEmpty, 1005
+
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\filename|%z", svEmpty, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\filename|%z", svEmpty, 1005
+
+		; kill all of our strings so we don't save them
+		sv_Destruct svEffect, svEmpty, svEffNameNov, svEffNameApp, svEffNameJor, svEffNameExp, svIconPath1, svIconPath2, svIconPath3, svIconPath4
+
+		; set our strings to nothing
+		let svEffNameExp := "        ?"
+		let svEffNameJor := "        ?"
+		let svEffNameApp := "        ?"
+		let svEffNameNov := "        ?"
+
+		; set our icon paths to nothing when we're done with them
+		let svIconPath1 := "empty"
+		let svIconPath2 := "empty"
+		let svIconPath3 := "empty"
+		let svIconPath4 := "empty"
+
+		let iMenuToggle := 0
+		return
+	EndIf
+	
+; set up our do once
+	;If iDoOnce != 0 && iDoOnce != 1
+	;	let iDoOnce := 0
+	;EndIf
+
+; things we need to do once then quit
+	If iDoOnce == 0
+
+		; set up null strings for effects we can't see
+		let svEffNameExp := "        ?"
+		let svEffNameJor := "        ?"
+		let svEffNameApp := "        ?"
+		let svEffNameNov := "        ?"
+
+		; set our icon paths to nothing to start with
+		let svIconPath1 := "empty"
+		let svIconPath2 := "empty"
+		let svIconPath3 := "empty"
+		let svIconPath4 := "empty"
+
+		If (FileExists "Data\OBSE\Plugins\obse_kyoma_menuque.dll") == 1
+			PrintC "MenuQue is installed!"
+			let iDoOnce := 1
+		Else
+			PrintC "MenuQue not installed, this script will fail"
+			let iDoOnce := 1
+		EndIf
+	EndIf
+	
+
+; set alchemy rank
+	let iAlcLvl := PlayerREF.GetActorValue Alchemy		; get our level for convenience
+	If iAlcLvl <= 24
+		let iAlcRank := 1	; novice
+	ElseIf iAlcLvl >= 25 && iAlcLvl <= 49
+		let iAlcRank := 2	; apprentice
+	ElseIf iAlcLvl >= 50 && iAlcLvl <= 74
+		let iAlcRank := 3	; journeyman
+	ElseIf iAlcLvl >= 75
+		let iAlcRank := 4	; expert/master
+	EndIf
+
+
+; clear out rIngredient before starting
+let rIngredient := -1
+let iLength := 0
+
+; item preview stuff
+If IsFormValid rCurrentRef		; check if the id we are looking at is even valid
+	If iBuildItOnce == 0
+		If rLastRef == rCurrentRef  ; LAULA: check if a new plant, if not, no need to do anything, kill script
+			Return
+		Else
+			set rLastRef to rCurrentRef
+			let iBuildItOnce := 1
+			let iMenuToggle := 1
+			return
+		EndIf
+	EndIf
+	
+	let iBuildItOnce := 0
+	
+	; insert our menu where we want it, setting it to hudinfo_name is probably the most reliable since it'll be available whenever we're looking at something 
+	InsertXML "ItemPreviewMenu.xml|hudinfo_name", 1005 ; LAULA: InsertXML does not need to happen unless you killed the previous insert, doing this only once per plant removed the "frame" drops for me
+
+	let rRefBase := rCurrentRef.GetBaseObject	; use the base object instead
+	tile_SetFloat "visible", 1005, 2		; set HUDInfoMenu visible
+	tile_SetFloat "hudinfo_name\visible", 1005, 2	; set hudinfo_name visible
+
+	If rCurrentRef.IsIngredient	; is our current ref an ingredient
+
+		let rIngredient := rCurrentRef.GetBaseObject	; we need to get the base object for this function to work
+		If iAlcRank == 4	; expert/master
+			let svEffNameExp := GetNthEffectItemName rRefBase 3
+			let svEffNameJor := GetNthEffectItemName rRefBase 2
+			let svEffNameApp := GetNthEffectItemName rRefBase 1
+			let svEffNameNov := GetNthEffectItemName rRefBase 0
+		ElseIf iAlcRank == 3	; journeyman
+			let svEffNameJor := GetNthEffectItemName rRefBase 2
+			let svEffNameApp := GetNthEffectItemName rRefBase 1
+			let svEffNameNov := GetNthEffectItemName rRefBase 0
+		ElseIf iAlcRank == 2	; apprentice
+			let svEffNameApp := GetNthEffectItemName rRefBase 1
+			let svEffNameNov := GetNthEffectItemName rRefBase 0
+		ElseIf iAlcRank == 1	; novice
+			let svEffNameNov := GetNthEffectItemName rRefBase 0
+		EndIf
+
+		; call our user function that handles the icon path, changes the variables of this script
+		Call IPEffectNameIconScript rIngredient
+
+		; prepend a header for our icon paths, the function that calls it starts in the "menus\icons\" folder
+		sv_Insert "menus\icons\"  svIconPath1
+		sv_Insert "menus\icons\"  svIconPath2
+		sv_Insert "menus\icons\"  svIconPath3
+		sv_Insert "menus\icons\"  svIconPath4
+
+;		let iLength := ((((sv_Length svEffNameNov) + 1) / 2) * 8.9) + (2.5 * 8.9)
+;		tile_SetFloat "hudinfo_name\itempreview_rect\hudinfo_text_1\_length", 1005, iLength
+		tile_SetFloat "hudinfo_name\itempreview_rect\_enabled", 1005, 2	; make our menu visible
+
+		; set the position of our menu
+		tile_SetFloat "hudinfo_name\itempreview_rect\_add", 1005, 64 
+
+		; our icon paths
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\filename|%z", svIconPath1, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\filename|%z", svIconPath2, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\filename|%z", svIconPath3, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\filename|%z", svIconPath4, 1005	; set the icon for the effect
+
+		; set the text of our menu
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_main\string|%z", svEffect, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\hudinfo_text_1\string|%z", svEffNameNov, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\hudinfo_text_2\string|%z", svEffNameApp, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\hudinfo_text_3\string|%z", svEffNameJor, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\hudinfo_text_4\string|%z", svEffNameExp, 1005
+
+	EndIf
+
+	If rCurrentRef.IsFlora	; if our ref is a plant and we haven't harvested anything yet
+		If rCurrentRef.IsHarvested == 0
+			let rIngRef := rCurrentRef.GetIngredient	; set a reference for the ingredient of the plant
+			let rIngredient := rIngRef
+
+			If iAlcRank == 4	; expert/master
+				let svEffNameExp := GetNthEffectItemName rIngRef 3
+				let svEffNameJor := GetNthEffectItemName rIngRef 2
+				let svEffNameApp := GetNthEffectItemName rIngRef 1
+				let svEffNameNov := GetNthEffectItemName rIngRef 0
+			ElseIf iAlcRank == 3	; journeyman
+				let svEffNameJor := GetNthEffectItemName rIngRef 2
+				let svEffNameApp := GetNthEffectItemName rIngRef 1
+				let svEffNameNov := GetNthEffectItemName rIngRef 0
+			ElseIf iAlcRank == 2	; apprentice
+				let svEffNameApp := GetNthEffectItemName rIngRef 1
+				let svEffNameNov := GetNthEffectItemName rIngRef 0
+			ElseIf iAlcRank == 1	; novice
+				let svEffNameNov := GetNthEffectItemName rIngRef 0
+			EndIf
+
+		; call our user function that handles the icon path, changes the variables of this script
+		Call IPEffectNameIconScript rIngredient
+
+		; prepend a header for our icon paths, the function that calls it starts in the "menus\icons\" folder
+		sv_Insert "menus\icons\"  svIconPath1
+		sv_Insert "menus\icons\"  svIconPath2
+		sv_Insert "menus\icons\"  svIconPath3
+		sv_Insert "menus\icons\"  svIconPath4
+
+		tile_SetFloat "hudinfo_name\itempreview_rect\_enabled", 1005, 2	; make our menu visible
+
+		; set the position of our menu
+		tile_SetFloat "hudinfo_name\itempreview_rect\_add", 1005, 32
+
+		; our icon paths
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\filename|%z", svIconPath1, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\filename|%z", svIconPath2, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\filename|%z", svIconPath3, 1005	; set the icon for the effect
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\filename|%z", svIconPath4, 1005	; set the icon for the effect
+
+		; set the text of our menu
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_main\string|%z", svEffect, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_1\hudinfo_text_1\string|%z", svEffNameNov, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_2\hudinfo_text_2\string|%z", svEffNameApp, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_3\hudinfo_text_3\string|%z", svEffNameJor, 1005
+		tile_SetString "hudinfo_name\itempreview_rect\hudinfo_text_icon_4\hudinfo_text_4\string|%z", svEffNameExp, 1005
+		
+
+		EndIf
+
+	EndIf
+	
+	If rCurrentRef.IsFlora && rCurrentRef.IsHarvested == 1	; if the plant ref was harvested
+		let iMenuToggle := 1
+		let rCurrentRef := -1		; set to nothing
+		Return
+	EndIf
+
+	If rCurrentRef.IsIngredient == 0 && rCurrentRef.IsFlora == 0	; if the ref is neither an ingredient or a plant
+		let iMenuToggle := 1
+		let rCurrentRef := -1		; set to nothing
+		Return
+	EndIf
+
+	;let iMenuToggle := 1		; LAULA: this doesn't seem to be needed anymore if you set the other stuff... I think. Oh god I am so bad at comments. 
+
+EndIf
+End
+
