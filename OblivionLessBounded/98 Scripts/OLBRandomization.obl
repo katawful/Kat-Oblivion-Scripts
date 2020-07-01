@@ -75,9 +75,9 @@ If GetStage OLBQuest == 20
 	If iDoOnce == 1
 		let bHaveRestoration := 0
 		let bHaveAlchemy := 0
-;		Call OLBClassBirthRandomizeScript
-;		Call OLBStartRandomizeScript
-;		Call OLBEquipmentRandomizationScript
+		Call OLBClassBirthRandomizeScript
+		Call OLBStartRandomizeScript
+		Call OLBEquipmentRandomizationScript
 		SetStage OLBQuest 30
 		let iDoOnce := 2
 	EndIf
