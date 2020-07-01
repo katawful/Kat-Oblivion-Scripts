@@ -19,7 +19,6 @@ If GetStage CharacterGen == 6
 	SetStage CharacterGen 7
 	; disable the keys that control game actions, they still function
 	; has small delay???
-	ForceWeather Cloudy
 	DisableMouse
 	DisablePlayerControls
 EndIf
@@ -27,6 +26,7 @@ EndIf
 ; we've created our character
 If GetStage CharacterGen == 7
 	If iDoOnce != 1
+		SetInCharGen 0
 		Message "Welcome to Oblivion Less Bound!"
 		Message "The game will be paused until you press X"
 		let iDoOnce := 1
@@ -36,6 +36,7 @@ If GetStage CharacterGen == 7
 	let iKeyPressed := 0
 	If (IsKeyPressed3 45) && (iKeyPressed == 0)
 		let iKeyPressed := 1
+		Print "key pressed"
 		SetStage OLBQuest 10
 		SetStage CharacterGen 8
 	ElseIf (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
@@ -74,9 +75,9 @@ If GetStage OLBQuest == 20
 	If iDoOnce == 1
 		let bHaveRestoration := 0
 		let bHaveAlchemy := 0
-		Call OLBClassBirthRandomizeScript
-		Call OLBStartRandomizeScript
-		Call OLBEquipmentRandomizationScript
+;		Call OLBClassBirthRandomizeScript
+;		Call OLBStartRandomizeScript
+;		Call OLBEquipmentRandomizationScript
 		SetStage OLBQuest 30
 		let iDoOnce := 2
 	EndIf
@@ -85,8 +86,9 @@ EndIf
 If GetStage OLBQuest == 30
 ; NOTE start main quest change here
 	;StopQuest OLBQuest
-	;Return
+	Return
 EndIf
+
 End
 
 Begin MenuMode 1001
