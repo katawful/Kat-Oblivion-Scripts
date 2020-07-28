@@ -15,61 +15,61 @@ Begin GameMode
 let fQuestDelayTime := 0.0001
 
 ; check if we've created our character or not
-If GetStage CharacterGen == 6
+if GetStage CharacterGen == 6
 	SetStage CharacterGen 7
 	; disable the keys that control game actions, they still function
 	; has small delay???
 	DisableMouse
 	DisablePlayerControls
-EndIf
+endif
 
 ; we've created our character
-If GetStage CharacterGen == 7
-	If iDoOnce != 1
+if GetStage CharacterGen == 7
+	if iDoOnce != 1
 		SetInCharGen 0
 		Message "Welcome to Oblivion Less Bound!"
 		Message "The game will be paused until you press X"
 		let iDoOnce := 1
-	EndIf
+	endif
 	let iMessage := -2
 	; use the X key to start the randomization
 	let iKeyPressed := 0
-	If (IsKeyPressed3 45) && (iKeyPressed == 0)
+	if (IsKeyPressed3 45) && (iKeyPressed == 0)
 		let iKeyPressed := 1
 		SetStage OLBQuest 10
 		SetStage CharacterGen 8
-	ElseIf (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
+	elseif (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
 		let iKeyPressed := 0
-	EndIf
-EndIf
+	endif
+endif
 
-If GetStage OLBQuest == 10
+if GetStage OLBQuest == 10
 	; reenable our mouse and keyboard functions so we can play the game
 	EnableMouse
 	EnablePlayerControls
 
-	If iMessage == -2
+	if iMessage == -2
 		let iMessage := 1
-	EndIf
+	endif
 
-	If iMessage == 1
+	if iMessage == 1
 		MessageBox "Your start will now be randomized", "Ok"
 		let iTemp := GetStage Charactergen
 		let iTemp := GetStage OLBMQ
-	EndIf
+	endif
 
-	If iMessage == 3
+	if iMessage == 3
 		let iMessage := -2
-	EndIf
+	endif
 
-	If iMessage == 2
+	if iMessage == 2
 		SetStage OLBQuest 20
 		let iMessage := 3
-	EndIf
-EndIf
+	endif
+endif
 
-If GetStage OLBQuest == 20
-	If iDoOnce == 1
+if GetStage OLBQuest == 20
+	if iDoOnce == 1
 		let bHaveRestoration := 0
 		let bHaveAlchemy := 0
 		Call OLBClassBirthRandomizeScript
@@ -77,22 +77,22 @@ If GetStage OLBQuest == 20
 		Call OLBEquipmentRandomizationScript
 		SetStage OLBQuest 30
 		let iDoOnce := 2
-	EndIf
-EndIf
+	endif
+endif
 
-If GetStage OLBQuest == 30
+if GetStage OLBQuest == 30
 ; NOTE start main quest change here
 	;StopQuest OLBQuest
 	Return
-EndIf
+endif
 
 End
 
 Begin MenuMode 1001
 
-If (GetStage OLBQuest != 10)
+if (GetStage OLBQuest != 10)
 	EnableMouse
-EndIf
+endif
 
 let iMessage := 2
 
