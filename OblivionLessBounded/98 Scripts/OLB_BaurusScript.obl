@@ -117,17 +117,21 @@ End
 Begin OnActivate
 
 	; Baurus is on the ground
-If ( GetStage OLBMQ == 26 )
+If ( GetStage OLBMQ == 26 ) || (GetStage OLBMQ == 65)
 	MessageBoxEX "You hear a faint whisper%r     'Amulet... Emperor...'"
-	SetStage OLBMQ 27
+	if (GetStage OLBMQ == 26)
+		SetStage OLBMQ 27
+	elseif (GetStage OLBMQ == 65)
+		SetStage OLBMQ 66
+	endif
 	; we've gotten the amulet from the emperor
-ElseIf ( GetStage OLBMQ == 30 )
+ElseIf ( GetStage OLBMQ == 30 ) || (GetStage OLBMQ == 70)
 	MessageBoxEX "You hear another whipser%r  'please... help... me...' |Heal him"
 	let iDoOnce := 0
 	let iBaurusHealed := 1 
 	; At these two points in time, when Baurus is still on the ground and we haven't gotten the amulet
 	; and he hasn't fully gotten up yet, do nothing
-ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 )
+ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 ) || (GetStage OLBMQ == 67)
 	let iNothing := 0
 	; At any other point in time just acitvate him
 Else
@@ -197,7 +201,11 @@ EndIf
 ; NOTE following added by OLB
 ; If Baurus is healed then advance the stage
 If ( iBaurusHealed == 2 )
-	SetStage OLBMQ 35
+	if (GetStage OLBMQ == 30)
+		SetStage OLBMQ 35
+	elseif (GetStage OLBMQ == 70)
+		SetStage OLBMQ 75
+	endif
 	let iBaurusHealed := -1
 EndIf
 

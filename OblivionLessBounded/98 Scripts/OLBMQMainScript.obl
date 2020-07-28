@@ -92,7 +92,7 @@ if ( GetStage OLBMQ == 24 )
 endif
 
 ; this is check to stop the emperor from being naked
-if ( GetStage OLBMQ > 24 )
+if ( GetStage OLBMQ > 24 ) && (GetStage OLBMQ < 5)
 	if GetGameLoaded
 		UrielSeptimRef.MoveToMarker OLBUrielMarker
 		BaurusRef.MoveToMarker OLBBaurusMarker
@@ -141,22 +141,16 @@ if ( bSentJail == 1 ) && ( bJailQuest == 1 ) && ( PlayerREF.GetInCell ImperialDu
 		let fTimer -= GetSecondsPassed
 	else
 		SetStage OLBMQ 50
-	Endif
+	endif
 endif
 
 if ( GetStage OLBMQ == 50 )
 	if ( iDoOnce == 1 )
-		UrielSeptimRef.MoveToMarker OLBUrielMarker
-		BaurusRef.MoveToMarker OLBBaurusMarker
-		GlenroyRef.MoveToMarker OLBGlenroyMarker
 		RenoteRef.MoveToMarker OLBRenoteMarker
-
-		; for some reason i could only set baurus to nonessential with this script
-		BaurusRef.SetRefEssential 0
-
-		UrielSeptimRef.Kill
-		GlenroyRef.Kill
-		BaurusRef.Kill
+		BaurusRef.MoveToMarker OLBBaurusMarker
+		UrielSeptimRef.MoveToMarker OLBUrielMarker
+		GlenroyRef.MoveToMarker OLBGlenroyMarker
+		
 		RenoteRef.Kill
 		let bBaurusDown := 1	; Baurus is down, we need to heal him
 		; NOTE Assassin killing is done in a script to make things neat
@@ -177,19 +171,42 @@ if ( GetStage OLBMQ == 55 )
 endif
 
 if (GetStage OLBMQ == 60)
-	if (PlayerREF.GetInCell ImperialDungeon03)
+	if (PlayerREF.GetInCell ImperialDungeon02)
 		if (iDoOnce == 2)
+			Call OLBMQMythicKillScript
+			let iDoOnce := 3
+		endif
+		BaurusRef.MoveToMarker OLBBaurusMarker
+		UrielSeptimRef.MoveToMarker OLBUrielMarker
+		GlenroyRef.MoveToMarker OLBGlenroyMarker
+	endif
+	if (PlayerREF.GetInCell ImperialDungeon03)
+		if (iDoOnce == 3)
+			BaurusRef.SetRefEssential 0
+			BaurusRef.Kill
 			UrielSeptimRef.Kill
 			GlenroyRef.Kill
-			BaurusRef.Kill
-			KillAllActors
-			UrielSeptimRef.MoveToMarker OLBUrielMarker
-			BaurusRef.MoveToMarker OLBBaurusMarker
-			GlenroyRef.MoveToMarker OLBGlenroyMarker
-		let iDoOnce := 3
+			Call OLBMQMythicKillScript
+			let iDoOnce := 4
 		endif
 	endif
-	Call OLBMQMythicKillScript
+	let fPlayerX := PlayerREF.GetPos X
+	let fPlayerY := PlayerREF.GetPos Y
+	if ( PlayerREF.GetInCell ImperialDungeon03 ) && ( fPlayerX < 2976 ) && (fPlayerX > 2521 ) && ( fPlayerY < 10507 ) && ( fPlayerY > 9997 )
+		let tQuestLog := 251
+		SetStage OLBMQ 65
+	endif
+	let fPlayerX := -1	; uninitialize the GetPos functions
+	let fPlayerY := -1
+
+endif
+
+if ( GetStage OLBMQ == 75 )
+	if ( iDoOnce == 2 )
+		BaurusRef.Resurrect 1
+		let iDoOnce := 3
+	endif
+	SetStage CharacterGen 95
 endif
 
 End

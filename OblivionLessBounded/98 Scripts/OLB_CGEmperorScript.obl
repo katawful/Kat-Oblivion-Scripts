@@ -18,6 +18,12 @@ begin OnActivate
 		PlayerREF.AddItem AmuletofKings 1
 	ElseIf ( GetStage OLBMQ == 30 )
 		MessageBox "I shouldn't disturb the Emperor's body"
+	ElseIf ( GetStage OLBMQ == 66 )
+		MessageBox "Look at this dead motherfucker lmao what a loser"
+	ElseIf ( GetStage OLBMQ == 67 )
+		PlayerREF.AddItem AmuletofKings 1
+	ElseIf ( GetStage OLBMQ == 70 )
+		MessageBox "I shouldn't disturb the Emperor's body"
 	else
 		Activate
 	endif
