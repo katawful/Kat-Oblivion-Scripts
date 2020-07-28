@@ -1,0 +1,29 @@
+; NOTE unused
+scn OLBMQDungeonBedScript
+
+;; This script is used to advance the Imperial Dungeon quest line. 
+
+int iBedActivate
+
+ref rTemp
+
+Begin OnActivate
+
+; we wanna pass of stuff to while in the menu as to hide shit
+let iBedActivate := 1
+Activate
+
+End
+
+Begin MenuMode 1012
+Print "tester"
+	If ( iBedActivate == 1 )
+		CGPrisonSecretWallRef.PlayGroup forward 1
+		OLBImperialDungeonBedRef.SetPos z, -100
+		PlayerREF.MoveToMarker OLBMQImperialDungeonMarker
+		let iBedActivate := 2	
+		let rTemp := GetActiveMenuSelection
+		Print "test"
+		PrintC "menu hting is: %n", rTemp
+	EndIf
+End

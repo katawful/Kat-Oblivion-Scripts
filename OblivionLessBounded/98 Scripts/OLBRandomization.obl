@@ -36,7 +36,6 @@ If GetStage CharacterGen == 7
 	let iKeyPressed := 0
 	If (IsKeyPressed3 45) && (iKeyPressed == 0)
 		let iKeyPressed := 1
-		Print "key pressed"
 		SetStage OLBQuest 10
 		SetStage CharacterGen 8
 	ElseIf (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
@@ -56,9 +55,7 @@ If GetStage OLBQuest == 10
 	If iMessage == 1
 		MessageBox "Your start will now be randomized", "Ok"
 		let iTemp := GetStage Charactergen
-		PrintC "charactergen stage is: %g", iTemp
 		let iTemp := GetStage OLBMQ
-		PrintC "olbmq stage is: %g", iTemp
 	EndIf
 
 	If iMessage == 3
