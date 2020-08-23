@@ -11,6 +11,7 @@ int tQuestLog		; This is a flag for when we need to update quest logs but not qu
 int iDoOnce
 int iTemp
 int iQuest		; This is just a flag
+int iDeathDrop	; This is just to get the previous iDeathDropWeaponChance
 
 float fQuestDelayTime
 float fPlayerX		; This gives us the player coordinates
@@ -78,7 +79,6 @@ if ( GetStage OLBMQ == 24 )
 		GlenroyRef.Kill
 		BaurusRef.Kill
 		let bBaurusDown := 1	; Baurus is down, we need to heal him
-
 		let iDoOnce := 2
 	endif
 	let fPlayerX := PlayerREF.GetPos X
@@ -92,14 +92,14 @@ if ( GetStage OLBMQ == 24 )
 endif
 
 ; this is check to stop the emperor from being naked
-if ( GetStage OLBMQ > 24 )
+if ( GetStage OLBMQ > 24 ) && (GetStage OLBMQ < 5)
 	if GetGameLoaded
 		UrielSeptimRef.MoveToMarker OLBUrielMarker
 		BaurusRef.MoveToMarker OLBBaurusMarker
 		GlenroyRef.MoveToMarker OLBGlenroyMarker
 		UrielSeptimRef.Kill
-		GlenroyRef.Kill
-		BaurusRef.Kill
+;		GlenroyRef.Kill
+;		BaurusRef.Kill
 	endif
 endif
 
@@ -114,26 +114,29 @@ endif
 
 ; we have gotten the amulet and talked to baurus
 if ( GetStage CharacterGen == 97 )
-	if ( iDoOnce == 3 )
-		; NOTE I put this into a condition so that
-		; we have multiple quest loops so this makes things neat and organized
-		if ( GetStage OLBMQ < 40 ) && ( GetStage OLBMQ >= 20 )
-			SetStage OLBMQ 40
-		endif
-		let bEmperorAlive := 1
-		let iDoOnce := 4
+	; NOTE I put this into a condition so that
+	; we have multiple quest loops so this makes things neat and organized
+	if ( GetStage OLBMQ < 40 ) && ( GetStage OLBMQ >= 20 )
+		SetStage OLBMQ 40
 	endif
-	if ( iDoOnce == 4 )
-		SetStage CharacterGen 100
-		let iDoOnce := 5
-		StopQuest OLBMQ
+	if ( GetStage OLBMQ < 80 ) && ( GetStage OLBMQ >= 50 )
+		SetStage OLBMQ 80
 	endif
+	let bEmperorAlive := 1
+	let iDoOnce := 4
+	SetStage CharacterGen 100
+	Call OLBPosterRemoval
+endif
+
+if (GetStage OLBMQ == 40)
+	StopQuest OLBMQ
 endif
 
 ; We've gone to the start dungeon so we can set the stage
 if ( bSentJail == 1 ) && ( bJailQuest == 1 ) && ( PlayerREF.GetInCell ImperialDungeon01 )
 	if ( iDoOnce == 0 )
 		let fTimer := 1
+		Call OLBMQJailRemoveItems
 		let iDoOnce := 1
 	endif
 
@@ -141,26 +144,22 @@ if ( bSentJail == 1 ) && ( bJailQuest == 1 ) && ( PlayerREF.GetInCell ImperialDu
 		let fTimer -= GetSecondsPassed
 	else
 		SetStage OLBMQ 50
-	Endif
+	endif
 endif
 
 if ( GetStage OLBMQ == 50 )
+	SetStage CharacterGen 90
 	if ( iDoOnce == 1 )
-		UrielSeptimRef.MoveToMarker OLBUrielMarker
-		BaurusRef.MoveToMarker OLBBaurusMarker
-		GlenroyRef.MoveToMarker OLBGlenroyMarker
 		RenoteRef.MoveToMarker OLBRenoteMarker
-
-		; for some reason i could only set baurus to nonessential with this script
-		BaurusRef.SetRefEssential 0
-
-		UrielSeptimRef.Kill
-		GlenroyRef.Kill
-		BaurusRef.Kill
+		BaurusRef.MoveToMarker OLBBaurusMarker
+		UrielSeptimRef.MoveToMarker OLBUrielMarker
+		GlenroyRef.MoveToMarker OLBGlenroyMarker
+		
 		RenoteRef.Kill
 		let bBaurusDown := 1	; Baurus is down, we need to heal him
 		; NOTE Assassin killing is done in a script to make things neat
 		Call OLBMQMythicKillScript
+
 
 		let iDoOnce := 2
 		OLBCrumbleWall.PlayGroup Unequip 1
@@ -177,21 +176,51 @@ if ( GetStage OLBMQ == 55 )
 endif
 
 if (GetStage OLBMQ == 60)
-	if (PlayerREF.GetInCell ImperialDungeon03)
+	if (PlayerREF.GetInCell ImperialDungeon02)
 		if (iDoOnce == 2)
+			Call OLBMQMythicKillScript
+			let iDoOnce := 3
+		endif
+		BaurusRef.MoveToMarker OLBBaurusMarker
+		UrielSeptimRef.MoveToMarker OLBUrielMarker
+		GlenroyRef.MoveToMarker OLBGlenroyMarker
+	endif
+	if (PlayerREF.GetInCell ImperialDungeon03)
+		if (iDoOnce == 3)
+			let iDeathDrop := GetGameSetting iDeathDropWeaponChance
+			SetNumericGameSetting iDeathDropWeaponChance 0
+			BaurusRef.SetRefEssential 0
+			BaurusRef.Kill
 			UrielSeptimRef.Kill
 			GlenroyRef.Kill
-			BaurusRef.Kill
-			KillAllActors
-			UrielSeptimRef.MoveToMarker OLBUrielMarker
-			BaurusRef.MoveToMarker OLBBaurusMarker
-			GlenroyRef.MoveToMarker OLBGlenroyMarker
-		let iDoOnce := 3
+			Call OLBMQMythicKillScript
+			SetNumericGameSetting iDeathDropWeaponChance iDeathDrop
+			let iDoOnce := 4
 		endif
 	endif
-	Call OLBMQMythicKillScript
+	let fPlayerX := PlayerREF.GetPos X
+	let fPlayerY := PlayerREF.GetPos Y
+	if ( PlayerREF.GetInCell ImperialDungeon03 ) && ( fPlayerX < 2976 ) && (fPlayerX > 2521 ) && ( fPlayerY < 10507 ) && ( fPlayerY > 9997 )
+		let tQuestLog := 251
+		SetStage OLBMQ 65
+	endif
+	let fPlayerX := -1	; uninitialize the GetPos functions
+	let fPlayerY := -1
 endif
 
+if ( GetStage OLBMQ == 75 )
+	if ( iDoOnce == 5 )
+		BaurusRef.Resurrect 1
+		let iDoOnce := 6
+	endif
+	SetStage CharacterGen 95
+endif
+
+if (GetStage OLBMQ == 80)
+	if (PlayerREF.GetInWorldspace Tamriel)
+		SetStage OLBMQ 85
+	endif
+endif
 End
 
 Begin MenuMode 1009

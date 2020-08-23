@@ -21,6 +21,11 @@ elseif (PlayerREF.GetInCell ImperialDungeon02)
 	CGGenericAssassin3.Kill
 	CGAmbushBDoor.Enable
 	OLBIDDoor02.Enable
+elseif (PlayerREF.GetInCell ImperialDungeon03)
+	CGAssassin13Ref.Kill
+	CGAssassin10Ref.Kill
+	CGAssassin11Ref.Kill
+	CGAssassin12Ref.Kill
 endif
 
 End

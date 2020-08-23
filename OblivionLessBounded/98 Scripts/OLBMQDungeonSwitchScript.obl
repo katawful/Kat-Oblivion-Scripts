@@ -7,11 +7,17 @@ int iPressed	; We needed this to stop the script from running prematurely
 
 Begin OnActivate
 
-let iDoOnce := 0
-let iPressed := 1
-if (GetStage OLBMQ == 50)
-	PlayGroup forward 1
-	CGPrisonSecretWallRef.PlayGroup forward 1
+if (iDoOnce != 1) && (iDoOnce != 0)
+	let iDoOnce := 0
+endif
+if (iDoOnce == 1)
+	let iPressed := 1
+	if (GetStage OLBMQ == 50)
+		PlayGroup forward 1
+		CGPrisonSecretWallRef.PlayGroup forward 1
+	endif
+else
+	let iPressed := 1
 endif
 
 End
