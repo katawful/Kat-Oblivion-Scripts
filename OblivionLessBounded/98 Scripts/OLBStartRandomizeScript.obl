@@ -12,9 +12,15 @@ Begin Function {}
 
 ; create array of possible start locations
 let aStart := ar_Construct Array
-let aStart[0] := CGPlayerStartMarkerOLBElv
-let aStart[1] := CGPlayerStartMarkerOLBWat
-let aStart[2] := CGPlayerStartMarkerOLBAnv
+let aStart[0] := OLBStartElvenDistrict
+let aStart[1] := OLBStartWaterfront
+let aStart[2] := OLBStartAnvil
+let aStart[3] := OLBStartSkooma
+let aStart[4] := OLBStartBrumaCastle
+let aStart[5] := OLBStartCheyChapel
+let aStart[6] := OLBStartChorrolTavern
+let aStart[7] := OLBStartLey
+let aStart[8] := OLBStartSkingrad
 
 ; set our ref to move to 
 let iSize := ar_Size aStart
