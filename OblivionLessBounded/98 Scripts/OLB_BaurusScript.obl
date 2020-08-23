@@ -131,7 +131,7 @@ ElseIf ( GetStage OLBMQ == 30 ) || (GetStage OLBMQ == 70)
 	let iBaurusHealed := 1 
 	; At these two points in time, when Baurus is still on the ground and we haven't gotten the amulet
 	; and he hasn't fully gotten up yet, do nothing
-ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 ) || (GetStage OLBMQ == 67)
+ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 ) || (GetStage OLBMQ == 66)
 	let iNothing := 0
 	; At any other point in time just acitvate him
 Else
@@ -205,6 +205,7 @@ If ( iBaurusHealed == 2 )
 		SetStage OLBMQ 35
 	elseif (GetStage OLBMQ == 70)
 		SetStage OLBMQ 75
+		let OLBMQ.iDoOnce := 5
 	endif
 	let iBaurusHealed := -1
 EndIf

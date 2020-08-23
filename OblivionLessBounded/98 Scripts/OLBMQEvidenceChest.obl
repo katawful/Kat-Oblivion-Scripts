@@ -1,0 +1,28 @@
+scn OLBMQEvidenceChest
+
+int iActive
+
+Begin OnActivate
+
+if (GetStage OLBMQ == 85) && (GetQuestRunning OLBMQ)
+	let iActive := 0
+	if (GetLocked)
+		Activate
+	else
+		Activate
+		let iActive := 1
+	endif
+else
+	Activate
+endif
+End
+
+Begin GameMode
+
+if (GetStage OLBMQ == 85) && (GetQuestRunning OLBMQ)
+	if (iActive == 1)
+		SetStage OLBMQ 90
+	endif
+endif
+
+End

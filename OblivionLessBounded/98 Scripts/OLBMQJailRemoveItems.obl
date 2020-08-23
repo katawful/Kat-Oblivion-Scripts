@@ -1,0 +1,15 @@
+scn OLBMQJailRemoveItems
+
+Begin Function{}
+
+Print "called"
+PlayerREF.RemoveAllItems ICPrisonChestRef, 1 
+PlayerREF.AddItemNS JailPants 1
+PlayerREF.EquipItemNS JailPants
+PlayerREF.AddItemNS JailShirt 1
+PlayerREF.EquipItemNS JailShirt
+PlayerREF.AdditemNS JailShoes 1
+PlayerREF.EquipItemNS JailShoes
+
+
+End

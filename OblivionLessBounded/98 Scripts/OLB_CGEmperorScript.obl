@@ -9,20 +9,20 @@ short warnstage	; what stage was the last warning?
 
 begin OnActivate
 	; NOTE OLB changes this
-	if IsActionRef player == 1 && GetDead == 1 && GetStage OLBMQ != 26 && GetStage OLBMQ != 27 && GetStage OLBMQ != 30
+	if IsActionRef player == 1 && GetDead == 1 && GetStage OLBMQ != 26 && GetStage OLBMQ != 27 && GetStage OLBMQ != 30 && GetStage OLBMQ != 65 && GetStage OLBMQ != 66 && GetStage OLBMQ != 70
 		BaurusRef.SayTo player CharGenVoice
-	; the following three ifs are for OLB's MQ changes
-	ElseIf ( GetStage OLBMQ == 26 )
+	; the following ifs are for OLB's MQ changes
+	elseif ( GetStage OLBMQ == 26 )
 		MessageBox "I'm too late, he's dead"
-	ElseIf ( GetStage OLBMQ == 27 )
+	elseif ( GetStage OLBMQ == 27 )
 		PlayerREF.AddItem AmuletofKings 1
-	ElseIf ( GetStage OLBMQ == 30 )
+	elseif ( GetStage OLBMQ == 30 )
 		MessageBox "I shouldn't disturb the Emperor's body"
-	ElseIf ( GetStage OLBMQ == 66 )
-		MessageBox "Look at this dead motherfucker lmao what a loser"
-	ElseIf ( GetStage OLBMQ == 67 )
+	elseif ( GetStage OLBMQ == 65 )
+		MessageBox "Is this the Emperor?"
+	elseif ( GetStage OLBMQ == 66 )
 		PlayerREF.AddItem AmuletofKings 1
-	ElseIf ( GetStage OLBMQ == 70 )
+	elseif ( GetStage OLBMQ == 70 )
 		MessageBox "I shouldn't disturb the Emperor's body"
 	else
 		Activate
