@@ -21,14 +21,13 @@ float fTemp1
 
 Begin GameMode
 
-; NOTE I need to set up the proper quest to have the right variable
-; but for now I can just set up a blank variable for testing
-; NOTE quest stage 20 is for picking up the newspaper, use 40 stage intervals for clarity
+; NOTE quest stage 20 is for picking up the newspaper
+; NOTE quest stage 50 is for going to jail
 ; NOTE I need to set bJailQuest to 0 before stopping this quest
 
 let fQuestDelayTime := 0.01
 
-let bEmperorAlive := 0		; the emperor hasn't been killed yet
+let bEmperorAlive := 0		; the emperor hasn't been killed yet, set this to 1 after this quest finishes
 
 if ( GetStage OLBMQ != 5 ) && ( GetStage OLBMQ < 6 )
 	SetStage OLBMQ 5
@@ -151,9 +150,9 @@ if ( GetStage OLBMQ == 50 )
 	SetStage CharacterGen 90
 	if ( iDoOnce == 1 )
 		RenoteRef.MoveToMarker OLBRenoteMarker
-		BaurusRef.MoveToMarker OLBBaurusMarker
-		UrielSeptimRef.MoveToMarker OLBUrielMarker
-		GlenroyRef.MoveToMarker OLBGlenroyMarker
+		; BaurusRef.MoveToMarker OLBBaurusMarker
+		; UrielSeptimRef.MoveToMarker OLBUrielMarker
+		; GlenroyRef.MoveToMarker OLBGlenroyMarker
 		
 		RenoteRef.Kill
 		let bBaurusDown := 1	; Baurus is down, we need to heal him
@@ -179,14 +178,17 @@ if (GetStage OLBMQ == 60)
 	if (PlayerREF.GetInCell ImperialDungeon02)
 		if (iDoOnce == 2)
 			Call OLBMQMythicKillScript
+			; BaurusRef.MoveToMarker OLBBaurusMarker
+			; UrielSeptimRef.MoveToMarker OLBUrielMarker
+			; GlenroyRef.MoveToMarker OLBGlenroyMarker
 			let iDoOnce := 3
 		endif
-		BaurusRef.MoveToMarker OLBBaurusMarker
-		UrielSeptimRef.MoveToMarker OLBUrielMarker
-		GlenroyRef.MoveToMarker OLBGlenroyMarker
 	endif
 	if (PlayerREF.GetInCell ImperialDungeon03)
 		if (iDoOnce == 3)
+			BaurusRef.MoveToMarker OLBBaurusMarker
+			UrielSeptimRef.MoveToMarker OLBUrielMarker
+			GlenroyRef.MoveToMarker OLBGlenroyMarker
 			let iDeathDrop := GetGameSetting iDeathDropWeaponChance
 			SetNumericGameSetting iDeathDropWeaponChance 0
 			BaurusRef.SetRefEssential 0
@@ -195,6 +197,7 @@ if (GetStage OLBMQ == 60)
 			GlenroyRef.Kill
 			Call OLBMQMythicKillScript
 			SetNumericGameSetting iDeathDropWeaponChance iDeathDrop
+			Print "cccccccccc"
 			let iDoOnce := 4
 		endif
 	endif
