@@ -16,98 +16,98 @@ int iNothing
 float fTimer
 
 begin OnPackageDone MQ05BaurusGoToSewerLowerHall
-	If Getdistance MQ05BaurusWaitLowerHall < 200
-		setstage MQ05 76
-	EndIf
+  If Getdistance MQ05BaurusWaitLowerHall < 200
+    setstage MQ05 76
+  EndIf
 End
 
 begin OnPackageDone CGBaurusToMarker9
-	; close the door at the top of the stairs
-	CGPrisonEntranceDoor.SetOpenState 0
+  ; close the door at the top of the stairs
+  CGPrisonEntranceDoor.SetOpenState 0
 End
 
 begin onPackageDone CGBaurusSearchAmbushBRoom
-	If Getstage charactergen < 38
-		setstage charactergen 38
-	EndIf
+  If Getstage charactergen < 38
+    setstage charactergen 38
+  EndIf
 End
 
 begin OnPackageDone CGBaurusToMarkerJ1
-	setstage characterGen 67
+  setstage characterGen 67
 End
 
 begin OnPackageDone CGBaurusToDeadEmperor
-	setstage CharacterGen 85
+  setstage CharacterGen 85
 End
 
 begin OnPackageChange MQ14CheerPlayer
-	stoplook
+  stoplook
 End
 
 begin OnHit
-	If Getquestrunning charactergen == 1
-		; Baurus can't die during charactergen
-		set temp to GetBaseActorValue health
-		forceav health, temp 
-	EndIf
+  If Getquestrunning charactergen == 1
+    ; Baurus can't die during charactergen
+    set temp to GetBaseActorValue health
+    forceav health, temp 
+  EndIf
 End
 
 begin OnStartCombat Player
-	RETURN
+  RETURN
 End
 
 begin OnStartCombat
-	set warncount to 0
+  set warncount to 0
 
-	If glenroyref.isincombat == 0 && Getstage charactergen > 40 && Getquestrunning charactergen == 1 && (GetStage Charactergen != 80)
-		Say Attack
-	EndIf
+  If glenroyref.isincombat == 0 && Getstage charactergen > 40 && Getquestrunning charactergen == 1 && (GetStage Charactergen != 80)
+    Say Attack
+  EndIf
 
-	If Getincell ImperialSewersElvenGardens == 1
-		Say MQ00Voice
-	EndIf
+  If Getincell ImperialSewersElvenGardens == 1
+    Say MQ00Voice
+  EndIf
 End
 
 
 begin OnHit player
-	If Getquestrunning charactergen == 1
-		If warncount <= 4
-			stopcombat
-			player.scaonActor
-		EndIf
+  If Getquestrunning charactergen == 1
+    If warncount <= 4
+      stopcombat
+      player.scaonActor
+    EndIf
 
-		SayTo player CharGenBaurus 1
-		set warnCount to warnCount + 1
+    SayTo player CharGenBaurus 1
+    set warnCount to warnCount + 1
 
-		; make sure disposition of anybody never goes below 30
-		; Baurus
-		set temp to BaurusRef.Getdisposition player
-		If temp < 30
-			set temp to 30 - temp
-			BaurusRef.moddisposition player temp
-		EndIf
-		; Renote
-		set temp to RenoteRef.Getdisposition player
-		If temp < 30
-			set temp to 30 - temp
-			RenoteRef.moddisposition player temp
-		EndIf
+    ; make sure disposition of anybody never goes below 30
+    ; Baurus
+    set temp to BaurusRef.Getdisposition player
+    If temp < 30
+      set temp to 30 - temp
+      BaurusRef.moddisposition player temp
+    EndIf
+    ; Renote
+    set temp to RenoteRef.Getdisposition player
+    If temp < 30
+      set temp to 30 - temp
+      RenoteRef.moddisposition player temp
+    EndIf
 
-		; Emperor
-		set temp to UrielSeptimRef.Getdisposition player
-		If temp < 30
-			set temp to 30 - temp
-			UrielSeptimRef.moddisposition player temp
-		EndIf
+    ; Emperor
+    set temp to UrielSeptimRef.Getdisposition player
+    If temp < 30
+      set temp to 30 - temp
+      UrielSeptimRef.moddisposition player temp
+    EndIf
 
-		; Glenroy
-		set temp to GlenroyRef.Getdisposition player
-		If temp < 30
-			set temp to 30 - temp
-			GlenroyRef.moddisposition player temp
-		EndIf
+    ; Glenroy
+    set temp to GlenroyRef.Getdisposition player
+    If temp < 30
+      set temp to 30 - temp
+      GlenroyRef.moddisposition player temp
+    EndIf
 
-	EndIf
+  EndIf
 End
 
 ; Oblivion Less Bound quest stuff
@@ -116,113 +116,113 @@ End
 
 Begin OnActivate
 
-	; Baurus is on the ground
-If ( GetStage OLBMQ == 26 ) || (GetStage OLBMQ == 65)
-	MessageBoxEX "You hear a faint whisper%r     'Amulet... Emperor...'"
-	if (GetStage OLBMQ == 26)
-		SetStage OLBMQ 27
-	elseif (GetStage OLBMQ == 65)
-		SetStage OLBMQ 66
-	endif
-	; we've gotten the amulet from the emperor
-ElseIf ( GetStage OLBMQ == 30 ) || (GetStage OLBMQ == 70)
-	MessageBoxEX "You hear another whipser%r  'please... help... me...' |Heal him"
-	let iDoOnce := 0
-	let iBaurusHealed := 1 
-	; At these two points in time, when Baurus is still on the ground and we haven't gotten the amulet
-	; and he hasn't fully gotten up yet, do nothing
-ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 ) || (GetStage OLBMQ == 66)
-	let iNothing := 0
-	; At any other point in time just acitvate him
-Else
-	Activate
-EndIf
+  ; Baurus is on the ground
+  If ( GetStage OLBMQ == 26 ) || (GetStage OLBMQ == 65)
+    MessageBoxEX "You hear a faint whisper%r     'Amulet... Emperor...'"
+    if (GetStage OLBMQ == 26)
+      SetStage OLBMQ 27
+    elseif (GetStage OLBMQ == 65)
+      SetStage OLBMQ 66
+    endif
+    ; we've gotten the amulet from the emperor
+  ElseIf ( GetStage OLBMQ == 30 ) || (GetStage OLBMQ == 70)
+    MessageBoxEX "You hear another whipser%r  'please... help... me...' |Heal him"
+    let iDoOnce := 0
+    let iBaurusHealed := 1 
+    ; At these two points in time, when Baurus is still on the ground and we haven't gotten the amulet
+    ; and he hasn't fully gotten up yet, do nothing
+  ElseIf ( GetStage CharacterGen == 95 ) || ( GetStage OLBMQ == 27 ) || (GetStage OLBMQ == 66)
+    let iNothing := 0
+    ; At any other point in time just acitvate him
+  Else
+    Activate
+  EndIf
 
 End
 
 ; This menumode block just lets us know when baurus is healed or not
 Begin MenuMode 1001
 
-	If ( iBaurusHealed == 1 )
-		let iBaurusHealed := 2
-	EndIf
+  If ( iBaurusHealed == 1 )
+    let iBaurusHealed := 2
+  EndIf
 
 End
 
 begin gamemode
 
 
-If Getquestrunning MQ05 == 1
-	If Getstage MQ05 == 32 && Getdistance player < 300
-		startconversation player
-	EndIf
-EndIf
+  If Getquestrunning MQ05 == 1
+    If Getstage MQ05 == 32 && Getdistance player < 300
+      startconversation player
+    EndIf
+  EndIf
 
-; rest of this script is Chargen stuff; ignore once we've finished
-If chargenOver == 1
-	return
-EndIf
+  ; rest of this script is Chargen stuff; ignore once we've finished
+  If chargenOver == 1
+    return
+  EndIf
 
-; talk when it is time
+  ; talk when it is time
 
-If CharacterGen.speaker == 1 && CharacterGen.convTimer <= 0
-	set target to CharacterGen.target
+  If CharacterGen.speaker == 1 && CharacterGen.convTimer <= 0
+    set target to CharacterGen.target
 
-	If target == 0
-		set CharacterGen.convTimer to Say CharGenMain 1
-	ElseIf target == 1
-		set CharacterGen.convTimer to SayTo BaurusRef, CharGenMain 1
-	ElseIf target == 2
-		set CharacterGen.convTimer to SayTo RenoteRef, CharGenMain 1
-	ElseIf target == 3
-		set CharacterGen.convTimer to SayTo GlenroyRef, CharGenMain 1
-	ElseIf target == 4
-		set CharacterGen.convTimer to SayTo UrielSeptimRef, CharGenMain 1
-	ElseIf target == 5
-		set CharacterGen.convTimer to SayTo player, CharGenMain 1
-	EndIf	
-EndIf
+    If target == 0
+      set CharacterGen.convTimer to Say CharGenMain 1
+    ElseIf target == 1
+      set CharacterGen.convTimer to SayTo BaurusRef, CharGenMain 1
+    ElseIf target == 2
+      set CharacterGen.convTimer to SayTo RenoteRef, CharGenMain 1
+    ElseIf target == 3
+      set CharacterGen.convTimer to SayTo GlenroyRef, CharGenMain 1
+    ElseIf target == 4
+      set CharacterGen.convTimer to SayTo UrielSeptimRef, CharGenMain 1
+    ElseIf target == 5
+      set CharacterGen.convTimer to SayTo player, CharGenMain 1
+    EndIf	
+  EndIf
 
-If Getstage charactergen == 19
-	If Getdistance player < 250 && sayPlayer == 0
-		sayTo player CharGenVoice	
-		set sayPlayer to 1
-	EndIf
-EndIf
+  If Getstage charactergen == 19
+    If Getdistance player < 250 && sayPlayer == 0
+      sayTo player CharGenVoice	
+      set sayPlayer to 1
+    EndIf
+  EndIf
 
-If Getstage charactergen >= 18 && Getstage charactergen < 22
-	If Getdistance CGPlayerStartMarker < 200 && CGPlayerCellDoor.GetOpenState < 3
-		CGPlayerCellDoor.setopenstate 0
-		CGPlayerCellDoor.lock 100
-		enableplayercontrols
-	EndIf
-EndIf
+  If Getstage charactergen >= 18 && Getstage charactergen < 22
+    If Getdistance CGPlayerStartMarker < 200 && CGPlayerCellDoor.GetOpenState < 3
+      CGPlayerCellDoor.setopenstate 0
+      CGPlayerCellDoor.lock 100
+      enableplayercontrols
+    EndIf
+  EndIf
 
-; NOTE following added by OLB
-; If Baurus is healed then advance the stage
-If ( iBaurusHealed == 2 )
-	if (GetStage OLBMQ == 30)
-		SetStage OLBMQ 35
-	elseif (GetStage OLBMQ == 70)
-		SetStage OLBMQ 75
-		let OLBMQ.iDoOnce := 5
-	endif
-	let iBaurusHealed := -1
-EndIf
+  ; NOTE following added by OLB
+  ; If Baurus is healed then advance the stage
+  If ( iBaurusHealed == 2 )
+    if (GetStage OLBMQ == 30)
+      SetStage OLBMQ 35
+    elseif (GetStage OLBMQ == 70)
+      SetStage OLBMQ 75
+      let OLBMQ.iDoOnce := 5
+    endif
+    let iBaurusHealed := -1
+  EndIf
 
-; This part makes sure that Baurus can't be activated while getting up
-If ( GetStage CharacterGen == 95 )
-	If ( iDoOnce == 0 )
-		let fTimer := 3
-		let iDoOnce := 1
-	EndIf
+  ; This part makes sure that Baurus can't be activated while getting up
+  If ( GetStage CharacterGen == 95 )
+    If ( iDoOnce == 0 )
+      let fTimer := 3
+      let iDoOnce := 1
+    EndIf
 
-	If fTimer > 0
-		let fTimer -= GetSecondsPassed
-	Else
-		StartConversation PlayerREF, GREETING
-	EndIf
-EndIf
+    If fTimer > 0
+      let fTimer -= GetSecondsPassed
+    Else
+      StartConversation PlayerREF, GREETING
+    EndIf
+  EndIf
 
 End
 

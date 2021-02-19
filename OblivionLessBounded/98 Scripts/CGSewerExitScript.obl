@@ -4,57 +4,57 @@ short button
 
 begin OnActivate
 
-;if IsActionRef player == 1 && getstagedone MQ01 88 == 0
-;	player.scaonactor
-;	messagebox "Before exiting the sewers, you may revise your character.", "Edit Race", "Edit Birthsign", "Edit Class", "Finished - Exit Sewers"
-;else
-;	if IsActionRef player == 1
-;		player.scaonactor
-;	endif
-;	Activate
-;endif
-Activate
+  ;if IsActionRef player == 1 && getstagedone MQ01 88 == 0
+  ;	player.scaonactor
+  ;	messagebox "Before exiting the sewers, you may revise your character.", "Edit Race", "Edit Birthsign", "Edit Class", "Finished - Exit Sewers"
+  ;else
+  ;	if IsActionRef player == 1
+  ;		player.scaonactor
+  ;	endif
+  ;	Activate
+  ;endif
+  Activate
 
 end
 
 begin gamemode
 
-;if button > 0 && button < 4
-;	set button to -1
-;	forceweather clear
-;	activate player 1
-;	return
-;endif
+  ;if button > 0 && button < 4
+  ;	set button to -1
+  ;	forceweather clear
+  ;	activate player 1
+  ;	return
+  ;endif
 
-set button to getbuttonpressed
-if button > -1
-	if charactergen.debug == 1
-		message "Button = %.0f", button
-	endif
+  set button to getbuttonpressed
+  if button > -1
+    if charactergen.debug == 1
+      message "Button = %.0f", button
+    endif
 
-	if button == 3
-		; exit sewers
-		setstage MQ01 88
-		activate player
-	elseif button == 0
-		showracemenu
-		player.moveto CGSewerExitMarker
-	elseif button == 1
-		showbirthsignmenu
-	elseif button == 2
-		showclassmenu
-	endif
+    if button == 3
+      ; exit sewers
+      setstage MQ01 88
+      activate player
+    elseif button == 0
+      showracemenu
+      player.moveto CGSewerExitMarker
+    elseif button == 1
+      showbirthsignmenu
+    elseif button == 2
+      showclassmenu
+    endif
 
-	; nice starry/sunny sky
-	forceweather clear
-	; just in case
-	player.setcrimegold 0
+    ; nice starry/sunny sky
+    forceweather clear
+    ; just in case
+    player.setcrimegold 0
 
-	; regenerate rat
-	if CGRegenerat.getdead == 1
-		CGRegenerat.resurrect
-	endif
+    ; regenerate rat
+    if CGRegenerat.getdead == 1
+      CGRegenerat.resurrect
+    endif
 
-endif
+  endif
 
 end

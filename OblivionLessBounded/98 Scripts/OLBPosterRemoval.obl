@@ -2,11 +2,11 @@ scn OLBPosterRemoval
 
 Begin Function {}
 
-OLBMissingRef1.Disable
-OLBMissingRef2.Disable
-OLBMissingRef3.Disable
-OLBMissingRef4.Disable
-OLBMissingRef5.Disable
-OLBMissingRef6.Disable
+  OLBMissingRef1.Disable
+  OLBMissingRef2.Disable
+  OLBMissingRef3.Disable
+  OLBMissingRef4.Disable
+  OLBMissingRef5.Disable
+  OLBMissingRef6.Disable
 
 End

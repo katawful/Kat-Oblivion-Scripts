@@ -10,58 +10,58 @@ int iTemp
 
 Begin Function {}
 
-; Set up all the array for classes
-let aClasses := ar_Construct Array
-let aClasses[0] := Acrobat
-let aClasses[1] := Agent
-let aClasses[2] := Archer
-let aClasses[3] := Assassin
-let aClasses[4] := Barbarian
-let aClasses[5] := Bard
-let aClasses[6] := Battlemage
-let aClasses[7] := Crusader
-let aClasses[8] := Healer
-let aClasses[9] := Knight
-let aClasses[10] := Mage
-let aClasses[11] := Monk
-let aClasses[12] := Nightblade
-let aClasses[13] := Pilgrim
-let aClasses[14] := Rogue
-let aClasses[15] := Scout
-let aClasses[16] := Sorcerer
-let aClasses[17] := Spellsword
-let aClasses[18] := Thief
-let aClasses[19] := Warrior
-let aClasses[20] := Witchhunter
+  ; Set up all the array for classes
+  let aClasses := ar_Construct Array
+  ar_Append aClasses Acrobat
+  ar_Append aClasses Agent
+  ar_Append aClasses Archer
+  ar_Append aClasses Assassin
+  ar_Append aClasses Barbarian
+  ar_Append aClasses Bard
+  ar_Append aClasses Battlemage
+  ar_Append aClasses Crusader
+  ar_Append aClasses Healer
+  ar_Append aClasses Knight
+  ar_Append aClasses Mage
+  ar_Append aClasses Monk
+  ar_Append aClasses Nightblade
+  ar_Append aClasses Pilgrim
+  ar_Append aClasses Rogue
+  ar_Append aClasses Scout
+  ar_Append aClasses Sorcerer
+  ar_Append aClasses Spellsword
+  ar_Append aClasses Thief
+  ar_Append aClasses Warrior
+  ar_Append aClasses Witchhunter
 
-; set up array for birthsign
-let aBirth := ar_Construct Array
-let aBirth[0] := BirthSignApprentice
-let aBirth[1] := BirthSignAtronach
-let aBirth[2] := BirthSignLady
-let aBirth[3] := BirthSignLord
-let aBirth[4] := BirthSignLover
-let aBirth[5] := BirthSignMage
-let aBirth[6] := BirthSignRitual
-let aBirth[7] := BirthSignSerpent
-let aBirth[8] := BirthSignShadow
-let aBirth[9] := BirthSignSteed
-let aBirth[10] := BirthSignThief
-let aBirth[11] := BirthSignTower
-let aBirth[12] := BirthSignWarrior
+  ; set up array for birthsign
+  let aBirth := ar_Construct Array
+  ar_Append aBirth BirthSignApprentice
+  ar_Append aBirth BirthSignAtronach
+  ar_Append aBirth BirthSignLady
+  ar_Append aBirth BirthSignLord
+  ar_Append aBirth BirthSignLover
+  ar_Append aBirth BirthSignMage
+  ar_Append aBirth BirthSignRitual
+  ar_Append aBirth BirthSignSerpent
+  ar_Append aBirth BirthSignShadow
+  ar_Append aBirth BirthSignSteed
+  ar_Append aBirth BirthSignThief
+  ar_Append aBirth BirthSignTower
+  ar_Append aBirth BirthSignWarrior
 
-;; Randomize the class and birthsign
-; set a tempref to a random class using the size of the array
-let iTemp := ar_Size aClasses
-let rTemp := aClasses[Rand 0 iTemp]
-;PrintC "Random class is: %n", rTemp
-PlayerREF.SetClass rTemp
+  ;; Randomize the class and birthsign
+  ; set a tempref to a random class using the size of the array
+  let iTemp := ar_Size aClasses
+  let rTemp := aClasses[Rand 0 iTemp]
+  ;PrintC "Random class is: %n", rTemp
+  PlayerREF.SetClass rTemp
 
-; set tempref to a random birthsign using the size of the array
-let iTemp := ar_Size aBirth
-let rTemp1 := aBirth[Rand 0 iTemp]
-;PrintC "Random birthsign is: %n", rTemp1
-SetPlayerBirthsign rTemp1
+  ; set tempref to a random birthsign using the size of the array
+  let iTemp := ar_Size aBirth
+  let rTemp1 := aBirth[Rand 0 iTemp]
+  ;PrintC "Random birthsign is: %n", rTemp1
+  SetPlayerBirthsign rTemp1
 
 
 End

@@ -6,16 +6,16 @@ scn CGSewerExteriorDoorScript
 
 Begin OnActivate
 
-If ( GetStage OLBMQ >= 20 ) && (GetStage MQ02 != 100 )	; 20 starts the first group of quests, anything below is pre stuff
-	Dark04EnterRef.Unlock
-	let OLBMQ.bInSewers := 1
-	Activate
-Else
-	MessageBox "You try to open the gate but it appears to be jammed somehow"
-EndIf
+  If ( GetStage OLBMQ >= 20 ) && (GetStage MQ02 != 100 )	; 20 starts the first group of quests, anything below is pre stuff
+    Dark04EnterRef.Unlock
+    let OLBMQ.bInSewers := 1
+    Activate
+  Else
+    MessageBox "You try to open the gate but it appears to be jammed somehow"
+  EndIf
 
-If ( IsActionRef PlayerREF == 1 ) && ( GetStage MQ02 == 100 )
-	MessageBox "A sign on the door reads 'No entry on pain of death. Sealed by authority of Commander Adamus Phillida, Imperial Legion'."
-EndIf
+  If ( IsActionRef PlayerREF == 1 ) && ( GetStage MQ02 == 100 )
+    MessageBox "A sign on the door reads 'No entry on pain of death. Sealed by authority of Commander Adamus Phillida, Imperial Legion'."
+  EndIf
 
 End

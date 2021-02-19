@@ -7,36 +7,38 @@ int iPressed	; We needed this to stop the script from running prematurely
 
 Begin OnActivate
 
-if (iDoOnce != 1) && (iDoOnce != 0)
-	let iDoOnce := 0
-endif
-if (iDoOnce == 1)
-	let iPressed := 1
-	if (GetStage OLBMQ == 50)
-		PlayGroup forward 1
-		CGPrisonSecretWallRef.PlayGroup forward 1
-	endif
-else
-	let iPressed := 1
-endif
+  if (iDoOnce != 1) && (iDoOnce != 0)
+    let iDoOnce := 0
+  endif
+
+  Print "aaaaaaaaaafhj"
+  if (iDoOnce == 1)
+    let iPressed := 1
+    if (GetStage OLBMQ == 50)
+      PlayGroup forward 1
+      CGPrisonSecretWallRef.PlayGroup forward 1
+    endif
+  else
+    let iPressed := 1
+  endif
 
 End
 
 Begin GameMode
 
-if (iPressed == 1)
-	if ( iDoOnce == 0 )
-		let fTimer := 6
-		let iDoOnce := 1
-	endif
+  if (iPressed == 1)
+    if ( iDoOnce == 0 )
+      let fTimer := 6
+      let iDoOnce := 1
+    endif
 
-	if (fTimer > 0)
-		let fTimer -= GetSecondsPassed
-	else
-		SetStage OLBMQ 55
-		let iPressed := -1
-		Return
-	endif
-endif
+    if (fTimer > 0)
+      let fTimer -= GetSecondsPassed
+    else
+      SetStage OLBMQ 55
+      let iPressed := -1
+      Return
+    endif
+  endif
 
 End
