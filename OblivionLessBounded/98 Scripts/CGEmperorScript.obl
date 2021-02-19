@@ -1,0 +1,171 @@
+scn CGEmperorScript
+
+short target
+ref combattarget
+ref bladeHelp
+short temp
+short warncount	; how many warnings has the Emperor given for player hitting him?
+short warnstage	; what stage was the last warning?
+
+begin OnActivate
+	; NOTE OLB changes this
+	if IsActionRef player == 1 && GetDead == 1 && GetStage OLBMQ != 26 && GetStage OLBMQ != 27 && GetStage OLBMQ != 30 && GetStage OLBMQ != 65 && GetStage OLBMQ != 66 && GetStage OLBMQ != 70
+		BaurusRef.SayTo player CharGenVoice
+	; the following ifs are for OLB's MQ changes
+	elseif ( GetStage OLBMQ == 26 )
+		MessageBox "I'm too late, he's dead"
+	elseif ( GetStage OLBMQ == 27 )
+		PlayerREF.AddItem AmuletofKings 1
+	elseif ( GetStage OLBMQ == 30 )
+		MessageBox "I shouldn't disturb the Emperor's body"
+	elseif ( GetStage OLBMQ == 65 )
+		MessageBox "Is this the Emperor?"
+	elseif ( GetStage OLBMQ == 66 )
+		PlayerREF.AddItem AmuletofKings 1
+	elseif ( GetStage OLBMQ == 70 )
+		MessageBox "I shouldn't disturb the Emperor's body"
+	else
+		Activate
+	endif
+end
+
+begin gamemode
+
+; if dead, set stage:
+if getstage charactergen == 74
+	if getdead == 1
+		setstage charactergen 76
+	endif
+endif
+
+; talk when it is time
+if CharacterGen.speaker == 4 && CharacterGen.convTimer <= 0
+	set target to CharacterGen.target
+
+	if target == 0
+		set CharacterGen.convTimer to Say CharGenMain 1
+	elseif target == 1
+		set CharacterGen.convTimer to SayTo BaurusRef, CharGenMain 1
+	elseif target == 2
+		set CharacterGen.convTimer to SayTo RenoteRef, CharGenMain 1
+	elseif target == 3
+		set CharacterGen.convTimer to SayTo GlenroyRef, CharGenMain 1
+	elseif target == 4
+		set CharacterGen.convTimer to SayTo UrielSeptimRef, CharGenMain 1
+	elseif target == 5
+		set CharacterGen.convTimer to SayTo player, CharGenMain 1
+	elseif target == 6
+		
+	endif	
+	
+	; special case -- endless loop with Glenroy
+	if charactergen.convCount == 35
+		set charactergen.convTimer to 10
+	endif
+
+	; special case -- endless loop with player
+	if charactergen.convCount == 45
+		set charactergen.convTimer to 12
+	endif
+
+endif
+
+; special: birthsign speech
+;if ( getstage charactergen == 42 || getstage charactergen == 44 ) && CharacterGen.convTimer <= 0
+;	set CharacterGen.convTimer to SayTo player, CGEmperorBirthsign 1
+;endif
+
+end
+
+; Assassin kills emperor in one blow
+begin OnHit CGAssassinFinal
+	kill
+end
+
+; NOTE: order is important here. OnHit player block needs to come first
+begin OnHit player
+	if getdead == 0
+		if warncount <= 4
+			stopcombat
+			player.scaonActor
+		endif
+		SayTo player CharGenEmperor 1
+		set warnCount to warnCount + 1
+		set warnstage to getstage charactergen
+
+		; make sure disposition of anybody never goes below 30
+		; Baurus
+		set temp to BaurusRef.getdisposition player
+		if temp < 30
+			set temp to 30 - temp
+			BaurusRef.moddisposition player temp
+		endif
+
+		; Renote
+		set temp to RenoteRef.getdisposition player
+		if temp < 30
+			set temp to 30 - temp
+			RenoteRef.moddisposition player temp
+		endif
+
+		; Emperor
+		set temp to UrielSeptimRef.getdisposition player
+		if temp < 30
+			set temp to 30 - temp
+			UrielSeptimRef.moddisposition player temp
+		endif
+
+		; Glenroy
+		set temp to GlenroyRef.getdisposition player
+		if temp < 30
+			set temp to 30 - temp
+			GlenroyRef.moddisposition player temp
+		endif
+
+	endif
+end
+
+begin OnStartCombat
+	if warnstage < getstage charactergen
+		set warncount to 0
+	endif
+
+		; Blades react if not the player
+		set combattarget to GetCombatTarget
+		if combattarget != player && combattarget > 0
+			if getdistance BaurusRef < getdistance GlenroyRef || GlenroyRef.GetDead == 1
+				set bladeHelp to BaurusRef
+				if charactergen.debug == 1
+					message "DEBUG: Baurus calling for help for Emperor"
+				endif
+			else
+				set bladeHelp to GlenroyRef
+				if charactergen.debug == 1
+					message "DEBUG: Glenroy calling for help for Emperor"
+				endif
+			endif
+			bladeHelp.SayTo player CharGenBlades
+			bladeHelp.startcombat combattarget
+		endif
+end
+
+begin OnHit
+	if getstage charactergen < 74
+		; Emperor can't die until the end of charactergen
+		set temp to GetBaseActorValue health
+		forceav health, temp 
+	endif
+end
+
+begin OnPackageDone CGEmperorToMarkerB
+	setstage CharacterGen 16
+end
+
+
+begin OnPackageDone CGEmperorToMarkerH
+	setstage CharacterGen 62
+end
+
+begin OnPackageDone CGEmperorToMarkerJ
+	setstage CharacterGen 68
+end

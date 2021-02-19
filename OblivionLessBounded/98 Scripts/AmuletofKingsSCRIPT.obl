@@ -1,0 +1,24 @@
+scn AmuletofKingsSCRIPT
+
+ref tempRef
+
+begin OnEquip player
+	MessageBox "The Amulet of Kings slips off as you try to fasten it around your neck."
+	set tempRef to GetContainer
+	tempRef.unequipitem AmuletofKings 1
+end
+
+; Oblivion Less Bound stuff here
+
+Begin OnAdd
+
+; We've picked up the Amulet from the Emperor
+If ( GetStage OLBMQ == 27 )
+	SetStage OLBMQ 30
+EndIf
+
+If ( GetStage OLBMQ == 66 )
+	SetStage OLBMQ 70
+EndIf
+
+End
