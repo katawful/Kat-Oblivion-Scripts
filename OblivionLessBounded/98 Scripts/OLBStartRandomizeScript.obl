@@ -10,24 +10,24 @@ ref rStart
 
 Begin Function {}
 
-; create array of possible start locations
-let aStart := ar_Construct Array
-let aStart[0] := OLBStartElvenDistrict
-let aStart[1] := OLBStartWaterfront
-let aStart[2] := OLBStartAnvil
-let aStart[3] := OLBStartSkooma
-let aStart[4] := OLBStartBrumaCastle
-let aStart[5] := OLBStartCheyChapel
-let aStart[6] := OLBStartChorrolTavern
-let aStart[7] := OLBStartLey
-let aStart[8] := OLBStartSkingrad
+  ; create array of possible start locations
+  let aStart := ar_Construct Array
+  ar_Append aStart OLBStartElvenDistrict
+  ar_Append aStart OLBStartWaterfront
+  ar_Append aStart OLBStartAnvil
+  ar_Append aStart OLBStartSkooma
+  ar_Append aStart OLBStartBrumaCastle
+  ar_Append aStart OLBStartCheyChapel
+  ar_Append aStart OLBStartChorrolTavern
+  ar_Append aStart OLBStartLey
+  ar_Append aStart OLBStartSkingrad
 
-; set our ref to move to 
-let iSize := ar_Size aStart
-let iRandSize := ( iSize - 1 )
-let iRand := ( Rand 0 iSize )
-let rStart := aStart[iRand]
+  ; set our ref to move to 
+  let iSize := ar_Size aStart
+  let iRandSize := ( iSize - 1 )
+  let iRand := ( Rand 0 iSize )
+  let rStart := aStart[iRand]
 
-PlayerREF.MoveTo rStart
+  PlayerREF.MoveTo rStart
 
 End

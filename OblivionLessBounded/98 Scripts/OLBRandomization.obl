@@ -12,88 +12,88 @@ float fQuestDelayTime
 
 Begin GameMode
 
-let fQuestDelayTime := 0.0001
+  let fQuestDelayTime := 0.0001
 
-; check if we've created our character or not
-if GetStage CharacterGen == 6
-	SetStage CharacterGen 7
-	; disable the keys that control game actions, they still function
-	; has small delay???
-	DisableMouse
-	DisablePlayerControls
-endif
+  ; check if we've created our character or not
+  if GetStage CharacterGen == 6
+    SetStage CharacterGen 7
+    ; disable the keys that control game actions, they still function
+    ; has small delay???
+    DisableMouse
+    DisablePlayerControls
+  endif
 
-; we've created our character
-if GetStage CharacterGen == 7
-	if iDoOnce != 1
-		SetInCharGen 0
-		Message "Welcome to Oblivion Less Bound!"
-		Message "The game will be paused until you press X"
-		let iDoOnce := 1
-	endif
-	let iMessage := -2
-	; use the X key to start the randomization
-	let iKeyPressed := 0
-	if (IsKeyPressed3 45) && (iKeyPressed == 0)
-		let iKeyPressed := 1
-		SetStage OLBQuest 10
-		SetStage CharacterGen 8
-	elseif (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
-		let iKeyPressed := 0
-	endif
-endif
+  ; we've created our character
+  if GetStage CharacterGen == 7
+    if iDoOnce != 1
+      SetInCharGen 0
+      Message "Welcome to Oblivion Less Bound!"
+      Message "The game will be paused until you press X"
+      let iDoOnce := 1
+    endif
+    let iMessage := -2
+    ; use the X key to start the randomization
+    let iKeyPressed := 0
+    if (IsKeyPressed3 45) && (iKeyPressed == 0)
+      let iKeyPressed := 1
+      SetStage OLBQuest 10
+      SetStage CharacterGen 8
+    elseif (IsKeyPressed3 45 == 0) && (iKeyPressed == 1)
+      let iKeyPressed := 0
+    endif
+  endif
 
-if GetStage OLBQuest == 10
-	; reenable our mouse and keyboard functions so we can play the game
-	EnableMouse
-	EnablePlayerControls
+  if GetStage OLBQuest == 10
+    ; reenable our mouse and keyboard functions so we can play the game
+    EnableMouse
+    EnablePlayerControls
 
-	if iMessage == -2
-		let iMessage := 1
-	endif
+    if iMessage == -2
+      let iMessage := 1
+    endif
 
-	if iMessage == 1
-		MessageBox "Your start will now be randomized", "Ok"
-		let iTemp := GetStage Charactergen
-		let iTemp := GetStage OLBMQ
-	endif
+    if iMessage == 1
+      MessageBox "Your start will now be randomized", "Ok"
+      let iTemp := GetStage Charactergen
+      let iTemp := GetStage OLBMQ
+    endif
 
-	if iMessage == 3
-		let iMessage := -2
-	endif
+    if iMessage == 3
+      let iMessage := -2
+    endif
 
-	if iMessage == 2
-		SetStage OLBQuest 20
-		let iMessage := 3
-	endif
-endif
+    if iMessage == 2
+      SetStage OLBQuest 20
+      let iMessage := 3
+    endif
+  endif
 
-if GetStage OLBQuest == 20
-	if iDoOnce == 1
-		let bHaveRestoration := 0
-		let bHaveAlchemy := 0
-		Call OLBClassBirthRandomizeScript
-		Call OLBStartRandomizeScript
-		Call OLBEquipmentRandomizationScript
-		SetStage OLBQuest 30
-		let iDoOnce := 2
-	endif
-endif
+  if GetStage OLBQuest == 20
+    if iDoOnce == 1
+      let bHaveRestoration := 0
+      let bHaveAlchemy := 0
+      Call OLBClassBirthRandomizeScript
+      Call OLBStartRandomizeScript
+      Call OLBEquipmentRandomizationScript
+      SetStage OLBQuest 30
+      let iDoOnce := 2
+    endif
+  endif
 
-if GetStage OLBQuest == 30
-; NOTE start main quest change here
-	;StopQuest OLBQuest
-	Return
-endif
+  if GetStage OLBQuest == 30
+    ; NOTE start main quest change here
+    ;StopQuest OLBQuest
+    Return
+  endif
 
 End
 
 Begin MenuMode 1001
 
-if (GetStage OLBQuest != 10)
-	EnableMouse
-endif
+  if (GetStage OLBQuest != 10)
+    EnableMouse
+  endif
 
-let iMessage := 2
+  let iMessage := 2
 
 End

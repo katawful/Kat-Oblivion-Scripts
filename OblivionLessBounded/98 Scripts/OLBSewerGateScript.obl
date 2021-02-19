@@ -1,0 +1,14 @@
+scn OLBSewerGateScript
+
+; This script controls when the sewer gate can open
+; if you didn't start the main quest it would be locked
+
+Begin OnActivate
+
+  If ( GetStage OLBMQ < 20 ) 	; 20 starts the first group of quests, anything below is pre stuff
+    Dark04EnterRef.Unlock
+  Else
+    MessageBox "You try to open the gate but it appears to be jammed somehow"
+  EndIf
+
+End

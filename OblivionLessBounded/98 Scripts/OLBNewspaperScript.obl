@@ -5,7 +5,7 @@ scn OLBNewspaperScript
 
 Begin OnAdd
 
-SetStage OLBMQ 20
-OLBDeadMythicDawnRef.Enable
+  SetStage OLBMQ 20
+  OLBDeadMythicDawnRef.Enable
 
 End

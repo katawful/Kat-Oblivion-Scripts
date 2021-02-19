@@ -4,7 +4,6 @@ scn OLBEquipmentRandomizationScript
 ; it uses many arrays to better edit/add the equipment setup
 
 array_var aArmor	; the main array we randomize from
-array_var aArmCurr	; the passed array 
 array_var aPeasantArm	; a peasant loadup
 array_var aBanditArm	; a bandit loadup
 array_var aKnightArm	; knight
@@ -16,7 +15,6 @@ array_var aRichArm	; rich person
 array_var aNothingArm	; nothing, you get nothing
 
 array_var aWeapon	; the main weapon array we randomize from
-array_var aWepCurr	; the passed array
 array_var aBanditWep	; a bandit loadup
 array_var aKnightWep	; a knight loadup
 array_var aThiefWep	; thief
@@ -25,6 +23,7 @@ array_var aWarriorWep	; warrior
 array_var aBarbarianWep	; barbarian
 array_var aRichWep	; rich person
 array_var aNothingWep	; nothing, you get nothing
+array_var item          ; for foreach loops
 
 array_var aFood		; food array
 
@@ -38,14 +37,11 @@ array_var aResSpell	; restoration spells
 
 
 int iIndex		; index for a while loop for array walking cause lazy
-int iArmNum		; the number of armor arrays
-int iWepNum		; the number of weapon arrays
+int iArmorRandom  ; random number for armor array
+int iWeaponRandom ; random number of weapon array
 
 int iArmorSize		; The size of our main array
-int iArmCurrSize	; the size of our passed array
-
-int iWeaponSize		; the size of the main weapon array
-int iWepCurrSize	; the size of the passed weapon array
+int iWeaponSize     ; The size of main weapon array
 
 int iFoodSize		; size of food array
 
@@ -63,7 +59,7 @@ int iSpIndex		; the index of the found spell
 ;int bHeavyArmor
 ;int bSneak
 ;int bMarksman
-int bAlchemy
+; int bAlchemy
 int bIllusion
 int bConjuration
 int bMysticism
@@ -77,617 +73,552 @@ int iTemp
 
 
 ref rTemp		; temporary reference
-ref rTemp1		; another temp ref
+; ref rTemp1		; another temp ref
 
 ref rPlayClass		; the player class
 
 
 Begin Function {}
 
-;; Flag important skills for later
-let iIndex := 0
-While ( iIndex <= 6 )
-	; we are looking for the correct skill that the player has
-	let iTemp := PlayerREF.GetClassSkill iIndex
-	If ( iTemp >= 20 && iTemp <= 25 )
-		If iTemp == 19
-			let OLBQuest.bHaveAlchemy := 1
-		ElseIf iTemp == 20
-			let bAlteration := 1
-		ElseIf iTemp == 21
-			let bConjuration := 1
-		ElseIf iTemp == 22
-			let bDestruction := 1
-		ElseIf iTemp == 23
-			let bIllusion := 1
-		ElseIf iTemp == 24
-			let bMysticism := 1
-		ElseIf iTemp == 25
-			let bRestoration := 1
-			let OLBQuest.bHaveRestoration := 1
-		EndIf
-	EndIf
-	let iIndex += 1
-Loop
-
-;; EQUIPMENT
-; set up our in use arrays
-let aArmor := ar_Construct Array
-let aArmCurr := ar_Construct Array
-
-let iArmNum := 0	; initialize the armor array number
-
-; TODO expand
-; NOTE is 9 enough?
-; load peasant array with items
-let aPeasantArm := ar_Construct Array
-let aPeasantArm[0] := LowerPants04		; Coarse Linens
-let aPeasantArm[1] := LowerShirt04		; Coarse Linen Shirt
-let aPeasantArm[2] := LowerShoes05		; Sack Cloth Sandals
-let iArmNum += 1				; increment iArmNum
-; load bandit array with items
-let aBanditArm := ar_Construct Array
-let aBanditArm[0] := FurBoots			; Fur Boots
-let aBanditArm[1] := FurGauntlets		; Fur Gauntlets
-let aBanditArm[2] := LeatherCuirass		; Leather Cuirass
-let aBanditArm[3] := LeatherGreaves		; Leather Greaves
-let iArmNum += 1
-; load knight array with items
-let aKnightArm := ar_Construct Array
-let aKnightArm[0] := IronBoots			; Iron Boots
-let aKnightArm[1] := IronCuirass		; Iron Cuirass
-let aKnightArm[2] := IronGreaves		; Iron Greaves
-let aKnightArm[3] := IronHelmet			; Iron Helmet
-let aKnightArm[4] := IronShield			; Iron Shield
-let aKnightArm[5] := IronGauntlets		; Iron Gauntlets
-let iArmNum += 1
-; load thief array with items
-let aThiefArm := ar_Construct Array
-let aThiefArm[0] := LowerPants06		; Green Felt Linens
-let aThiefArm[1] := LowerShirt02		; Dark Green Shirt
-let aThiefArm[2] := LowerShoes03		; Huntsman Moccasin
-let iArmNum += 1
-; load mage array with items
-let aMageArm := ar_Construct Array
-let aMageArm[0] := OLBMage			; Mage's Robe - from Apprentice Robe
-let aMageArm[1] := UpperShoes01			; Green Velvet Shoes
-let iArmNum += 1
-; load warrior array
-let aWarriorArm := ar_Construct Array
-let aWarriorArm[0] := IronBoots			; Iron Boots
-let aWarriorArm[1] := SteelGreaves		; Steel Greaves
-let aWarriorArm[2] := LeatherCuirass		; Leather Cuirass
-let aWarriorArm[3] := IronGauntlets		; Iron Gauntlets
-let iArmNum += 1
-; load barbarian array
-let aBarbarianArm := ar_Construct Array
-let aBarbarianArm[0] := FurBoots		; Fur Boots
-let aBarbarianArm[1] := FurGauntlets		; Fur Gauntlets
-let aBarbarianArm[2] := LeatherGreaves		; Leather Greaves
-let iArmNum += 1
-; load rich person array
-let aRichArm := ar_Construct Array
-let aRichArm[0] := UpperPants06			; Blue Silks
-let aRichArm[1] := UpperShirt06			; Blue Silk Shirt
-let aRichArm[2] := UpperShoes03			; Blue Suede Shoes
-let aRichArm[3] := JewelryRing6Ebony6Diamond	; Ebony Diamond Ring
-let aRichArm[4]	:= JewelryAmulet6Jeweled	; Jeweled Amulet
-let iArmNum += 1
-; load nothing array
-let aNothingArm := ar_Construct Array
-let aNothingArm[0] := JewelryRing1Brass		; Brass Ring
-let iArmNum += 1
-
-
-; load main armor array with sub armor arrays
-; NOTE: keep an eye on this, not sure if its the best way to dynamically add to array type arrays
-; NOTE: there also needs to be an equal amount of arrays and iIndex values, plus iArmNum must be one more than iIndex and no other value
-; if I can think of a better way to do this then I will implement it, it does seem to work fine however
-let iIndex := 0
-While ( iIndex < iArmNum )
-	let aArmor[iIndex] := aPeasantArm
-	let iIndex += 1 
-	let aArmor[iIndex] := aBanditArm
-	let iIndex += 1
-	let aArmor[iIndex] := aKnightArm
-	let iIndex += 1
-	let aArmor[iIndex] := aThiefArm
-	let iIndex += 1
-	let aArmor[iIndex] := aMageArm
-	let iIndex += 1
-	let aArmor[iIndex] := aWarriorArm
-	let iIndex += 1
-	let aArmor[iIndex] := aBarbarianArm
-	let iIndex += 1
-	let aArmor[iIndex] := aRichArm
-	let iIndex += 1
-	let aArmor[iIndex] := aNothingArm
-	let iIndex += 1
-Loop
-
-; add random array from main to our working array
-let iArmorSize := ar_Size aArmor		; returns numeric size
-; we pass the random array we want to a temp array
-; for some reason this effectively turns the 
-let aArmCurr := aArmor[Rand 0 iArmorSize]
-let iArmCurrSize := ar_Size aArmCurr
-
-; work through the equipment loop
-; we need the types separate so we don't equip more weapons than possible
-
-let iIndex := 0				; set our index to 0 to walk through any array
-While (iIndex < iArmCurrSize)
-	let rTemp := aArmCurr[iIndex]	; assign a temp ref to the current array value
-	PlayerREF.AddItemNS rTemp 1	; add said value to player
-	PlayerREF.EquipItemNS rTemp	; equip said value on player
-
-	let iIndex += 1
-Loop
-
-
-; WEAPONS
-; set up our in use arrays
-let aWeapon := ar_Construct Array
-let aWepCurr := ar_Construct Array
-
-let iWepNum := 0	; initialize weapon array number
-
-; TODO expand
-; NOTE is 8 enough?
-; load peasant array with items
-let aBanditWep := ar_Construct Array
-let aBanditWep[0] := WeapIronDagger		; Iron Dagger
-let aBanditWep[1] := WeapIronBow		; Iron Bow
-let aBanditWep[2] := Arrow1Iron			; Iron Arrow
-let iWepNum += 1				; increment array number
-; load knight array with items
-let aKnightWep := ar_Construct Array
-let aKnightWep[0] := WeapSteelBow		; Steel Bow
-let aKnightWep[1] := WeapIronMace		; Iron Mace
-let aKnightWep[2] := Arrow2Steel		; Steel Arrow
-let iWepNum += 1
-; load thief array with items
-let aThiefWep := ar_Construct Array
-let aThiefWep[0] := WeapSteelDaggerFine		; Fine Steel Dagger
-let iWepNum += 1
-; load mage array with items
-let aMageWep := ar_Construct Array
-let aMageWep[0] := StaffofFireDamage		; Staff of Fire
-let aMageWep[1] := WeapIronDagger		; Iron Dagger
-let iWepNum += 1
-; load warrior array with items
-let aWarriorWep := ar_Construct Array
-let aWarriorWep[0] := WeapSteelLongsword	; Steel Longsword
-let iWepNum += 1
-; load barbarian array with items
-let aBarbarianWep := ar_Construct Array
-let aBarbarianWep[0] := WeapSteelWarhammer	; Steel Warhammer
-let iWepNum += 1
-; load rich person array with items
-let aRichWep := ar_Construct Array
-let aRichWep[0] := WeapSilverDagger		; Silver Dagger
-let iWepNum += 1
-; load nothing array
-let aNothingWep := ar_Construct Array
-let aNothingWep[0] := JewelryRing1Brass		; Brass Ring
-
-; load main weapon array with sub weapon arrays
-; NOTE this should work as long as its incremented properly
-; see the NOTE up above for more clarity
-let iIndex := 0
-While ( iIndex < iWepNum )
-	let aWeapon[iIndex] := aBanditWep
-	let iIndex += 1
-	let aWeapon[iIndex] := aKnightWep
-	let iIndex += 1
-	let aWeapon[iIndex] := aThiefWep
-	let iIndex += 1
-	let aWeapon[iIndex] := aMageWep
-	let iIndex += 1
-	let aWeapon[iIndex] := aWarriorWep
-	let iIndex += 1
-	let aWeapon[iIndex] := aBarbarianWep
-	let iIndex += 1
-	let aWeapon[iIndex] := aRichWep
-	let iIndex += 1
-Loop
-
-; add random array from main to our working array
-let iWeaponSize := ar_Size aWeapon
-let aWepCurr := aWeapon[Rand 0 iWeaponSize]
-let iWepCurrSize := ar_Size aWepCurr
-
-; walk through said working array
-let iIndex := 0
-While ( iIndex < iWepCurrSize )
-	let rTemp := aWepCurr[iIndex]
-	; see if the item is an arrow, if so randomize the size
-	If ( IsAmmo rTemp == 1 )
-		let iRand := ( Rand 0 20 )
-		PlayerREF.AddItemNS rTemp iRand
-		let iIndex += 1
-		Continue
-	EndIf
-	PlayerREF.AddItemNS rTemp 1
-
-	let iIndex += 1
-Loop
-
-;; GOLD
-; this starts the player with a random amount of gold
-; TODO randomize size once player options are added
-let iRand := Rand 10 300
-PlayerREF.AddItemNS Gold001 iRand
-
-;; MISC
-; extra items for realism
-; TODO add helpful small items like lockpick
-; NOTE lockpick done
-
-; construct food array
-let aFood := ar_Construct Array
-let aFood[0] := Apple				; Apple
-let aFood[1] := Corn				; Corn
-let aFood[2] := Ham				; Ham
-let aFood[3] := Beef				; Beef
-let aFood[4] := Breadloaf			; Bread
-let aFood[5] := Carrot				; Carrot
-let aFood[6] := CheeseWedge			; Cheese
-let aFood[7] := Garlic				; Garlic
-let aFood[8] := Grapes				; Grapes
-let aFood[9] := Leek				; Leek
-let aFood[10] := Lettuce			; Lettuce
-let aFood[11] := Mutton				; Mutton
-let aFood[12] := Onion				; Onion
-let aFood[13] := Pear				; Pear
-let aFood[14] := Pumpkin			; Pumpkin
-let aFood[15] := Rice				; Rice
-let aFood[16] := Strawberry			; Strawberry
-let aFood[17] := Sweetcake			; Sweetcake
-let aFood[18] := Sweetroll			; Sweetroll
-let aFood[19] := Venison			; Venison
-
-let iRand := ( Rand 1 5 )			; get a random number to get a number of foods to add
-let iFoodSize := ar_Size aFood
-; add food to player
-While ( iRand >= 0 )
-	let rTemp := aFood[Rand 0 iFoodSize]
-	PlayerREF.AddItemNS rTemp 1
-	let iRand -= 1
-Loop
-
-; add random amount of lockpics
-let iRand := ( Rand 0 10 )
-PlayerREF.AddItemNS Lockpick iRand
-
-
-;; MAGIC
-; NOTE currently vanilla only
-; TODO add mod support
-
-; get player class
-let rPlayClass := PlayerREF.GetClass
-
-; work through the flagged skills
-If bAlteration == 1
-	let aAltSpell := ar_Construct Array
-	let aAltSpell[0] := StandardBurden1Novice		; Burden 
-	let aAltSpell[1] := StandardWaterWalking2Apprentice	; Water Walking
-	let aAltSpell[2] := StandardWaterBreathing2Apprentice	; Water Breathing
-	let aAltSpell[3] := StandardShockShield2Apprentice	; Shock Shield
-	let aAltSpell[4] := StandardShield1Novice		; Shield Self
-	let aAltSpell[5] := StandardFeather2Apprentice		; Feather
-	let aAltSpell[6] := StandardFireShield2Apprentice	; Fire Shield
-	let aAltSpell[7] := StandardOpen1Novice			; Open Novice
-
-	let iSpellSize := ar_Size aAltSpell
-	let aPlaySpell := ar_Construct Array	
-	let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
-	; get a random number to add x amount of spells and not all
-	let iRand := (Rand 0 iTemp)
-	; loop for number of passes
-	While ( iRand >= 0 )
-		If iTemp == 0
-			Break
-		EndIf
-		; NOTE: we need to tell if the random spell we got is a duplicate of 
-		; one we already added to the player
-		; we don't wanna add the same spell twice
-
-		; get a random number for the spell array index
-		let iRand1 := ( Rand 0 iSpellSize )
-
-		; get the player spells
-		let aPlaySpell := PlayerREF.GetSpells
-
-		; get the spell reference
-		let rTemp := aAltSpell[iRand1]
-
-		; see if we already added it or not
-		let iSpIndex := ar_Find rTemp aPlaySpell
-		; if we do find something loop while early
-		; and decrement iRand so the loop can finish at all
-		If iSpIndex != -99999
-			let iRand -= 1
-			Continue
-		EndIf
-
-		; add the spell if not in our list
-		PlayerREF.AddSpellNS rTemp
-
-		; decrement iRand
-		let iRand -= 1
-
-		; nullify the array so we can recreate it
-		let aPlaySpell := ar_Null
-	Loop
-EndIf
-
-If bConjuration == 1
-	let aConSpell := ar_Construct Array
-	let aConSpell[0] := StandardBoundArmorBootsNovice	; Bound Boots
-	let aConSpell[1] := StandardBoundDaggerNovice		; Bound Dagger
-	let aConSpell[2] := StandardSummonGhostApprentice	; Summon Ghost
-	let aConSpell[3] := StandardSummonScampApprentice	; Summon Scamp
-	let aConSpell[4] := StandardSummonSkeletonApprentice	; Summon Skeleton
-	let aConSpell[5] := StandardSummonZombieApprentice	; Summon Zombie
-	let aConSpell[6] := StandardBoundAxeApprentice		; Bound Axe
-	let aConSpell[7] := StandardBoundArmorGauntletsNovice	; Bound Gauntlets
-	let aConSpell[8] := StandardBoundArmorGreavesApprentice	; Bound Greaves
-
-	let aPlaySpell := ar_Construct Array	
-	let iSpellSize := ar_Size aConSpell
-	let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
-	; get a random number to add x amount of spells and not all
-	let iRand := (Rand 0 iTemp)
-	; loop for number of passes
-	While ( iRand >= 0 )
-		If iTemp == 0
-			Break
-		EndIf
-		; we need to tell if the random spell we got is a duplicate of 
-		; one we already added to the player
-		; we don't wanna add the same spell twice
-
-		; get a random number for the spell array index
-		let iRand1 := ( Rand 0 iSpellSize )
-
-		; get the player spells
-		let aPlaySpell := PlayerREF.GetSpells
-
-		; get the spell reference
-		let rTemp := aConSpell[iRand1]
-
-		; see if we already added it or not
-		let iSpIndex := ar_Find rTemp aPlaySpell
-		; if we do find something loop while early
-		; and decrement iRand so the loop can finish at all
-		If iSpIndex != -99999
-			let iRand -= 1
-			Continue
-		EndIf
-
-		; add the spell if not in our list
-		PlayerREF.AddSpellNS rTemp
-
-		; decrement iRand
-		let iRand -= 1
-
-		; nullify the array so we can recreate it
-		let aPlaySpell := ar_Null
-	Loop
-EndIf
-
-If bDestruction == 1
-	let aDesSpell := ar_Construct Array
-	let aDesSpell[0] := StandardDrainHealth1Novice		; Drain Health
-	let aDesSpell[1] := StandardFrostDamageTouch1Novice	; Frost Touch
-	let aDesSpell[2] := StandardDamageAttribEndurance1Novice; Damage Endurance
-	let aDesSpell[3] := StandardFireDamageTouch1Novice	; Fire Touch
-	let aDesSpell[4] := StandardDamageHealthTarget2Apprentice ; Damage Health Target
-	let aDesSpell[5] := StandardDisintegrateArmor2Apprentice; Disintegrate Armor
-	let aDesSpell[6] := StandardFrostDamageTarget2Apprentice ; Frost Target
-	let aDesSpell[7] := StandardShockDamageTarget2Apprentice; Shock Target
-	let aDesSpell[8] := StandardWeaknessPoison2Apprentice	; Weakness to Poison
-
-	let aPlaySpell := ar_Construct Array	
-	let iSpellSize := ar_Size aDesSpell
-	let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
-	; get a random number to add x amount of spells and not all
-	let iRand := (Rand 0 iTemp)
-	; loop for number of passes
-	While ( iRand >= 0 )
-		If iTemp == 0
-			Break
-		EndIf
-		; we need to tell if the random spell we got is a duplicate of 
-		; one we already added to the player
-		; we don't wanna add the same spell twice
-
-		; get a random number for the spell array index
-		let iRand1 := ( Rand 0 iSpellSize )
-
-		; get the player spells
-		let aPlaySpell := PlayerREF.GetSpells
-
-		; get the spell reference
-		let rTemp := aDesSpell[iRand1]
-
-		; see if we already added it or not
-		let iSpIndex := ar_Find rTemp aPlaySpell
-		; if we do find something loop while early
-		; and decrement iRand so the loop can finish at all
-		If iSpIndex != -99999
-			let iRand -= 1
-			Continue
-		EndIf
-
-		; add the spell if not in our list
-		PlayerREF.AddSpellNS rTemp
-
-		; decrement iRand
-		let iRand -= 1
-
-		; nullify the array so we can recreate it
-		let aPlaySpell := ar_Null
-	Loop
-EndIf
-
-If bIllusion == 1
-	let aIllSpell := ar_Construct Array
-	let aIllSpell[0] := StandardCalmTarget2Apprentice	; Calm Target
-	let aIllSpell[1] := StandardCharmTarget2Apprentice	; Charm Target
-	let aIllSpell[2] := StandardCommandCreature2Apprentice	; Command Creature
-	let aIllSpell[3] := StandardCommandHuman2Apprentice	; Command Human
-	let aIllSpell[4] := StandardDemoralizeTouch2Apprentice	; Demoralize Touch
-	let aIllSpell[5] := StandardFrenzyTarget2Apprentice	; Frenzy
-	let aIllSpell[6] := StandardLight1Novice		; Light
-	let aIllSpell[7] := StandardNightEye2Apprentice		; NightEye
-
-	let aPlaySpell := ar_Construct Array	
-	let iSpellSize := ar_Size aIllSpell
-	let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
-	; get a random number to add x amount of spells and not all
-	let iRand := (Rand 0 iTemp)
-	; loop for number of passes
-	While ( iRand >= 0 )
-		If iTemp == 0
-			Break
-		EndIf
-		; we need to tell if the random spell we got is a duplicate of 
-		; one we already added to the player
-		; we don't wanna add the same spell twice
-
-		; get a random number for the spell array index
-		let iRand1 := ( Rand 0 iSpellSize )
-
-		; get the player spells
-		let aPlaySpell := PlayerREF.GetSpells
-
-		; get the spell reference
-		let rTemp := aIllSpell[iRand1]
-
-		; see if we already added it or not
-		let iSpIndex := ar_Find rTemp aPlaySpell
-		; if we do find something loop while early
-		; and decrement iRand so the loop can finish at all
-		If iSpIndex != -99999
-			let iRand -= 1
-			Continue
-		EndIf
-
-		; add the spell if not in our list
-		PlayerREF.AddSpellNS rTemp
-
-		; decrement iRand
-		let iRand -= 1
-
-		; nullify the array so we can recreate it
-		let aPlaySpell := ar_Null
-	Loop
-EndIf
-
-If bMysticism == 1
-	let aMysSpell := ar_Construct Array
-	let aMysSpell[0] := StandardDetectLife1Novice		; Detect Life
-	let aMysSpell[1] := StandardDispelSelf2Apprentice	; Dispel
-	let aMysSpell[2] := StandardSoulTrap2Apprentice		; Soul Trap
-	let aMysSpell[3] := StandardTelekinesis2Apprentice	; Telekinesis
-
-	let aPlaySpell := ar_Construct Array	
-	let iSpellSize := ar_Size aMysSpell
-	let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
-	; get a random number to add x amount of spells and not all
-	let iRand := (Rand 0 iTemp)
-	; loop for number of passes
-	While ( iRand >= 0 )
-		If iTemp == 0
-			Break
-		EndIf
-		; we need to tell if the random spell we got is a duplicate of 
-		; one we already added to the player
-		; we don't wanna add the same spell twice
-
-		; get a random number for the spell array index
-		let iRand1 := ( Rand 0 iSpellSize )
-
-		; get the player spells
-		let aPlaySpell := PlayerREF.GetSpells
-
-		; get the spell reference
-		let rTemp := aMysSpell[iRand1]
-
-		; see if we already added it or not
-		let iSpIndex := ar_Find rTemp aPlaySpell
-		; if we do find something loop while early
-		; and decrement iRand so the loop can finish at all
-		If iSpIndex != -99999
-			let iRand -= 1
-			Continue
-		EndIf
-
-		; add the spell if not in our list
-		PlayerREF.AddSpellNS rTemp
-
-		; decrement iRand
-		let iRand -= 1
-
-		; nullify the array so we can recreate it
-		let aPlaySpell := ar_Null
-	Loop
-EndIf
-
-If bRestoration == 1
-	let aResSpell := ar_Construct Array
-	let aResSpell[0] := StandardAbsorbHealth1Novice		; Absorb Health
-	let aResSpell[1] := StandardCureParalysisApprentice	; Cure Paralysis
-	let aResSpell[2] := StandardCurePoisonApprentice	; Cure Poison
-	let aResSpell[3] := StandardFortifyAttribIntelligence2Apprentice ; Fortify Intelligence
-	let aResSpell[4] := StandardFortifyHealth2Apprentice	; Fortify Apprentice
-	let aResSpell[5] := StandardRestoreFatigue1Novice	; Restore Fatigue
-	let aResSpell[6] := StandardRestoreHealth2Apprentice	; Restore Apprentice
-
-	let aPlaySpell := ar_Construct Array	
-	let iSpellSize := ar_Size aResSpell
-	let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
-	; get a random number to add x amount of spells and not all
-	let iRand := (Rand 0 iTemp)
-	; loop for number of passes
-	While ( iRand >= 0 )
-		If iTemp == 0
-			Break
-		EndIf
-		; we need to tell if the random spell we got is a duplicate of 
-		; one we already added to the player
-		; we don't wanna add the same spell twice
-
-		; get a random number for the spell array index
-		let iRand1 := ( Rand 0 iSpellSize )
-
-		; get the player spells
-		let aPlaySpell := PlayerREF.GetSpells
-
-		; get the spell reference
-		let rTemp := aResSpell[iRand1]
-
-		; see if we already added it or not
-		let iSpIndex := ar_Find rTemp aPlaySpell
-		; if we do find something loop while early
-		; and decrement iRand so the loop can finish at all
-		If iSpIndex != -99999
-			let iRand -= 1
-			Continue
-		EndIf
-
-		; add the spell if not in our list
-		PlayerREF.AddSpellNS rTemp
-
-		; decrement iRand
-		let iRand -= 1
-
-		; nullify the array so we can recreate it
-		let aPlaySpell := ar_Null
-	Loop
-EndIf
+  ;; Flag important skills for later
+  let iIndex := 0
+  While ( iIndex <= 6 )
+    ; we are looking for the correct skill that the player has
+    let iTemp := PlayerREF.GetClassSkill iIndex
+    If ( iTemp >= 20 && iTemp <= 25 )
+      If iTemp == 19
+        let OLBQuest.bHaveAlchemy := 1
+      ElseIf iTemp == 20
+        let bAlteration := 1
+      ElseIf iTemp == 21
+        let bConjuration := 1
+      ElseIf iTemp == 22
+        let bDestruction := 1
+      ElseIf iTemp == 23
+        let bIllusion := 1
+      ElseIf iTemp == 24
+        let bMysticism := 1
+      ElseIf iTemp == 25
+        let bRestoration := 1
+        let OLBQuest.bHaveRestoration := 1
+      EndIf
+    EndIf
+    let iIndex += 1
+  Loop
+
+  ;; EQUIPMENT
+  ; set up our in use arrays
+  ; TODO expand
+  ; NOTE is 9 enough?
+  ; load peasant array with items
+  let aPeasantArm := ar_Construct Array
+  ar_Append aPeasantArm LowerPants04		; Coarse Linens
+  ar_Append aPeasantArm LowerShirt04		; Coarse Linen Shirt
+  ar_Append aPeasantArm LowerShoes05		; Sack Cloth Sandals
+  ; load bandit array with items
+  let aBanditArm := ar_Construct Array
+  ar_Append aBanditArm FurBoots			    ; Fur Boots
+  ar_Append aBanditArm FurGauntlets	    	; Fur Gauntlets
+  ar_Append aBanditArm LeatherCuirass		; Leather Cuirass
+  ar_Append aBanditArm LeatherGreaves		; Leather Greaves
+  ; load knight array with items
+  let aKnightArm := ar_Construct Array
+  ar_Append aKnightArm IronBoots			; Iron Boots
+  ar_Append aKnightArm IronCuirass	    	; Iron Cuirass
+  ar_Append aKnightArm IronGreaves	    	; Iron Greaves
+  ar_Append aKnightArm IronHelmet			; Iron Helmet
+  ar_Append aKnightArm IronShield			; Iron Shield
+  ar_Append aKnightArm IronGauntlets		; Iron Gauntlets
+  ; load thief array with items
+  let aThiefArm := ar_Construct Array
+  ar_Append aThiefArm LowerPants06		; Green Felt Linens
+  ar_Append aThiefArm LowerShirt02		; Dark Green Shirt
+  ar_Append aThiefArm LowerShoes03		; Huntsman Moccasin
+  ; load mage array with items
+  let aMageArm := ar_Construct Array
+  ar_Append aMageArm OLBMage		    	; Mage's Robe - from Apprentice Robe
+  ar_Append aMageArm UpperShoes01			; Green Velvet Shoes
+  ; load warrior array
+  let aWarriorArm := ar_Construct Array
+  ar_Append aWarriorArm IronBoots			; Iron Boots
+  ar_Append aWarriorArm SteelGreaves		; Steel Greaves
+  ar_Append aWarriorArm LeatherCuirass		; Leather Cuirass
+  ar_Append aWarriorArm IronGauntlets		; Iron Gauntlets
+  ; load barbarian array
+  let aBarbarianArm := ar_Construct Array
+  ar_Append aBarbarianArm FurBoots	    	; Fur Boots
+  ar_Append aBarbarianArm FurGauntlets		; Fur Gauntlets
+  ar_Append aBarbarianArm LeatherGreaves	; Leather Greaves
+  ; load rich person array
+  let aRichArm := ar_Construct Array
+  ar_Append aRichArm UpperPants06			; Blue Silks
+  ar_Append aRichArm UpperShirt06			; Blue Silk Shirt
+  ar_Append aRichArm UpperShoes03			; Blue Suede Shoes
+  ar_Append aRichArm JewelryRing6Ebony6Diamond	; Ebony Diamond Ring
+  ar_Append aRichArm JewelryAmulet6Jeweled	; Jeweled Amulet
+  ; load nothing array
+  let aNothingArm := ar_Construct Array
+  ar_Append aNothingArm JewelryRing1Brass	; Brass Ring
+
+
+  ; load main armor array with sub armor arrays
+  let aArmor := ar_Construct Array
+  ar_Append aArmor aRichArm
+  ar_Append aArmor aPeasantArm
+  ar_Append aArmor aBanditArm
+  ar_Append aArmor aKnightArm
+  ar_Append aArmor aThiefArm
+  ar_Append aArmor aMageArm
+  ar_Append aArmor aWarriorArm
+  ar_Append aArmor aBarbarianArm
+  ar_Append aArmor aNothingArm
+
+  let iArmorSize := ar_Size aArmor		; returns numeric size
+  let iArmorRandom := Rand 0 iArmorSize
+
+  ; work through the equipment loop
+  ForEach item <- aArmor[iArmorRandom]
+    let rTemp := item["value"]
+    PlayerREF.AddItemNS rTemp 1	; add said value to player
+    PlayerREF.EquipItemNS rTemp	; equip said value on player
+  Loop
+
+  ; WEAPONS
+  ; set up our in use arrays
+
+  ; TODO expand
+  ; NOTE is 8 enough?
+  ; load peasant array with items
+  let aBanditWep := ar_Construct Array
+  ar_Append aBanditWep WeapIronDagger		; Iron Dagger
+  ar_Append aBanditWep WeapIronBow		; Iron Bow
+  ar_Append aBanditWep Arrow1Iron			; Iron Arrow
+  ; load knight array with items
+  let aKnightWep := ar_Construct Array
+  ar_Append aKnightWep WeapSteelBow		; Steel Bow
+  ar_Append aKnightWep WeapIronMace		; Iron Mace
+  ar_Append aKnightWep Arrow2Steel		; Steel Arrow
+  ; load thief array with items
+  let aThiefWep := ar_Construct Array
+  ar_Append aThiefWep WeapSteelDaggerFine		; Fine Steel Dagger
+  ; load mage array with items
+  let aMageWep := ar_Construct Array
+  ar_Append aMageWep StaffofFireDamage		; Staff of Fire
+  ar_Append aMageWep WeapIronDagger		; Iron Dagger
+  ; load warrior array with items
+  let aWarriorWep := ar_Construct Array
+  ar_Append aWarriorWep WeapSteelLongsword	; Steel Longsword
+  ; load barbarian array with items
+  let aBarbarianWep := ar_Construct Array
+  ar_Append aBarbarianWep WeapSteelWarhammer	; Steel Warhammer
+  ; load rich person array with items
+  let aRichWep := ar_Construct Array
+  ar_Append aRichWep WeapSilverDagger		; Silver Dagger
+  ; load nothing array
+  let aNothingWep := ar_Construct Array
+  ar_Append aNothingWep JewelryRing1Brass		; Brass Ring
+
+  ; load main weapon array with sub weapon arrays
+  let aWeapon := ar_Construct Array
+  ar_Append aWeapon aBanditWep
+  ar_Append aWeapon aKnightWep
+  ar_Append aWeapon aThiefWep
+  ar_Append aWeapon aMageWep
+  ar_Append aWeapon aWarriorWep
+  ar_Append aWeapon aBarbarianWep
+  ar_Append aWeapon aRichWep
+  ar_Append aWeapon aNothingWep
+
+  ; Get a random nested array
+  let iWeaponSize := ar_Size aWeapon
+  let iWeaponRandom := Rand 0 iWeaponSize
+
+  ; walk through said working array
+  ForEach item <- aWeapon[iWeaponRandom]
+    let rTemp := item["value"]
+    if (IsAmmo rTemp == 1)
+      let iRand := (Rand 0 20)
+      PlayerREF.AddItemNS rTemp iRand
+    else
+      PlayerREF.AddItemNS rTemp 1
+    endif
+  Loop
+
+  ;; GOLD
+  ; this starts the player with a random amount of gold
+  ; TODO randomize size once player options are added
+  let iRand := Rand 10 300
+  PlayerREF.AddItemNS Gold001 iRand
+
+  ;; MISC
+  ; extra items for realism
+  ; TODO add helpful small items like lockpick
+  ; NOTE lockpick done
+
+  ; construct food agray
+  let aFood := ar_Construct Array
+  ar_Append aFood Apple				; Apple
+  ar_Append aFood Corn				; Corn
+  ar_Append aFood Ham				; Ham
+  ar_Append aFood Beef				; Beef
+  ar_Append aFood Breadloaf			; Bread
+  ar_Append aFood Carrot			; Carrot
+  ar_Append aFood CheeseWedge		; Cheese
+  ar_Append aFood Garlic			; Garlic
+  ar_Append aFood Grapes			; Grapes
+  ar_Append aFood Leek				; Leek
+  ar_Append aFood Lettuce			; Lettuce
+  ar_Append aFood Mutton			; Mutton
+  ar_Append aFood Onion				; Onion
+  ar_Append aFood Pear				; Pear
+  ar_Append aFood Pumpkin			; Pumpkin
+  ar_Append aFood Rice				; Rice
+  ar_Append aFood Strawberry		; Strawberry
+  ar_Append aFood Sweetcake			; Sweetcake
+  ar_Append aFood Sweetroll			; Sweetroll
+  ar_Append aFood Venison			; Venison
+
+  let iRand := ( Rand 1 5 )			; get a random number to get a number of foods to add
+  let iFoodSize := ar_Size aFood
+  ; add food to player
+  While ( iRand >= 0 )
+    let rTemp := aFood[Rand 0 iFoodSize]
+    PlayerREF.AddItemNS rTemp 1
+    let iRand -= 1
+  Loop
+
+  ; add random amount of lockpics
+  let iRand := ( Rand 0 10 )
+  PlayerREF.AddItemNS Lockpick iRand
+
+
+  ;; MAGIC
+  ; NOTE currently vanilla only
+  ; TODO add mod support
+
+  ; get player class
+  let rPlayClass := PlayerREF.GetClass
+
+  ; work through the flagged skills
+  If bAlteration == 1
+    let aAltSpell := ar_Construct Array
+    ar_Append aAltSpell StandardBurden1Novice		; Burden 
+    ar_Append aAltSpell StandardWaterWalking2Apprentice	; Water Walking
+    ar_Append aAltSpell StandardWaterBreathing2Apprentice	; Water Breathing
+    ar_Append aAltSpell StandardShockShield2Apprentice	; Shock Shield
+    ar_Append aAltSpell StandardShield1Novice		; Shield Self
+    ar_Append aAltSpell StandardFeather2Apprentice	; Feather
+    ar_Append aAltSpell StandardFireShield2Apprentice	; Fire Shield
+    ar_Append aAltSpell StandardOpen1Novice			; Open Novice
+
+    let iSpellSize := ar_Size aAltSpell
+    let aPlaySpell := ar_Construct Array	
+    let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
+    ; get a random number to add x amount of spells and not all
+    let iRand := (Rand 0 iTemp)
+    ; loop for number of passes
+    While ( iRand >= 0 )
+      If iTemp == 0
+        Break
+      EndIf
+      ; NOTE: we need to tell if the random spell we got is a duplicate of 
+      ; one we already added to the player
+      ; we don't wanna add the same spell twice
+
+      ; get a random number for the spell array index
+      let iRand1 := ( Rand 0 iSpellSize )
+
+      ; get the player spells
+      let aPlaySpell := PlayerREF.GetSpells
+
+      ; get the spell reference
+      let rTemp := aAltSpell[iRand1]
+
+      ; see if we already added it or not
+      let iSpIndex := ar_Find rTemp aPlaySpell
+      ; if we do find something loop while early
+      ; and decrement iRand so the loop can finish at all
+      If iSpIndex != -99999
+        let iRand -= 1
+        Continue
+      EndIf
+
+      ; add the spell if not in our list
+      PlayerREF.AddSpellNS rTemp
+
+      ; decrement iRand
+      let iRand -= 1
+
+      ; nullify the array so we can recreate it
+      let aPlaySpell := ar_Null
+    Loop
+  EndIf
+
+  If bConjuration == 1
+    let aConSpell := ar_Construct Array
+    ar_Append aConSpell StandardBoundArmorBootsNovice	; Bound Boots
+    ar_Append aConSpell StandardBoundDaggerNovice		; Bound Dagger
+    ar_Append aConSpell StandardSummonGhostApprentice	; Summon Ghost
+    ar_Append aConSpell StandardSummonScampApprentice	; Summon Scamp
+    ar_Append aConSpell StandardSummonSkeletonApprentice; Summon Skeleton
+    ar_Append aConSpell StandardSummonZombieApprentice	; Summon Zombie
+    ar_Append aConSpell StandardBoundAxeApprentice		; Bound Axe
+    ar_Append aConSpell StandardBoundArmorGauntletsNovice	; Bound Gauntlets
+    ar_Append aConSpell StandardBoundArmorGreavesApprentice	; Bound Greaves
+
+    let aPlaySpell := ar_Construct Array	
+    let iSpellSize := ar_Size aConSpell
+    let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
+    ; get a random number to add x amount of spells and not all
+    let iRand := (Rand 0 iTemp)
+    ; loop for number of passes
+    While ( iRand >= 0 )
+      If iTemp == 0
+        Break
+      EndIf
+      ; we need to tell if the random spell we got is a duplicate of 
+      ; one we already added to the player
+      ; we don't wanna add the same spell twice
+
+      ; get a random number for the spell array index
+      let iRand1 := ( Rand 0 iSpellSize )
+
+      ; get the player spells
+      let aPlaySpell := PlayerREF.GetSpells
+
+      ; get the spell reference
+      let rTemp := aConSpell[iRand1]
+
+      ; see if we already added it or not
+      let iSpIndex := ar_Find rTemp aPlaySpell
+      ; if we do find something loop while early
+      ; and decrement iRand so the loop can finish at all
+      If iSpIndex != -99999
+        let iRand -= 1
+        Continue
+      EndIf
+
+      ; add the spell if not in our list
+      PlayerREF.AddSpellNS rTemp
+
+      ; decrement iRand
+      let iRand -= 1
+
+      ; nullify the array so we can recreate it
+      let aPlaySpell := ar_Null
+    Loop
+  EndIf
+
+  If bDestruction == 1
+    let aDesSpell := ar_Construct Array
+    ar_Append aDesSpell StandardDrainHealth1Novice		; Drain Health
+    ar_Append aDesSpell StandardFrostDamageTouch1Novice	; Frost Touch
+    ar_Append aDesSpell StandardDamageAttribEndurance1Novice; Damage Endurance
+    ar_Append aDesSpell StandardFireDamageTouch1Novice	; Fire Touch
+    ar_Append aDesSpell StandardDamageHealthTarget2Apprentice ; Damage Health Target
+    ar_Append aDesSpell StandardDisintegrateArmor2Apprentice; Disintegrate Armor
+    ar_Append aDesSpell StandardFrostDamageTarget2Apprentice ; Frost Target
+    ar_Append aDesSpell StandardShockDamageTarget2Apprentice; Shock Target
+    ar_Append aDesSpell StandardWeaknessPoison2Apprentice	; Weakness to Poison
+
+    let aPlaySpell := ar_Construct Array	
+    let iSpellSize := ar_Size aDesSpell
+    let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
+    ; get a random number to add x amount of spells and not all
+    let iRand := (Rand 0 iTemp)
+    ; loop for number of passes
+    While ( iRand >= 0 )
+      If iTemp == 0
+        Break
+      EndIf
+      ; we need to tell if the random spell we got is a duplicate of 
+      ; one we already added to the player
+      ; we don't wanna add the same spell twice
+
+      ; get a random number for the spell array index
+      let iRand1 := ( Rand 0 iSpellSize )
+
+      ; get the player spells
+      let aPlaySpell := PlayerREF.GetSpells
+
+      ; get the spell reference
+      let rTemp := aDesSpell[iRand1]
+
+      ; see if we already added it or not
+      let iSpIndex := ar_Find rTemp aPlaySpell
+      ; if we do find something loop while early
+      ; and decrement iRand so the loop can finish at all
+      If iSpIndex != -99999
+        let iRand -= 1
+        Continue
+      EndIf
+
+      ; add the spell if not in our list
+      PlayerREF.AddSpellNS rTemp
+
+      ; decrement iRand
+      let iRand -= 1
+
+      ; nullify the array so we can recreate it
+      let aPlaySpell := ar_Null
+    Loop
+  EndIf
+
+  If bIllusion == 1
+    let aIllSpell := ar_Construct Array
+    ar_Append aIllSpell StandardCalmTarget2Apprentice	; Calm Target
+    ar_Append aIllSpell StandardCharmTarget2Apprentice	; Charm Target
+    ar_Append aIllSpell StandardCommandCreature2Apprentice	; Command Creature
+    ar_Append aIllSpell StandardCommandHuman2Apprentice	; Command Human
+    ar_Append aIllSpell StandardDemoralizeTouch2Apprentice	; Demoralize Touch
+    ar_Append aIllSpell StandardFrenzyTarget2Apprentice	; Frenzy
+    ar_Append aIllSpell StandardLight1Novice		    ; Light
+    ar_Append aIllSpell StandardNightEye2Apprentice		; NightEye
+
+    let aPlaySpell := ar_Construct Array	
+    let iSpellSize := ar_Size aIllSpell
+    let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
+    ; get a random number to add x amount of spells and not all
+    let iRand := (Rand 0 iTemp)
+    ; loop for number of passes
+    While ( iRand >= 0 )
+      If iTemp == 0
+        Break
+      EndIf
+      ; we need to tell if the random spell we got is a duplicate of 
+      ; one we already added to the player
+      ; we don't wanna add the same spell twice
+
+      ; get a random number for the spell array index
+      let iRand1 := ( Rand 0 iSpellSize )
+
+      ; get the player spells
+      let aPlaySpell := PlayerREF.GetSpells
+
+      ; get the spell reference
+      let rTemp := aIllSpell[iRand1]
+
+      ; see if we already added it or not
+      let iSpIndex := ar_Find rTemp aPlaySpell
+      ; if we do find something loop while early
+      ; and decrement iRand so the loop can finish at all
+      If iSpIndex != -99999
+        let iRand -= 1
+        Continue
+      EndIf
+
+      ; add the spell if not in our list
+      PlayerREF.AddSpellNS rTemp
+
+      ; decrement iRand
+      let iRand -= 1
+
+      ; nullify the array so we can recreate it
+      let aPlaySpell := ar_Null
+    Loop
+  EndIf
+
+  If bMysticism == 1
+    let aMysSpell := ar_Construct Array
+    ar_Append aMysSpell StandardDetectLife1Novice		; Detect Life
+    ar_Append aMysSpell StandardDispelSelf2Apprentice	; Dispel
+    ar_Append aMysSpell StandardSoulTrap2Apprentice		; Soul Trap
+    ar_Append aMysSpell StandardTelekinesis2Apprentice	; Telekinesis
+
+    let aPlaySpell := ar_Construct Array	
+    let iSpellSize := ar_Size aMysSpell
+    let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
+    ; get a random number to add x amount of spells and not all
+    let iRand := (Rand 0 iTemp)
+    ; loop for number of passes
+    While ( iRand >= 0 )
+      If iTemp == 0
+        Break
+      EndIf
+      ; we need to tell if the random spell we got is a duplicate of 
+      ; one we already added to the player
+      ; we don't wanna add the same spell twice
+
+      ; get a random number for the spell array index
+      let iRand1 := ( Rand 0 iSpellSize )
+
+      ; get the player spells
+      let aPlaySpell := PlayerREF.GetSpells
+
+      ; get the spell reference
+      let rTemp := aMysSpell[iRand1]
+
+      ; see if we already added it or not
+      let iSpIndex := ar_Find rTemp aPlaySpell
+      ; if we do find something loop while early
+      ; and decrement iRand so the loop can finish at all
+      If iSpIndex != -99999
+        let iRand -= 1
+        Continue
+      EndIf
+
+      ; add the spell if not in our list
+      PlayerREF.AddSpellNS rTemp
+
+      ; decrement iRand
+      let iRand -= 1
+
+      ; nullify the array so we can recreate it
+      let aPlaySpell := ar_Null
+    Loop
+  EndIf
+
+  If bRestoration == 1
+    let aResSpell := ar_Construct Array
+    ar_Append aResSpell StandardAbsorbHealth1Novice		; Absorb Health
+    ar_Append aResSpell StandardCureParalysisApprentice	; Cure Paralysis
+    ar_Append aResSpell StandardCurePoisonApprentice	; Cure Poison
+    ar_Append aResSpell StandardFortifyAttribIntelligence2Apprentice ; Fortify Intelligence
+    ar_Append aResSpell StandardFortifyHealth2Apprentice	; Fortify Apprentice
+    ar_Append aResSpell StandardRestoreFatigue1Novice	; Restore Fatigue
+    ar_Append aResSpell StandardRestoreHealth2Apprentice	; Restore Apprentice
+
+    let aPlaySpell := ar_Construct Array	
+    let iSpellSize := ar_Size aResSpell
+    let iTemp := ((iSpellSize) - (Rand 0 iSpellSize))
+    ; get a random number to add x amount of spells and not all
+    let iRand := (Rand 0 iTemp)
+    ; loop for number of passes
+    While ( iRand >= 0 )
+      If iTemp == 0
+        Break
+      EndIf
+      ; we need to tell if the random spell we got is a duplicate of 
+      ; one we already added to the player
+      ; we don't wanna add the same spell twice
+
+      ; get a random number for the spell array index
+      let iRand1 := ( Rand 0 iSpellSize )
+
+      ; get the player spells
+      let aPlaySpell := PlayerREF.GetSpells
+
+      ; get the spell reference
+      let rTemp := aResSpell[iRand1]
+
+      ; see if we already added it or not
+      let iSpIndex := ar_Find rTemp aPlaySpell
+      ; if we do find something loop while early
+      ; and decrement iRand so the loop can finish at all
+      If iSpIndex != -99999
+        let iRand -= 1
+        Continue
+      EndIf
+
+      ; add the spell if not in our list
+      PlayerREF.AddSpellNS rTemp
+
+      ; decrement iRand
+      let iRand -= 1
+
+      ; nullify the array so we can recreate it
+      let aPlaySpell := ar_Null
+    Loop
+  EndIf
 
 End

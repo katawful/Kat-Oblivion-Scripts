@@ -3,29 +3,29 @@ scn OLBMQMythicKillScript
 
 Begin Function {}
 
-; TODO add the other assassins from imperialdungeon03
-; they aren't being killed too well and may as well
-if (PlayerREF.GetInCell ImperialDungeon01)
-	CGAssassin01Ref.Kill
-	CGAssassin02Ref.Kill
-	CGAssassin03Ref.Kill
-	CGAssassin04Ref.Kill
-elseif (PlayerREF.GetInCell ImperialDungeon02)
-	CGAssassin05Ref.Kill
-	CGAssassin06Ref.Kill
-	CGAssassin07Ref.Kill
-	CGAssassin08Ref.Kill
-	CGGenericAssassinsParent.Kill
-	CGGenericAssassin1.Kill
-	CGGenericAssassin2.Kill
-	CGGenericAssassin3.Kill
-	CGAmbushBDoor.Enable
-	OLBIDDoor02.Enable
-elseif (PlayerREF.GetInCell ImperialDungeon03)
-	CGAssassin13Ref.Kill
-	CGAssassin10Ref.Kill
-	CGAssassin11Ref.Kill
-	CGAssassin12Ref.Kill
-endif
+  ; TODO add the other assassins from imperialdungeon03
+  ; they aren't being killed too well and may as well
+  if (PlayerREF.GetInCell ImperialDungeon01)
+    CGAssassin01Ref.Kill
+    CGAssassin02Ref.Kill
+    CGAssassin03Ref.Kill
+    CGAssassin04Ref.Kill
+  elseif (PlayerREF.GetInCell ImperialDungeon02)
+    CGAssassin05Ref.Kill
+    CGAssassin06Ref.Kill
+    CGAssassin07Ref.Kill
+    CGAssassin08Ref.Kill
+    CGGenericAssassinsParent.Kill
+    CGGenericAssassin1.Kill
+    CGGenericAssassin2.Kill
+    CGGenericAssassin3.Kill
+    CGAmbushBDoor.Enable
+    OLBIDDoor02.Enable
+  elseif (PlayerREF.GetInCell ImperialDungeon03)
+    CGAssassin13Ref.Kill
+    CGAssassin10Ref.Kill
+    CGAssassin11Ref.Kill
+    CGAssassin12Ref.Kill
+  endif
 
 End
