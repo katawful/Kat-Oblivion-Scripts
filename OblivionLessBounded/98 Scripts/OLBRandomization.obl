@@ -1,12 +1,11 @@
 scn OLBRandomization
 
 int iKeyPressed		; for iskeypressed3
-int iDoOnce		; do once
+int iDoOnce	    	; do once
 int iMessage		; tell if we are in the right mode
-int iTemp
 
 int bHaveRestoration	; quest flag for restoration
-int bHaveAlchemy	; quest flag for alchemy
+int bHaveAlchemy    	; quest flag for alchemy
 
 float fQuestDelayTime
 
@@ -17,10 +16,6 @@ Begin GameMode
   ; check if we've created our character or not
   if GetStage CharacterGen == 6
     SetStage CharacterGen 7
-    ; disable the keys that control game actions, they still function
-    ; has small delay???
-    DisableMouse
-    DisablePlayerControls
   endif
 
   ; we've created our character
@@ -54,22 +49,17 @@ Begin GameMode
 
     if iMessage == 1
       MessageBox "Your start will now be randomized", "Ok"
-      let iTemp := GetStage Charactergen
-      let iTemp := GetStage OLBMQ
-    endif
-
-    if iMessage == 3
-      let iMessage := -2
     endif
 
     if iMessage == 2
       SetStage OLBQuest 20
-      let iMessage := 3
+      let iMessage := -2
     endif
   endif
 
   if GetStage OLBQuest == 20
     if iDoOnce == 1
+      ; use these two for a main quest change
       let bHaveRestoration := 0
       let bHaveAlchemy := 0
       Call OLBClassBirthRandomizeScript
@@ -82,7 +72,7 @@ Begin GameMode
 
   if GetStage OLBQuest == 30
     ; NOTE start main quest change here
-    ;StopQuest OLBQuest
+    StopQuest OLBQuest
     Return
   endif
 

@@ -17,10 +17,8 @@ float fQuestDelayTime
 float fPlayerX		; This gives us the player coordinates
 float fPlayerY
 float fTimer
-float fTemp1
 
 Begin GameMode
-
   ; NOTE quest stage 20 is for picking up the newspaper
   ; NOTE quest stage 50 is for going to jail
   ; NOTE I need to set bJailQuest to 0 before stopping this quest
@@ -159,7 +157,6 @@ Begin GameMode
       ; NOTE Assassin killing is done in a script to make things neat
       Call OLBMQMythicKillScript
 
-
       let iDoOnce := 2
       OLBCrumbleWall.PlayGroup Unequip 1
     endif
@@ -197,7 +194,6 @@ Begin GameMode
         GlenroyRef.Kill
         Call OLBMQMythicKillScript
         SetNumericGameSetting iDeathDropWeaponChance iDeathDrop
-        Print "cccccccccc"
         let iDoOnce := 4
       endif
     endif
@@ -227,11 +223,10 @@ Begin GameMode
 End
 
 Begin MenuMode 1009
-
   ; NOTE This runs for any NPC, I spent too much time on this and needed to finish it
   if ( PlayerREF.GetCrimeGold > 0 ) && ( GetQuestRunning OLBMQ )
     ; This checks if we're in the IC proper, not the areas outside
-    if ( PlayerREF.GetInWorldspace ICArboretumDistrict ) || ( PlayerREF.GetInWorldspace ICArenaDistrict ) || ( PlayerREF.GetInWorldspace ICElvenGardensDistrict ) || ( PlayerREF.GetInWorldspace ICImperialPalace ) || ( PlayerREF.GetInWorldspace ICImperialPrisonDistrict ) || ( PlayerREF.GetInWorldspace ICMarketDistrict ) || ( PlayerREF.GetInWorldspace ICTalosPlazaDistrict ) || ( PlayerREF.GetInWorldspace ICTempleDistrict ) || ( PlayerREF.GetInWorldspace ICTheArcaneUniversity ) 
+    if ( PlayerREF.GetInWorldspace ICArboretumDistrict ) || ( PlayerREF.GetInWorldspace ICArenaDistrict ) || ( PlayerREF.GetInWorldspace ICElvenGardensDistrict ) || ( PlayerREF.GetInWorldspace ICImperialPalace ) || ( PlayerREF.GetInWorldspace ICImperialPrisonDistrict ) || ( PlayerREF.GetInWorldspace ICMarketDistrict ) || ( PlayerREF.GetInWorldspace ICTalosPlazaDistrict ) || ( PlayerREF.GetInWorldspace ICTempleDistrict ) || ( PlayerREF.GetInWorldspace ICTheArcaneUniversity )
       if ( GetStage OLBMQ < 20 ) || ( GetStage OLBMQ > 40 ) ; basically we don't wanna be in another possible quest option
         ; This had to be split up cause it was too long
         let bJailQuest := 1
@@ -242,5 +237,4 @@ Begin MenuMode 1009
       let bJailQuest := 0
     endif
   endif
-
 End

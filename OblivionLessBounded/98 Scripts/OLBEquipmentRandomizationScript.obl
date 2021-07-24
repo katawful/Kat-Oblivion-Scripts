@@ -3,31 +3,31 @@ scn OLBEquipmentRandomizationScript
 ; this script is for equipment randomizaiton
 ; it uses many arrays to better edit/add the equipment setup
 
-array_var aArmor	; the main array we randomize from
+array_var aArmor	    ; the main array we randomize from
 array_var aPeasantArm	; a peasant loadup
 array_var aBanditArm	; a bandit loadup
 array_var aKnightArm	; knight
-array_var aThiefArm	; thief
-array_var aMageArm	; mage
+array_var aThiefArm	    ; thief
+array_var aMageArm	    ; mage
 array_var aWarriorArm	; warrior
 array_var aBarbarianArm	; barbarian
-array_var aRichArm	; rich person
+array_var aRichArm	    ; rich person
 array_var aNothingArm	; nothing, you get nothing
 
-array_var aWeapon	; the main weapon array we randomize from
+array_var aWeapon	    ; the main weapon array we randomize from
 array_var aBanditWep	; a bandit loadup
 array_var aKnightWep	; a knight loadup
-array_var aThiefWep	; thief
-array_var aMageWep	; mage
+array_var aThiefWep	    ; thief
+array_var aMageWep  	; mage
 array_var aWarriorWep	; warrior
 array_var aBarbarianWep	; barbarian
-array_var aRichWep	; rich person
+array_var aRichWep  	; rich person
 array_var aNothingWep	; nothing, you get nothing
 array_var item          ; for foreach loops
 
 array_var aFood		; food array
 
-array_var aPlaySpell	; the current player spells
+array_var aPlaySpell; the current player spells
 array_var aAltSpell	; alteration spells
 array_var aConSpell	; conjuration spells
 array_var aDesSpell	; conjuration spells
@@ -36,11 +36,11 @@ array_var aMysSpell	; mysticism spells
 array_var aResSpell	; restoration spells
 
 
-int iIndex		; index for a while loop for array walking cause lazy
-int iArmorRandom  ; random number for armor array
-int iWeaponRandom ; random number of weapon array
+int iIndex	    	; index for a while loop for array walking cause lazy
+int iArmorRandom    ; random number for armor array
+int iWeaponRandom   ; random number of weapon array
 
-int iArmorSize		; The size of our main array
+int iArmorSize	    ; The size of our main array
 int iWeaponSize     ; The size of main weapon array
 
 int iFoodSize		; size of food array
@@ -59,7 +59,7 @@ int iSpIndex		; the index of the found spell
 ;int bHeavyArmor
 ;int bSneak
 ;int bMarksman
-; int bAlchemy
+;int bAlchemy
 int bIllusion
 int bConjuration
 int bMysticism
@@ -73,9 +73,9 @@ int iTemp
 
 
 ref rTemp		; temporary reference
-; ref rTemp1		; another temp ref
+; ref rTemp1	; another temp ref
 
-ref rPlayClass		; the player class
+ref rPlayClass	; the player class
 
 
 Begin Function {}
@@ -85,24 +85,24 @@ Begin Function {}
   While ( iIndex <= 6 )
     ; we are looking for the correct skill that the player has
     let iTemp := PlayerREF.GetClassSkill iIndex
-    If ( iTemp >= 20 && iTemp <= 25 )
-      If iTemp == 19
+    if ( iTemp >= 20 && iTemp <= 25 )
+      if iTemp == 19
         let OLBQuest.bHaveAlchemy := 1
-      ElseIf iTemp == 20
+      elseif iTemp == 20
         let bAlteration := 1
-      ElseIf iTemp == 21
+      elseif iTemp == 21
         let bConjuration := 1
-      ElseIf iTemp == 22
+      elseif iTemp == 22
         let bDestruction := 1
-      ElseIf iTemp == 23
+      elseif iTemp == 23
         let bIllusion := 1
-      ElseIf iTemp == 24
+      elseif iTemp == 24
         let bMysticism := 1
-      ElseIf iTemp == 25
+      elseif iTemp == 25
         let bRestoration := 1
         let OLBQuest.bHaveRestoration := 1
-      EndIf
-    EndIf
+      endif
+    endif
     let iIndex += 1
   Loop
 
@@ -300,16 +300,16 @@ Begin Function {}
   let rPlayClass := PlayerREF.GetClass
 
   ; work through the flagged skills
-  If bAlteration == 1
+  if bAlteration == 1
     let aAltSpell := ar_Construct Array
-    ar_Append aAltSpell StandardBurden1Novice		; Burden 
+    ar_Append aAltSpell StandardBurden1Novice   		; Burden
     ar_Append aAltSpell StandardWaterWalking2Apprentice	; Water Walking
     ar_Append aAltSpell StandardWaterBreathing2Apprentice	; Water Breathing
     ar_Append aAltSpell StandardShockShield2Apprentice	; Shock Shield
-    ar_Append aAltSpell StandardShield1Novice		; Shield Self
-    ar_Append aAltSpell StandardFeather2Apprentice	; Feather
+    ar_Append aAltSpell StandardShield1Novice   		; Shield Self
+    ar_Append aAltSpell StandardFeather2Apprentice	    ; Feather
     ar_Append aAltSpell StandardFireShield2Apprentice	; Fire Shield
-    ar_Append aAltSpell StandardOpen1Novice			; Open Novice
+    ar_Append aAltSpell StandardOpen1Novice		    	; Open Novice
 
     let iSpellSize := ar_Size aAltSpell
     let aPlaySpell := ar_Construct Array	
@@ -318,9 +318,9 @@ Begin Function {}
     let iRand := (Rand 0 iTemp)
     ; loop for number of passes
     While ( iRand >= 0 )
-      If iTemp == 0
+      if iTemp == 0
         Break
-      EndIf
+      endif
       ; NOTE: we need to tell if the random spell we got is a duplicate of 
       ; one we already added to the player
       ; we don't wanna add the same spell twice
@@ -338,10 +338,10 @@ Begin Function {}
       let iSpIndex := ar_Find rTemp aPlaySpell
       ; if we do find something loop while early
       ; and decrement iRand so the loop can finish at all
-      If iSpIndex != -99999
+      if iSpIndex != -99999
         let iRand -= 1
         Continue
-      EndIf
+      endif
 
       ; add the spell if not in our list
       PlayerREF.AddSpellNS rTemp
@@ -352,9 +352,9 @@ Begin Function {}
       ; nullify the array so we can recreate it
       let aPlaySpell := ar_Null
     Loop
-  EndIf
+  endif
 
-  If bConjuration == 1
+  if bConjuration == 1
     let aConSpell := ar_Construct Array
     ar_Append aConSpell StandardBoundArmorBootsNovice	; Bound Boots
     ar_Append aConSpell StandardBoundDaggerNovice		; Bound Dagger
@@ -373,9 +373,9 @@ Begin Function {}
     let iRand := (Rand 0 iTemp)
     ; loop for number of passes
     While ( iRand >= 0 )
-      If iTemp == 0
+      if iTemp == 0
         Break
-      EndIf
+      endif
       ; we need to tell if the random spell we got is a duplicate of 
       ; one we already added to the player
       ; we don't wanna add the same spell twice
@@ -393,10 +393,10 @@ Begin Function {}
       let iSpIndex := ar_Find rTemp aPlaySpell
       ; if we do find something loop while early
       ; and decrement iRand so the loop can finish at all
-      If iSpIndex != -99999
+      if iSpIndex != -99999
         let iRand -= 1
         Continue
-      EndIf
+      endif
 
       ; add the spell if not in our list
       PlayerREF.AddSpellNS rTemp
@@ -407,9 +407,9 @@ Begin Function {}
       ; nullify the array so we can recreate it
       let aPlaySpell := ar_Null
     Loop
-  EndIf
+  endif
 
-  If bDestruction == 1
+  if bDestruction == 1
     let aDesSpell := ar_Construct Array
     ar_Append aDesSpell StandardDrainHealth1Novice		; Drain Health
     ar_Append aDesSpell StandardFrostDamageTouch1Novice	; Frost Touch
@@ -428,9 +428,9 @@ Begin Function {}
     let iRand := (Rand 0 iTemp)
     ; loop for number of passes
     While ( iRand >= 0 )
-      If iTemp == 0
+      if iTemp == 0
         Break
-      EndIf
+      endif
       ; we need to tell if the random spell we got is a duplicate of 
       ; one we already added to the player
       ; we don't wanna add the same spell twice
@@ -448,10 +448,10 @@ Begin Function {}
       let iSpIndex := ar_Find rTemp aPlaySpell
       ; if we do find something loop while early
       ; and decrement iRand so the loop can finish at all
-      If iSpIndex != -99999
+      if iSpIndex != -99999
         let iRand -= 1
         Continue
-      EndIf
+      endif
 
       ; add the spell if not in our list
       PlayerREF.AddSpellNS rTemp
@@ -462,9 +462,9 @@ Begin Function {}
       ; nullify the array so we can recreate it
       let aPlaySpell := ar_Null
     Loop
-  EndIf
+  endif
 
-  If bIllusion == 1
+  if bIllusion == 1
     let aIllSpell := ar_Construct Array
     ar_Append aIllSpell StandardCalmTarget2Apprentice	; Calm Target
     ar_Append aIllSpell StandardCharmTarget2Apprentice	; Charm Target
@@ -482,9 +482,9 @@ Begin Function {}
     let iRand := (Rand 0 iTemp)
     ; loop for number of passes
     While ( iRand >= 0 )
-      If iTemp == 0
+      if iTemp == 0
         Break
-      EndIf
+      endif
       ; we need to tell if the random spell we got is a duplicate of 
       ; one we already added to the player
       ; we don't wanna add the same spell twice
@@ -502,10 +502,10 @@ Begin Function {}
       let iSpIndex := ar_Find rTemp aPlaySpell
       ; if we do find something loop while early
       ; and decrement iRand so the loop can finish at all
-      If iSpIndex != -99999
+      if iSpIndex != -99999
         let iRand -= 1
         Continue
-      EndIf
+      endif
 
       ; add the spell if not in our list
       PlayerREF.AddSpellNS rTemp
@@ -516,9 +516,9 @@ Begin Function {}
       ; nullify the array so we can recreate it
       let aPlaySpell := ar_Null
     Loop
-  EndIf
+  endif
 
-  If bMysticism == 1
+  if bMysticism == 1
     let aMysSpell := ar_Construct Array
     ar_Append aMysSpell StandardDetectLife1Novice		; Detect Life
     ar_Append aMysSpell StandardDispelSelf2Apprentice	; Dispel
@@ -532,9 +532,9 @@ Begin Function {}
     let iRand := (Rand 0 iTemp)
     ; loop for number of passes
     While ( iRand >= 0 )
-      If iTemp == 0
+      if iTemp == 0
         Break
-      EndIf
+      endif
       ; we need to tell if the random spell we got is a duplicate of 
       ; one we already added to the player
       ; we don't wanna add the same spell twice
@@ -552,10 +552,10 @@ Begin Function {}
       let iSpIndex := ar_Find rTemp aPlaySpell
       ; if we do find something loop while early
       ; and decrement iRand so the loop can finish at all
-      If iSpIndex != -99999
+      if iSpIndex != -99999
         let iRand -= 1
         Continue
-      EndIf
+      endif
 
       ; add the spell if not in our list
       PlayerREF.AddSpellNS rTemp
@@ -566,9 +566,9 @@ Begin Function {}
       ; nullify the array so we can recreate it
       let aPlaySpell := ar_Null
     Loop
-  EndIf
+  endif
 
-  If bRestoration == 1
+  if bRestoration == 1
     let aResSpell := ar_Construct Array
     ar_Append aResSpell StandardAbsorbHealth1Novice		; Absorb Health
     ar_Append aResSpell StandardCureParalysisApprentice	; Cure Paralysis
@@ -585,9 +585,9 @@ Begin Function {}
     let iRand := (Rand 0 iTemp)
     ; loop for number of passes
     While ( iRand >= 0 )
-      If iTemp == 0
+      if iTemp == 0
         Break
-      EndIf
+      endif
       ; we need to tell if the random spell we got is a duplicate of 
       ; one we already added to the player
       ; we don't wanna add the same spell twice
@@ -605,10 +605,10 @@ Begin Function {}
       let iSpIndex := ar_Find rTemp aPlaySpell
       ; if we do find something loop while early
       ; and decrement iRand so the loop can finish at all
-      If iSpIndex != -99999
+      if iSpIndex != -99999
         let iRand -= 1
         Continue
-      EndIf
+      endif
 
       ; add the spell if not in our list
       PlayerREF.AddSpellNS rTemp
@@ -619,6 +619,6 @@ Begin Function {}
       ; nullify the array so we can recreate it
       let aPlaySpell := ar_Null
     Loop
-  EndIf
+  endif
 
 End
