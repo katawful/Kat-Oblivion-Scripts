@@ -1,0 +1,16 @@
+﻿scn aaKFOVGetModData
+
+; this script gets the mod data that we stored
+
+begin function {}
+	; check if stored mod data is the same as the save data but not 0
+	if aaKFOV.FOVModeKey == 0 || aaKFOV.INIVersion < 1 ; this means default or the ini updated
+		; just get mod data as is
+		let aaKFOV.FOVModeKey := GetModLocalData "FOVMode"
+		let aaKFOV.WeatherModeKey := GetModLocalData "WeatherMode"
+		let aaKFOV.EnableNAOWeathers := GetModLocalData "NAOSupport"
+		let aaKFOV.EnableOblivionWeathers := GetModLocalData "OblivionSupport"
+		let aaKFOV.EnableSIWeathers := GetModLocalData "SISupport"
+		let aaKFOV.INIVersion := GetModLocalData "INIVersion"
+	endif
+end

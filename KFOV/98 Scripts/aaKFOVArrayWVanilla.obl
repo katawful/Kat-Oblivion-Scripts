@@ -1,0 +1,67 @@
+﻿scn aaKFOVArrayWVanilla
+
+; this sets up the array of vanilla weathers to toggle between
+ref temp
+
+begin function {}
+	; tamriel weathers
+	let aaKFOV.aWTamriel := ar_Construct Array
+	let temp := GetFormFromMod "Oblivion.esm" "038eec" ; overcast
+	ar_Append aaKFOV.aWTamriel temp
+	let temp := GetFormFromMod "Oblivion.esm" "038eed" ; snow
+	ar_Append aaKFOV.aWTamriel temp
+	let temp := GetFormFromMod "Oblivion.esm" "038eee" ; clear
+	ar_Append aaKFOV.aWTamriel temp
+	let temp := GetFormFromMod "Oblivion.esm" "038eef" ; fog
+	ar_Append aaKFOV.aWTamriel temp
+	let temp := GetFormFromMod "Oblivion.esm" "038ef0" ; cloudy
+	ar_Append aaKFOV.aWTamriel temp
+	let temp := GetFormFromMod "Oblivion.esm" "038ef1" ; thunderstorm
+	ar_Append aaKFOV.aWTamriel temp
+	let temp := GetFormFromMod "Oblivion.esm" "038ef2" ; rain
+	ar_Append aaKFOV.aWTamriel temp
+	ar_Append aaKFOV.aWeather aaKFOV.aWTamriel
+
+	; oblivion weathers
+	if aaKFOV.EnableOblivionWeathers == 1
+		let aaKFOV.aWOblivion := ar_Construct Array
+		let temp := GetFormFromMod "Oblivion.esm" "067198" ; electrical
+		ar_Append aaKFOV.aWOblivion temp
+		let temp := GetFormFromMod "Oblivion.esm" "067199" ; storm
+		ar_Append aaKFOV.aWOblivion temp
+		let temp := GetFormFromMod "Oblivion.esm" "0671a1" ; fog
+		ar_Append aaKFOV.aWOblivion temp
+		let temp := GetFormFromMod "Oblivion.esm" "06bc8b" ; mq16
+		ar_Append aaKFOV.aWOblivion temp
+		let temp := GetFormFromMod "Oblivion.esm" "0836d5" ; storm tamriel
+		ar_Append aaKFOV.aWOblivion temp
+		let temp := GetFormFromMod "Oblivion.esm" "0370ce" ; camoran
+		ar_Append aaKFOV.aWOblivion temp
+		ar_Append aaKFOV.aWeather aaKFOV.aWOblivion
+	endif
+	
+	; SI weathers
+	if aaKFOV.EnableSIWeathers == 1
+		let aaKFOV.aWSI := ar_Construct Array
+		let temp := GetFormFromMod "Oblivion.esm" "015883" ; gloom storm
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "044f58" ; clear blue
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "044f58" ; cloudy
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "044f5a" ; fog
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "044f5c" ; rain
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "044f5d" ; thunderstorm
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "077b28" ; overcast
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "078801" ; clear
+		ar_Append aaKFOV.aWSI temp
+		let temp := GetFormFromMod "Oblivion.esm" "079d76" ; mania fog
+		ar_Append aaKFOV.aWSI temp
+		ar_Append aaKFOV.aWeather aaKFOV.aWSI
+	endif
+	
+end

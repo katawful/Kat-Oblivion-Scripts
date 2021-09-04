@@ -1,0 +1,12 @@
+﻿scn aaKFOVStoreModData
+
+; this script stores the INI/LINK settings to mod local data so that they appear when loading the game
+
+begin function {}
+	SetModLocalData "FOVMode" aaKFOV.FOVModeKey
+	SetModLocalData "WeatherMode" aaKFOV.WeatherModeKey
+	SetModLocalData "NAOSupport" aaKFOV.EnableNAOWeathers
+	SetModLocalData "OblivionSupport" aaKFOV.EnableOblivionWeathers
+	SetModLocalData "SISupport" aaKFOV.EnableSIWeathers
+	SetModLocalData "INIVersion" aaKFOV.INIVersion
+end

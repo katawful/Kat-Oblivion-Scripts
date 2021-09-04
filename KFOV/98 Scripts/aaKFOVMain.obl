@@ -1,0 +1,60 @@
+﻿scn aaKFOVMain
+
+float fQuestDelayTime
+
+int iDoOnce
+int localDoOnce ; never call this outside of this script
+int iFOVMode ; this is our fov mode control
+int iWeatherMode		; this is for our weather control
+int iCurrentWeather ; this holds our current position in the weather array
+int iCurrentType ; hold our current weather type placement
+ref rGetLastWeather ; get the last weather so that the player can return to it after screens
+
+array_var aWeather ; this holds all of our weather arrays
+array_var aWTamriel ; this is tamriel weather
+array_var aWOblivion ; this is oblivion weather
+array_var aWSI ; this is shivering isle weather
+array_var aWNAO ; this is for NAO
+
+; variables for ini file
+int FOVModeKey ; key to enter fov mode
+int WeatherModeKey ; key to enter weather mode
+int INIVersion ; ini version
+int EnableNAOWeathers ; enable NAO support
+int EnableOblivionWeathers ; enable oblivion support
+int EnableSIWeathers ; enable SI weather
+
+; this should just set up values and shit
+; i need a global to store 1st person and 3rd person FOV
+
+; startup
+begin GameMode
+	set fQuestDelayTime to 0.001
+	if GetGameLoaded		; if the game loads
+		set iFOVMode to 0 ; we aren't here by default
+		set iWeatherMode to 0 ; we aren't here by default
+		set iCurrentWeather to 0
+		set iCurrentType to 0
+		call aaKFOVEventScript	; set up handlers and other defaults
+	endif
+
+	call aaKFOVSetFOV	; set fov constantly
+end
+
+; set defaults while in menu
+; shit breaks outside of 75
+begin MenuMode
+	set fQuestDelayTime to 0.01 ; roughly 60FPS in case some weirdo doesn't cap FPS
+	call aaKFOVSetDefault	; set defaults for menus
+	if aaKFOVCheckOBSE.lRunINIFile == 1
+		if (IsModLoaded "LINK.esp" == 0) || (INIVersion < 1)
+			RunBatchScript "Data\Kats Fantastic Oblivion Viewport.ini" 0 1
+			Print "INI settings imported"
+		endif
+		if IsModLoaded "LINK.esp"
+			SetEventHandler "OnSettingsUpdated" aaKFOVINISettings
+		endif
+		call aaKFOVStoreModData ; run this incase the user never updates settings
+		set aaKFOVCheckOBSE.lRunINIFile to 2
+	endif
+end

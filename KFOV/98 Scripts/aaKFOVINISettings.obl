@@ -1,0 +1,19 @@
+﻿scn aaKFOVINISettings
+
+; this is to update the settings whenever LINK updates otherwise not
+
+array_var args
+
+begin function {args}
+	if eval ( GetModIndex "Kats Fantastic Oblivion Viewport.esp" ) != ( args->modindex )
+		return
+	endif
+
+	; this is needed if we change settings while in main menu
+	call aaKFOVStoreModData
+	
+	SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
+	SetEventHandler "OnKeyEvent" aaKFOVIKeyEvent first::aaKFOV.WeatherModeKey second::0		; weather mode
+
+	let aaKFOV.aWeather := ar_Construct Array
+end

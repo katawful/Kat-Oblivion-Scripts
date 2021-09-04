@@ -1,0 +1,17 @@
+﻿scn aaKFOVEqualsKeyEvent
+
+; add variables for event parameters
+int iKey
+int iAction
+
+begin function {iKey, iAction}
+	if aaKFOV.iFOVMode == 1		; we are in FOV mode
+		call aaKFOVChangeFOV 1 1
+	elseif aaKFOV.iWeatherMode 		; we are in weather mode
+		if IsKeyPressed3 42 == 1 ; this is just held so we don't care
+			call aaKFOVLoadWeather 1 1
+		else ; shift isn't held
+			call aaKFOVLoadWeather 1 0
+		endif
+	endif
+end

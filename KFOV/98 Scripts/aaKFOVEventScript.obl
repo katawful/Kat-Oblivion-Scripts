@@ -1,0 +1,29 @@
+﻿scn aaKFOVEventScript
+
+int iDoOnce
+
+; this script simply sets defaults upon game load
+; since i use globals, it'll save to the save game
+
+; set whatever was saved to the global as our FOV
+; and set up eventhandlers for game exit
+begin Function {}
+	call aaKFOVSetFOV ; set fov to whatever is saved
+	if GetGameRestarted ; set up eventhandlers
+		SetEventHandler "QQQ" aaKFOVSetDefault
+		SetEventHandler "ExitGame" aaKFOVSetDefault
+
+		call aaKFOVGetModData
+
+		; set at game loaded
+		SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
+		SetEventHandler "OnKeyEvent" aaKFOVIKeyEvent first::aaKFOV.WeatherModeKey second::0		; weather mode
+		; make sure everything is updated based on settings
+		set iDoOnce to 1
+	endif
+	if iDoOnce == 1 ; notify that it's setup
+		PrintC "FOV settings loaded"
+		PrintC "Set desired FOV by running:%rset fov1st to #%rset fov3rd to #"
+		set iDoOnce to 0
+	endif
+end

@@ -1,0 +1,56 @@
+﻿scn aaKFOVLoadWeather
+
+; this loads weather from array
+
+int increment ; holds increment weather itself
+int iSizeMain
+int iSizeNest
+int type		; holds type of weather
+ref rWeather
+
+begin function {increment, type}
+	
+	if increment == 1
+		set increment to 1
+	elseif increment == 0
+		set increment to -1
+	endif
+
+	let iSizeMain := ar_Size aaKFOV.aWeather
+	
+	if type == 1 ; incrementing type
+		if aaKFOV.iCurrentType == 0 && increment == -1
+			set aaKFOV.iCurrentType to iSizeMain - 1 ; cause 0 index array
+		; if at last and we increment, set to first value
+		elseif aaKFOV.iCurrentType == (iSizeMain - 1) && increment == 1
+			set aaKFOV.iCurrentType to 0
+		else
+			let aaKFOV.iCurrentType += increment
+		endif
+	endif
+	
+	let iSizeNest := ar_size aaKFOV.aWeather[aaKFOV.iCurrentType]
+	; set the current index to a bounds that makes sense regardless of condition
+	if aaKFOV.iCurrentWeather > (iSizeNest - 1)
+		let aaKFOV.iCurrentWeather := (iSizeNest - 1)
+	endif
+	; if at 0 and we decrement, set to last value
+	if aaKFOV.iCurrentWeather == 0 && increment == -1
+		set aaKFOV.iCurrentWeather to iSizeNest - 1 ; cause 0 index array
+	; if at last and we increment, set to first value
+	elseif aaKFOV.iCurrentWeather == (iSizeNest - 1) && increment == 1
+		set aaKFOV.iCurrentWeather to 0
+	else
+		; if just changing the type make sure we don't change the index
+		if type == 1
+			let aaKFOV.iCurrentWeather := aaKFOV.iCurrentWeather
+		; update the index if not changing the type
+		else
+			let aaKFOV.iCurrentWeather += increment
+		endif
+	endif
+;	ar_Dump aaKFOV.aWeather
+;	ar_Dump aaKFOV.aWeather[aaKFOV.iCurrentWeather]
+	let rWeather := (aaKFOV.aWeather[aaKFOV.iCurrentType][aaKFOV.iCurrentWeather])
+	ForceWeather rWeather
+end
