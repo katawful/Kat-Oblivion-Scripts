@@ -8,3 +8,6 @@ There's little configuration if you just want FOV adjustment, but if you want th
 * INI and LINK support for all features
 * Instant loading, no more pop-in
 * Separate 1st person and 3rd person FOV
+
+# Controls
+The default keys for entering "FOV Mode" and "Weather Mode" are `P` and `I` respectively. You can change between values with both modes with `=` and `-`, and with "Weather Mode" you can change supported weather type while holding `Shift` and pressing the value change keys.

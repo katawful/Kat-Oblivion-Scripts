@@ -1,7 +1,0 @@
-﻿scn aaKFOVGetLastWeather
-
-; this script simply stores the last weather the player was in
-
-begin function {}
-	let aaKFOV.rGetLastWeather := GetCurrentWeatherID
-end
