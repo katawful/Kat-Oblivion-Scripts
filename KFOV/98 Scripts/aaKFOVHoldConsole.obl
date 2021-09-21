@@ -1,0 +1,21 @@
+﻿scn aaKFOVHoldConsole
+
+; this script holds the console open when in FOV or Weather modes
+
+; event parameter
+int iKey
+int iAction
+int temp
+
+begin function {iKey, iAction}
+	PrintToConsole "ikey is: %g%riaction is: %g", iKey, iAction
+	if IsConsoleOpen == 1 ; if console is open don't open it
+		set temp to 1
+	else
+		TapKey 41 ; open up console
+		return
+	endif
+	if IsConsoleOpen == 1
+		TapKey 41
+	endif
+end

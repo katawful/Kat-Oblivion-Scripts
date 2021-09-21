@@ -8,7 +8,19 @@ int iFOVMode ; this is our fov mode control
 int iWeatherMode		; this is for our weather control
 int iCurrentWeather ; this holds our current position in the weather array
 int iCurrentType ; hold our current weather type placement
+int iANWatcherDone ; is our AN watcher done???
+int iQuestRunning ; see if AN is loaded
+float fTimer
 ref rGetLastWeather ; get the last weather so that the player can return to it after screens
+ref temp
+int iPreviousFOV ; store previous FOV from 3rd person mode
+int iFreecam ; is free cam on
+int iCurrentPerspective ; whatever the player was currently in
+
+int iHasEW ; has EW from AN ini
+int iHasNW ; has NW from AN ini
+int iHasAWS ; has AWS fron AN ini
+int iANUseSI ; use SI weathers from AN (broken in AN)
 
 array_var aWeather ; this holds all of our weather arrays
 array_var aWTamriel ; this is tamriel weather
@@ -16,13 +28,81 @@ array_var aWOblivion ; this is oblivion weather
 array_var aWSI ; this is shivering isle weather
 array_var aWNAO ; this is for NAO
 
+array_var aWANEWOvercast ; EW overcast
+array_var aWANEWFog ; EW fog
+array_var aWANEWRain ; EW rain
+array_var aWANEWSnow ; EW snow
+array_var aWANEWStorm ; EW storm
+array_var aWANEWClear ; EW clear
+array_var aWANEWSIClear ; EW SI Clear
+array_var aWANEWSICloudy ; EW SI cloudy
+array_var aWANEWSIFog ; EW SI fog
+array_var aWANEWSIMania ; EW SI mania
+array_var aWANEWSIOvercast ; EW SI overcast
+array_var aWANEWSIRain ; EW SI rain
+array_var aWANEWSIStorm ; EW SI storm
+
+array_var aWANNWClear ; NW clear
+array_var aWANNWCloudy ; NW cloudy
+array_var aWANNWFog ; NW fog
+array_var aWANNWRain ; NW rain
+array_var aWANNWSnow ; NW snow
+array_var aWANNWStorm ; NW storm
+
+array_var aWANAWSClear ; AWS clear
+array_var aWANAWSCloudy ; AWS cloudy
+array_var aWANAWSFog ; AWS fog
+array_var aWANAWSOvercast ; AWS overcast
+array_var aWANAWSRain ; AWS rain
+array_var aWANAWSSnow ; AWS snow
+array_var aWANAWSThunderstorm ; AWS thunderstorm
+
 ; variables for ini file
+int EnableFOVMode ; disable FOV mode
+int EnableWeatherMode ; disable weather mode
+int EnableHUDToggle ; enable hud toggle
+int EnableFreeCamSupport ; enable freecam support
+
 int FOVModeKey ; key to enter fov mode
 int WeatherModeKey ; key to enter weather mode
+int ToggleHUDKey ; key to toggle HUD
+int ToggleFreecamKey ; key to toggle freecam
+
 int INIVersion ; ini version
+
 int EnableNAOWeathers ; enable NAO support
 int EnableOblivionWeathers ; enable oblivion support
 int EnableSIWeathers ; enable SI weather
+
+int EnableANWeathers ; enable all AN weathers
+int EnableANEWOvercast ; EW Overcast
+int EnableANEWFog ; EW fog
+int EnableANEWRain ; EW rain
+int EnableANEWSnow ; EW snow
+int EnableANEWStorm ; EW storm
+int EnableANEWClear ; EW clear
+int EnableANEWSIClear ; EW SI clear
+int EnableANEWSICloudy ; EW SI cloudy
+int EnableANEWSIFog ; EW SI fog
+int EnableANEWSIMania ; EW SI mania
+int EnableANEWSIOvercast ; EW SI overcast
+int EnableANEWSIRain ; EW SI rain
+int EnableANEWSIStorm ; EW SI storm
+
+int EnableANNWClear ; NW clear
+int EnableANNWCloudy ; NW cloudy
+int EnableANNWFog ; NW fog
+int EnableANNWRain ; NW rain
+int EnableANNWSnow ; NW snow
+int EnableANNWStorm ; NW storm
+
+int EnableANAWSClear ; AWS clear
+int EnableANAWSCloudy ; AWS cloudy
+int EnableANAWSFog ; AWS fog
+int EnableANAWSOvercast ; AWS overcast
+int EnableANAWSRain ; AWS rain
+int EnableANAWSSnow ; AWS snow
+int EnableANAWSThunderstorm ; AWS thunderstorm
 
 ; this should just set up values and shit
 ; i need a global to store 1st person and 3rd person FOV
@@ -35,9 +115,36 @@ begin GameMode
 		set iWeatherMode to 0 ; we aren't here by default
 		set iCurrentWeather to 0
 		set iCurrentType to 0
+		set iANWatcherDone to 0
+		set iQuestRunning to 0
 		call aaKFOVEventScript	; set up handlers and other defaults
+		
+		; AN stuff cause fuck me
+		set fTimer to 5.1
+		set iDoOnce to 0
+		set fQuestDelayTime to 0.1 ; set to slow cause we don't need it fast anymore
 	endif
 
+	if IsModLoaded "All Natural Base.esm" && EnableANWeathers == 1 && EnableWeatherMode == 1
+		; run ANwatcher when we need to
+		; see script for details
+		; basically AN is fucking stupid and i need to do this whole ass setup just
+		; to make sure that the mod is loaded and imports INI values properly
+		if (fTimer != 0 && iDoOnce == 0)
+			let fTimer -= GetSecondsPassed
+			if fTimer < 0
+				set fTimer to 0
+			endif
+		endif
+		if fTimer == 0 && iDoOnce == 0
+			set iANWatcherDone to 0
+			set iDoOnce to 1
+		endif
+		if (iANWatcherDone == 0) ; if ANwatcher hasn't finished
+			call aaKFOVANWatcher ; watch for AN initialization
+		endif
+	endif
+	
 	call aaKFOVSetFOV	; set fov constantly
 end
 

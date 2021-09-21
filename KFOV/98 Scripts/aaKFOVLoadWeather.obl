@@ -7,6 +7,7 @@ int iSizeMain
 int iSizeNest
 int type		; holds type of weather
 ref rWeather
+string_var temp
 
 begin function {increment, type}
 	
@@ -17,7 +18,8 @@ begin function {increment, type}
 	endif
 
 	let iSizeMain := ar_Size aaKFOV.aWeather
-	
+
+	; deals with incrementing type
 	if type == 1 ; incrementing type
 		if aaKFOV.iCurrentType == 0 && increment == -1
 			set aaKFOV.iCurrentType to iSizeMain - 1 ; cause 0 index array
@@ -27,6 +29,10 @@ begin function {increment, type}
 		else
 			let aaKFOV.iCurrentType += increment
 		endif
+		
+		let temp := aaKFOV.aWeather[aaKFOV.iCurrentType][0]
+		PrintC "Current weather type is: %z", temp
+		sv_Destruct temp
 	endif
 	
 	let iSizeNest := ar_size aaKFOV.aWeather[aaKFOV.iCurrentType]
@@ -34,12 +40,17 @@ begin function {increment, type}
 	if aaKFOV.iCurrentWeather > (iSizeNest - 1)
 		let aaKFOV.iCurrentWeather := (iSizeNest - 1)
 	endif
-	; if at 0 and we decrement, set to last value
-	if aaKFOV.iCurrentWeather == 0 && increment == -1
+	; if at 0, set to 1
+	; 0 is our notification element
+	; 1 starts the weather
+	if aaKFOV.iCurrentWeather == 0
+		set aaKFOV.iCurrentWeather to 1
+	; if at 1 and we decrement, set to last value
+	elseif aaKFOV.iCurrentWeather == 1 && increment == -1
 		set aaKFOV.iCurrentWeather to iSizeNest - 1 ; cause 0 index array
 	; if at last and we increment, set to first value
 	elseif aaKFOV.iCurrentWeather == (iSizeNest - 1) && increment == 1
-		set aaKFOV.iCurrentWeather to 0
+		set aaKFOV.iCurrentWeather to 1
 	else
 		; if just changing the type make sure we don't change the index
 		if type == 1
@@ -49,8 +60,9 @@ begin function {increment, type}
 			let aaKFOV.iCurrentWeather += increment
 		endif
 	endif
-;	ar_Dump aaKFOV.aWeather
-;	ar_Dump aaKFOV.aWeather[aaKFOV.iCurrentWeather]
+	;	ar_Dump aaKFOV.aWeather
+	;	ar_Dump aaKFOV.aWeather[aaKFOV.iCurrentWeather]
+
 	let rWeather := (aaKFOV.aWeather[aaKFOV.iCurrentType][aaKFOV.iCurrentWeather])
 	ForceWeather rWeather
 end

@@ -1,0 +1,15 @@
+﻿scn aaKFOVToggleHUDScript
+
+; this script toggles the hud
+
+; parameters
+int iKey
+int iAction
+
+begin function {iKey, iAction}
+	if aaKFOV.iWeatherMode == 1 || aaKFOV.iFOVMode == 1
+		return
+	else
+		con_ToggleMenus
+	endif
+end

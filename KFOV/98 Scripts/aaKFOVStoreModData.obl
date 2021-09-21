@@ -3,10 +3,43 @@
 ; this script stores the INI/LINK settings to mod local data so that they appear when loading the game
 
 begin function {}
+	SetModLocalData "EnableFOVMode" aaKFOV.EnableFOVMode
+	SetModLocalData "EnableWeatherMode" aaKFOV.EnableWeatherMode
+	SetModLocalData "EnableFreecam" aaKFOV.EnableFreeCamSupport
+	SetModLocalData "EnableHUDToggle" aaKFOV.EnableHUDToggle
+	SetModLocalData "ToggleHUD" aaKFOV.ToggleHUDKey
+	SetModLocalData "ToggleFreecam" aaKFOV.ToggleFreecamKey
 	SetModLocalData "FOVMode" aaKFOV.FOVModeKey
 	SetModLocalData "WeatherMode" aaKFOV.WeatherModeKey
 	SetModLocalData "NAOSupport" aaKFOV.EnableNAOWeathers
 	SetModLocalData "OblivionSupport" aaKFOV.EnableOblivionWeathers
 	SetModLocalData "SISupport" aaKFOV.EnableSIWeathers
+	SetModLocalData "ANSupport" aaKFOV.EnableANWeathers
+	SetModLocalData "ANEWOvercast" aaKFOV.EnableANEWOvercast
+	SetModLocalData "ANEWFog" aaKFOV.EnableANEWFog
+	SetModLocalData "ANEWRain" aaKFOV.EnableANEWRain
+	SetModLocalData "ANEWSnow" aaKFOV.EnableANEWSnow
+	SetModLocalData "ANEWStorm" aaKFOV.EnableANEWStorm
+	SetModLocalData "ANEWClear" aaKFOV.EnableANEWClear
+	SetModLocalData "ANEWSIClear" aaKFOV.EnableANEWSIClear
+	SetModLocalData "ANEWSICloudy" aaKFOV.EnableANEWSICloudy
+	SetModLocalData "ANEWSIFog" aaKFOV.EnableANEWSIFog
+	SetModLocalData "ANEWSIMania" aaKFOV.EnableANEWSIMania
+	SetModLocalData "ANEWSIOvercast" aaKFOV.EnableANEWSIOvercast
+	SetModLocalData "ANEWSIRain" aaKFOV.EnableANEWSIRain
+	SetModLocalData "ANEWSIStorm" aaKFOV.EnableANEWSIStorm
+	SetModLocalData "ANNWClear" aaKFOV.EnableANNWClear
+	SetModLocalData "ANNWCloudy" aaKFOV.EnableANNWCloudy
+	SetModLocalData "ANNWFog" aaKFOV.EnableANNWFog
+	SetModLocalData "ANNWRain" aaKFOV.EnableANNWRain
+	SetModLocalData "ANNWSnow" aaKFOV.EnableANNWSnow
+	SetModLocalData "ANNWStorm" aaKFOV.EnableANNWStorm
+	SetModLocalData "ANAWSClear" aaKFOV.EnableANAWSClear
+	SetModLocalData "ANAWSCloudy" aaKFOV.EnableANAWSCloudy
+	SetModLocalData "ANAWSFog" aaKFOV.EnableANAWSFog
+	SetModLocalData "ANAWSOvercast" aaKFOV.EnableANAWSOvercast
+	SetModLocalData "ANAWSRain" aaKFOV.EnableANAWSRain
+	SetModLocalData "ANAWSSnow" aaKFOV.EnableANAWSSnow
+	SetModLocalData "ANAWSThunderstorm" aaKFOV.EnableANAWSThunderstorm
 	SetModLocalData "INIVersion" aaKFOV.INIVersion
 end

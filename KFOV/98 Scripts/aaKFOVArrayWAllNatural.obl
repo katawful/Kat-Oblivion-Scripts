@@ -1,0 +1,568 @@
+﻿scn aaKFOVArrayWAllNatural
+
+; this loads the AN weathers
+ref temp ; holds weather ref
+
+begin function {}
+	if aaKFOV.iHasEW == 1
+		if aakfov.EnableANEWOvercast == 1
+			let aaKFOV.aWANEWOvercast := ar_Construct array
+
+			; set up marker element
+			ar_Append aaKFOV.aWANEWOvercast "AN EW Overcast"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "00086A" ; 1
+			ar_Append aaKFOV.aWANEWOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00084f" ; 2
+			ar_Append aaKFOV.aWANEWOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000850" ; 3
+			ar_Append aaKFOV.aWANEWOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000851" ; 4
+			ar_Append aaKFOV.aWANEWOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000852" ; 5
+			ar_Append aaKFOV.aWANEWOvercast temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWOvercast
+		endif
+
+		if aaKFOV.EnableANEWFog == 1
+			let aaKFOV.aWANEWFog := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWFog "AN EW Fog"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "000853" ; 1
+			ar_Append aaKFOV.aWANEWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000854" ; 2
+			ar_Append aaKFOV.aWANEWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000855" ; 3
+			ar_Append aaKFOV.aWANEWFog temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWFog
+		endif
+
+		if aaKFOV.EnableANEWRain == 1
+			let aaKFOV.aWANEWRain := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWRain "AN EW Rain"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "000856" ; sum 1
+			ar_Append aaKFOV.aWANEWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000857" ; sum 2
+			ar_Append aaKFOV.aWANEWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000858" ; sum 3
+			ar_Append aaKFOV.aWANEWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000859" ; win 1
+			ar_Append aaKFOV.aWANEWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00085a" ; win 2
+			ar_Append aaKFOV.aWANEWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00085b" ; win 3
+			ar_Append aaKFOV.aWANEWRain temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWRain
+		endif
+
+		if aaKFOV.EnableANEWSnow == 1
+			let aaKFOV.aWANEWSnow := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSnow "AN EW Snow"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "000862" ; 1
+			ar_Append aaKFOV.aWANEWSnow temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000863" ; 2
+			ar_Append aaKFOV.aWANEWSnow temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSnow
+		endif
+
+		if aaKFOV.EnableANEWStorm == 1
+			let aaKFOV.aWANEWStorm := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWStorm "AN EW Storm"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "00085c" ; sum 1
+			ar_Append aaKFOV.aWANEWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00085d" ; sum 2
+			ar_Append aaKFOV.aWANEWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00085e" ; sum 3
+			ar_Append aaKFOV.aWANEWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00085f" ; win 1
+			ar_Append aaKFOV.aWANEWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000860" ; win 2
+			ar_Append aaKFOV.aWANEWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000861" ; win 3
+			ar_Append aaKFOV.aWANEWStorm temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWStorm
+		endif
+
+		if aaKFOV.EnableANEWClear == 1
+			let aaKFOV.aWANEWClear := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWClear "AN EW Clear"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "000864" ; sum 1
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000866" ; sum 2
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000868" ; sum 3
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00084d" ; sum 4
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000865" ; win 1
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000867" ; win 2
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000869" ; win 3
+			ar_Append aaKFOV.aWANEWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00084e" ; win 4
+			ar_Append aaKFOV.aWANEWClear temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWClear
+		endif
+
+		if aaKFOV.EnableANEWSIClear == 1
+			let aaKFOV.aWANEWSIClear := ar_Construct Array	
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSIClear "AN EW SIClear"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "00227d" ; 1 1
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00227e" ; 1 2
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00227f" ; 1 3
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002280" ; 1 4
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002281" ; 1 5
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002282" ; 2 1
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002283" ; 2 2
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002284" ; 2 3
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002285" ; 2 4
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002286" ; 2 5
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002287" ; 3 1
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002288" ; 3 2
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002289" ; 3 3
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00228a" ; 3 4
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00228b" ; 3 5
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00228c" ; 4 1
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00228d" ; 4 2
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00228e" ; 4 3
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00228f" ; 4 4
+			ar_Append aaKFOV.aWANEWSIClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002290" ; 4 5
+			ar_Append aaKFOV.aWANEWSIClear temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSIClear
+		endif
+
+		if aaKFOV.EnableANEWSICloudy == 1
+			let aaKFOV.aWANEWSICloudy := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSICloudy "AN EW SICloudy"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "002291" ; 1
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002292" ; 2
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002293" ; 3
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002294" ; 4
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002295" ; 5
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002926" ; 6
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002927" ; 7
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002928" ; 8
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002929" ; 9
+			ar_Append aaKFOV.aWANEWSICloudy temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSICloudy
+		endif
+
+		if aaKFOV.EnableANEWSIFog == 1
+			let aaKFOV.aWANEWSIFog := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSIFog "AN EW SIFog"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "002291" ; 1
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00229b" ; 2
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00229c" ; 3
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00229d" ; 4
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00229f" ; 5
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00299e" ; 6
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029a0" ; 7
+			ar_Append aaKFOV.aWANEWSIFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029a1" ; 8
+			ar_Append aaKFOV.aWANEWSIFog temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSIFog
+		endif
+
+		if aaKFOV.EnableANEWSIMania == 1
+			let aaKFOV.aWANEWSIMania := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSIMania "AN EW SIMania"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a2" ; 1
+			ar_Append aaKFOV.aWANEWSIMania temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a3" ; 2
+			ar_Append aaKFOV.aWANEWSIMania temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a4" ; 3
+			ar_Append aaKFOV.aWANEWSIMania temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a5" ; 4
+			ar_Append aaKFOV.aWANEWSIMania temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a6" ; 5
+			ar_Append aaKFOV.aWANEWSIMania temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSIMania
+		endif
+
+		if aaKFOV.EnableANEWSIOvercast == 1
+			let aaKFOV.aWANEWSIOvercast := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSIOvercast "AN EW SIOvercast"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a7" ; 1
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a8" ; 2
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022a9" ; 3
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022aa" ; 4
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022ab" ; 5
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029ac" ; 6
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029ad" ; 7
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029ae" ; 8
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029af" ; 9
+			ar_Append aaKFOV.aWANEWSIOvercast temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSIOvercast
+		endif
+
+		if aaKFOV.EnableANEWSIRain == 1
+			let aaKFOV.aWANEWSIRain := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSIRain "AN EW SIRain"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b0" ; 1
+			ar_Append aaKFOV.aWANEWSIRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b1" ; 2
+			ar_Append aaKFOV.aWANEWSIRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b2" ; 3
+			ar_Append aaKFOV.aWANEWSIRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b3" ; 4
+			ar_Append aaKFOV.aWANEWSIRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b4" ; 5
+			ar_Append aaKFOV.aWANEWSIRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029b5" ; 6
+			ar_Append aaKFOV.aWANEWSIRain temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSIRain
+		endif
+
+		if aaKFOV.EnableANEWSIStorm == 1
+			let aaKFOV.aWANEWSIStorm := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANEWSIStorm "AN EW SIStorm"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b6" ; 1
+			ar_Append aaKFOV.aWANEWSIStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b7" ; 2
+			ar_Append aaKFOV.aWANEWSIStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b8" ; 3
+			ar_Append aaKFOV.aWANEWSIStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022b9" ; 4
+			ar_Append aaKFOV.aWANEWSIStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0022ba" ; 5
+			ar_Append aaKFOV.aWANEWSIStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0029bb" ; 6
+			ar_Append aaKFOV.aWANEWSIStorm temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANEWSIStorm
+		endif
+	endif
+
+	if aaKFOV.iHasNW == 1
+		if aaKFOV.EnableANNWClear == 1
+			let aaKFOV.aWANNWClear := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANNWClear "AN NW Clear"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0186ee" ; 1
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186ed" ; 2
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186ec" ; 3
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186eb" ; 4
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186ea" ; 5
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186e9" ; 6
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186e8" ; 7
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0186e7" ; 8
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000cee" ; 9
+			ar_Append aaKFOV.aWANNWClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "000cef" ; 10
+			ar_Append aaKFOV.aWANNWClear temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANNWClear
+		endif
+
+		if aaKFOV.EnableANNWCloudy == 1
+			let aaKFOV.aWANNWCloudy := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANNWCloudy "AN NW Cloudy"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0186ef" ; 1
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016bd" ; 2
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016be" ; 3
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016bf" ; 4
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016c0" ; 5
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016c1" ; 6
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016c2" ; 7
+			ar_Append aaKFOV.aWANNWCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0016c3" ; 8
+			ar_Append aaKFOV.aWANNWCloudy temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANNWCloudy
+		endif
+
+		if aaKFOV.EnableANNWFog == 1
+			let aaKFOV.aWANNWFog := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANNWFog "AN NW Fog"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "002a5d" ; 1
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a5e" ; 2
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a5f" ; 3
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a60" ; 4
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a63" ; 5
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a61" ; 6
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a64" ; 7
+			ar_Append aaKFOV.aWANNWFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "002a62" ; 8
+			ar_Append aaKFOV.aWANNWFog temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANNWFog
+		endif
+
+		if aaKFOV.EnableANNWRain == 1
+			let aaKFOV.aWANNWRain := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANNWRain "AN NW Rain"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "005195" ; 1
+			ar_Append aaKFOV.aWANNWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "005196" ; 2
+			ar_Append aaKFOV.aWANNWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "005197" ; 3
+			ar_Append aaKFOV.aWANNWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "005198" ; 4
+			ar_Append aaKFOV.aWANNWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "005199" ; 5
+			ar_Append aaKFOV.aWANNWRain temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00519a" ; 6
+			ar_Append aaKFOV.aWANNWRain temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANNWRain
+		endif
+
+		if aaKFOV.EnableANNWSnow == 1
+			let aaKFOV.aWANNWSnow := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANNWSnow "AN NW Snow"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0051a4" ; 1
+			ar_Append aaKFOV.aWANNWSnow temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0051a5" ; 2
+			ar_Append aaKFOV.aWANNWSnow temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0051a7" ; 4
+			ar_Append aaKFOV.aWANNWSnow temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANNWSnow
+		endif
+
+		if aaKFOV.EnableANNWStorm == 1
+			let aaKFOV.aWANNWStorm := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANNWStorm "AN NW Storm"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "00518b" ; 1
+			ar_Append aaKFOV.aWANNWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00519c" ; 2
+			ar_Append aaKFOV.aWANNWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00519d" ; 3
+			ar_Append aaKFOV.aWANNWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00519e" ; 4
+			ar_Append aaKFOV.aWANNWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "00519f" ; 5
+			ar_Append aaKFOV.aWANNWStorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0051a0" ; 6
+			ar_Append aaKFOV.aWANNWStorm temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANNWStorm
+		endif
+	endif
+
+	if aaKFOV.iHasAWS == 1
+		if aaKFOV.EnableANAWSClear == 1
+			let aaKFOV.aWANAWSClear := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANAWSClear "AN AWS Clear"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c2" ; 1
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d3" ; 1b
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008bb" ; 2
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d4" ; 2b
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c6" ; 3
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d5" ; 3b
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008ca" ; 4
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d6" ; 4b
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008cb" ; 5
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d7" ; 5b
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d0" ; 6
+			ar_Append aaKFOV.aWANAWSClear temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d8" ; 6b
+			ar_Append aaKFOV.aWANAWSClear temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANAWSClear
+		endif
+
+		if aaKFOV.EnableANAWSCloudy == 1
+			let aaKFOV.aWANAWSCloudy := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANAWSCloudy "AN AWS Cloudy"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c3" ; 1
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d9" ; 1b
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008bc" ; 2
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008da" ; 2b
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c9" ; 3
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008db" ; 3b
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d1" ; 4
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008dc" ; 4b
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008d2" ; 5
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008dd" ; 5b
+			ar_Append aaKFOV.aWANAWSCloudy temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANAWSCloudy
+		endif
+
+		if aaKFOV.EnableANAWSFog == 1
+			let aaKFOV.aWANAWSFog := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANAWSFog "AN AWS Fog"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c4" ; 1
+			ar_Append aaKFOV.aWANAWSFog temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008bd" ; 2
+			ar_Append aaKFOV.aWANAWSFog temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANAWSFog
+		endif
+
+		if aaKFOV.EnableANAWSOvercast == 1
+			let aaKFOV.aWANAWSOvercast := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANAWSOvercast "AN AWS Overcast"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c5" ; 1
+			ar_Append aaKFOV.aWANAWSOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c1" ; 2
+			ar_Append aaKFOV.aWANAWSOvercast temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008cc" ; 3
+			ar_Append aaKFOV.aWANAWSOvercast temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANAWSOvercast
+		endif
+
+		if aaKFOV.EnableANAWSSnow == 1
+			let aaKFOV.aWANAWSSnow := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANAWSSnow "AN AWS Snow"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c8" ; 1
+			ar_Append aaKFOV.aWANAWSSnow temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008bf" ; 2
+			ar_Append aaKFOV.aWANAWSSnow temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008cf" ; 3
+			ar_Append aaKFOV.aWANAWSSnow temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANAWSSnow
+		endif
+
+		if aaKFOV.EnableANAWSThunderstorm == 1
+			let aaKFOV.aWANAWSThunderstorm := ar_Construct Array
+			
+			; set up marker element
+			ar_Append aaKFOV.aWANAWSThunderstorm "AN AWS Thunderstorm"
+
+			let temp := GetFormFromMod "All Natural Base.esm" "0008ce" ; 1
+			ar_Append aaKFOV.aWANAWSThunderstorm temp
+			let temp := GetFormFromMod "All Natural Base.esm" "0008c0" ; 2
+			ar_Append aaKFOV.aWANAWSThunderstorm temp
+			ar_Append aaKFOV.aWeather aaKFOV.aWANAWSThunderstorm
+		endif
+	endif
+end

@@ -15,9 +15,29 @@ begin Function {}
 
 		call aaKFOVGetModData
 
+		; call each weather array
+		if aakfov.EnableWeatherMode == 1
+			let aaKFOV.aWeather := ar_Construct Array
+			call aaKFOVArrayWVanilla		; purely vanilla weathers
+
+			if (IsModLoaded "NAO.esp" && aaKFOV.EnableNAOWeathers == 1)
+				call aaKFOVWArrayNAO
+			endif
+		endif
+
 		; set at game loaded
-		SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
-		SetEventHandler "OnKeyEvent" aaKFOVIKeyEvent first::aaKFOV.WeatherModeKey second::0		; weather mode
+		if aaKFOV.EnableFOVMode == 1
+			SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
+		endif
+		if aaKFOV.EnableWeatherMode == 1
+			SetEventHandler "OnKeyEvent" aaKFOVIKeyEvent first::aaKFOV.WeatherModeKey second::0		; weather mode
+		endif
+		if aaKFOV.EnableHUDToggle == 1
+			SetEventHandler "OnKeyEvent" aaKFOVToggleHUDScript first::aaKFOV.ToggleHUDKey second::0		; toggle mode
+		endif
+		if aaKFOV.EnableFreeCamSupport == 1
+			SetEventHandler "OnKeyEvent" aaKFOVToggleFreecam first::aaKFOV.ToggleFreecamKey second::0		; freecam mode
+		endif
 		; make sure everything is updated based on settings
 		set iDoOnce to 1
 	endif

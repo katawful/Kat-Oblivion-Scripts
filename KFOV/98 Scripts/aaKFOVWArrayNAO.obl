@@ -8,6 +8,8 @@ int isArrayFound
 begin function {}
 
 	let aaKFOV.aWNAO := ar_Construct Array
+	; add the notification thing
+	ar_Append aaKFOV.aWNAO "NAO"
 	
 	let temp := GetFormFromMod "NAO.esp" "000800" ; cloudy overcast
 	ar_Append aaKFOV.aWNAO temp

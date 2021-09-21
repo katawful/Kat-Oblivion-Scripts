@@ -6,6 +6,8 @@ ref temp
 begin function {}
 	; tamriel weathers
 	let aaKFOV.aWTamriel := ar_Construct Array
+	; add the notification thing
+	ar_Append aaKFOV.aWTamriel "Cyrodiil"
 	let temp := GetFormFromMod "Oblivion.esm" "038eec" ; overcast
 	ar_Append aaKFOV.aWTamriel temp
 	let temp := GetFormFromMod "Oblivion.esm" "038eed" ; snow
@@ -25,6 +27,8 @@ begin function {}
 	; oblivion weathers
 	if aaKFOV.EnableOblivionWeathers == 1
 		let aaKFOV.aWOblivion := ar_Construct Array
+		; add the notification thing
+		ar_Append aaKFOV.aWOblivion "Oblivion"
 		let temp := GetFormFromMod "Oblivion.esm" "067198" ; electrical
 		ar_Append aaKFOV.aWOblivion temp
 		let temp := GetFormFromMod "Oblivion.esm" "067199" ; storm
@@ -43,6 +47,8 @@ begin function {}
 	; SI weathers
 	if aaKFOV.EnableSIWeathers == 1
 		let aaKFOV.aWSI := ar_Construct Array
+		; add the notification thing
+		ar_Append aaKFOV.aWSI "Shivering Isles"
 		let temp := GetFormFromMod "Oblivion.esm" "015883" ; gloom storm
 		ar_Append aaKFOV.aWSI temp
 		let temp := GetFormFromMod "Oblivion.esm" "044f58" ; clear blue

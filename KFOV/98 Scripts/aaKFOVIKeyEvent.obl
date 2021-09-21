@@ -11,13 +11,6 @@ begin function {iKey, iAction}
 	if MenuMode
 		return
 	endif
-	; call each weather array
-	let aaKFOV.aWeather := ar_Construct Array
-	call aaKFOVArrayWVanilla		; purely vanilla weathers
-	
-	if (IsModLoaded "NAO.esp" && aaKFOV.EnableNAOWeathers == 1)
-		call aaKFOVWArrayNAO
-	endif
 
 	if aaKFOV.iWeatherMode == 0 && aaKFOV.iFOVMode != 1 ; entering weather mode but fov isn't active
 		call aaKFOVGetLastWeather

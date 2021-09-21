@@ -44,6 +44,7 @@ end
 
 begin gamemode
 
+	SetStage aaKFOVCheckOBSE 0
 	; make sure to notify the player when they load the game
 	if lVersion == 0
 		if lDoOnce == 0

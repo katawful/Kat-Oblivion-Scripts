@@ -1,0 +1,37 @@
+﻿scn aaKFOVToggleFreecam
+
+; this toggles freecam
+
+; event parameters
+int iKey
+int iAction
+
+begin function {iKey, iAction}
+;	if aaKFOV.iWeatherMode == 1 || aaKFOV.iFOVMode == 1
+;		return
+	;	endif
+	if MenuMode
+		return
+	endif
+	if aaKFOV.iFreecam == 0
+		let aaKFOV.iPreviousFOV := FOV3rd
+		if IsThirdPerson == 1 ; we in third person
+			let aaKFOV.iCurrentPerspective := 3 ; in third
+		elseif IsThirdPerson == 0
+			let aaKFOV.iCurrentPerspective := 1 ; in first
+		endif
+		ToggleFirstPerson 0 ; toggle to third person
+		con_TFC ; toggle freecam
+		let aaKFOV.iFreecam := 1
+		
+	elseif aaKFOV.iFreecam == 1
+		if aaKFOV.iCurrentPerspective == 3 ; was in third
+			ToggleFirstPerson 0 ; go to third person
+		elseif aaKFOV.iCurrentPerspective == 1
+			ToggleFirstPerson 1 ; go to first person
+		endif
+		let FOV3rd := aaKFOV.iPreviousFOV
+		con_TFC
+		let aaKFOV.iFreecam := 0
+	endif
+end

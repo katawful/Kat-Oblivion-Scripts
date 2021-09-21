@@ -12,8 +12,39 @@ begin function {args}
 	; this is needed if we change settings while in main menu
 	call aaKFOVStoreModData
 	
-	SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
-	SetEventHandler "OnKeyEvent" aaKFOVIKeyEvent first::aaKFOV.WeatherModeKey second::0		; weather mode
+	if aaKFOV.EnableFOVMode == 1
+		SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
+	else
+		RemoveEventHandler "OnKeyEvent" aaKFOVPKeyEvent
+	endif
+	if aaKFOV.EnableWeatherMode == 1
+		SetEventHandler "OnKeyEvent" aaKFOVIKeyEvent first::aaKFOV.WeatherModeKey second::0		; weather mode
+	else
+		RemoveEventHandler "OnKeyEvent" aaKFOVIKeyEvent
+	endif
+	if aaKFOV.EnableHUDToggle == 1
+		SetEventHandler "OnKeyEvent" aaKFOVToggleHUDScript first::aaKFOV.ToggleHUDKey second::0		; hud toggle
+	else
+		RemoveEventHandler "OnKeyEvent" aaKFOVToggleHUDScript
+	endif
+	if aaKFOV.EnableFreeCamSupport == 1
+		SetEventHandler "OnKeyEvent" aaKFOVToggleFreecam first::aaKFOV.ToggleFreecamKey second::0		; freecam mode
+	else
+		RemoveEventHandler "OnKeyEvent" aaKFOVToggleFreecam
+	endif
 
-	let aaKFOV.aWeather := ar_Construct Array
+	if aakfov.EnableWeatherMode == 1
+		; call each weather array
+		let aaKFOV.aWeather := ar_Construct Array
+		call aaKFOVArrayWVanilla		; purely vanilla weathers
+		
+		if (IsModLoaded "NAO.esp" && aaKFOV.EnableNAOWeathers == 1)
+			call aaKFOVWArrayNAO
+		endif
+		if (IsModLoaded "All Natural Base.esm" && aaKFOV.EnableANWeathers == 1)
+				call aaKFOVArrayWAllNatural
+		endif
+	else
+		let aaKFOV.aWeather := ar_Construct Array
+	endif
 end

@@ -1,0 +1,15 @@
+﻿scn aaKFOVANWatcher
+
+; this watches for All Natural to initialize
+; Quest script load within 5 seconds, and I can't wait the entire mod on just waiting for AN
+; This script will watch for the ANVars quest and then do all my AN stuff
+; I can't directly check the quest, the script won't compile
+
+begin function {}
+	RunScriptLine "set aaKFOV.iHasEW to ANVars.UseEW" 0 1
+	RunScriptLine "set aaKFOV.iHasNW to ANVars.UseNW" 0 1
+	RunScriptLine "set aaKFOV.iHasAWS to ANVars.UseAWS" 0 1
+;	RunScriptLine "set aaKFOV.iANUseSI to ANVars.UseSIExtra" 0 1
+	call aaKFOVArrayWAllNatural
+	set aaKFOV.iANWatcherDone to 1
+end
