@@ -40,14 +40,14 @@ Install with any BAIN compatible mod manager of choice (Wrye Bash or MO2 recomme
 `99 Docs` is the documentation
 
 The INI file provided in 00 Core sets the defaults of the mod when using LINK, otherwise provides normal mod features.
-It is well detailed at explaining what each setting does. The following section is just the defaults:
+It is well detailed at explaining what each setting does.
 
 # Permissions
 Permissions are as followed:
 - Patches are always welcomed and allowed, notifying me for integration would be ideal but not required. Credit and link to original are required regardless.
 - Scripts used here are allowed as resources in mods without asking, assuming it does not replicate the function of this mod. Credit and link to original are required.
   * Example: you can use the FOV change script in a mod that needs the ability to change FOV but you can't use that script to make a FOV mod. Do it yourself
-	* Addendum: you cannot use my resources in a paid mod
+  * Addendum: you cannot use my resources in a paid mod
 - Integration into mod packs requires direct permission
 - No uploads of this mod without permission, but translations can be requested at will without issue. I will not block you making translations
   * Addendum: if all accounts linked to me are dead, then this mod will become public to anyone, without credit or permission, to prevent dead mods
