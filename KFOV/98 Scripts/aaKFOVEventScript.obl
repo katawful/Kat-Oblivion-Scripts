@@ -1,4 +1,4 @@
-﻿scn aaKFOVEventScript
+scn aaKFOVEventScript
 
 int iDoOnce
 
@@ -8,8 +8,11 @@ int iDoOnce
 ; set whatever was saved to the global as our FOV
 ; and set up eventhandlers for game exit
 begin Function {}
-	call aaKFOVSetFOV ; set fov to whatever is saved
 	if GetGameRestarted ; set up eventhandlers
+		let aaKFOV.iLastFOV1st := FOV1st
+		let aaKFOV.iLastFOV3rd := FOV3rd
+    call aaKFOVSetFOV 0
+
 		SetEventHandler "QQQ" aaKFOVSetDefault
 		SetEventHandler "ExitGame" aaKFOVSetDefault
 
@@ -26,6 +29,7 @@ begin Function {}
 		endif
 
 		; set at game loaded
+		SetEventHandler "OnControlEvent" aaKFOVUpdateFOV first::14 second::0
 		if aaKFOV.EnableFOVMode == 1
 			SetEventHandler "OnKeyEvent" aaKFOVPKeyEvent first::aaKFOV.FOVModeKey second::0		; fov mode
 		endif

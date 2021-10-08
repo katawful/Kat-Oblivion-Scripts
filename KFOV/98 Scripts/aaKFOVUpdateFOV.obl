@@ -1,0 +1,12 @@
+scn aaKFOVUpdateFOV
+
+; this is a event handler that handles how FOV updates when toggle POV is done
+
+int iControl
+int iAction
+
+begin function {iControl, iAction}
+	if iControl == 14 && iAction == 0
+		call aaKFOVSetFOV 0
+	endif
+end

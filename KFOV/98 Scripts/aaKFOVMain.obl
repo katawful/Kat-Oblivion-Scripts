@@ -1,4 +1,4 @@
-﻿scn aaKFOVMain
+scn aaKFOVMain
 
 float fQuestDelayTime
 
@@ -12,10 +12,12 @@ int iANWatcherDone ; is our AN watcher done???
 int iQuestRunning ; see if AN is loaded
 float fTimer
 ref rGetLastWeather ; get the last weather so that the player can return to it after screens
-ref temp
+int temp
 int iPreviousFOV ; store previous FOV from 3rd person mode
 int iFreecam ; is free cam on
 int iCurrentPerspective ; whatever the player was currently in
+int iLastFOV1st ; last 1st FOV set from the global
+int iLastFOV3rd ; last 3rd FOV set from the global
 
 int iHasEW ; has EW from AN ini
 int iHasNW ; has NW from AN ini
@@ -144,8 +146,7 @@ begin GameMode
 			call aaKFOVANWatcher ; watch for AN initialization
 		endif
 	endif
-	
-	call aaKFOVSetFOV	; set fov constantly
+	call aaKFOVGetFOV	; watch fov constantly
 end
 
 ; set defaults while in menu

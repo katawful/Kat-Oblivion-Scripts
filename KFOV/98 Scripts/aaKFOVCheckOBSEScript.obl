@@ -1,4 +1,4 @@
-﻿scn aaKFOVCheckOBSEScript
+scn aaKFOVCheckOBSEScript
 
 ; this checks if the player has the right OBSE version
 
@@ -56,7 +56,7 @@ begin gamemode
 	
 	if (lVersion == 22 && lRevision < 4)
 		if lDoOnce == 0
-			MessageBox "xOBSE version xxx or greater is required to use KFOV. Please install"
+			MessageBox "xOBSE version 22.4 or greater is required to use KFOV. Please install"
 			Player.KillActor
 			set lDoOnce to 1
 		endif

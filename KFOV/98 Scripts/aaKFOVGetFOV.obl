@@ -1,0 +1,27 @@
+scn aaKFOVGetFOV
+
+; this script constantly gets the FOV value from the global, hopefully acting as a event handler for watching values
+
+begin function {}
+  if aaKFOV.iFOVMode == 1 ; since this is a special mode we can update stuff specifically
+    if IsThirdPerson == 0
+      call aaKFOVSetFOV FOV1st
+    else
+      call aaKFOVSetFOV FOV3rd
+    endif
+  endif
+
+  if aaKFOV.iLastFOV1st == FOV1st ; same FOV values
+    return
+  else
+    call aaKFOVSetFOV FOV1st
+    let aaKFOV.iLastFOV1st := FOV1st
+  endif
+
+  if aakfov.iLastFOV3rd == FOV3rd ; same FOV values
+    return
+  else
+    call aaKFOVSetFOV FOV3rd
+    let aaKFOV.iLastFOV3rd := FOV3rd
+  endif
+end

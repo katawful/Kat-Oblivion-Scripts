@@ -1,10 +1,11 @@
-﻿scn aaKFOVChangeFOV
+scn aaKFOVChangeFOV
 
 ; this increase FOV for the whatever mode we are in by x amount
 
 int value ; our change value, default is 1
 int increment ; are we incrementing or decrementing?
-int currentFOV
+int currentFOV ; to print
+int FOVOut
 
 begin Function {value, increment}
 	if increment == 1 ; incrementing
@@ -13,13 +14,15 @@ begin Function {value, increment}
 		set value to value * -1
 	endif
 	if IsThirdPerson == 0 ; in first person
-		set FOV1st to FOV1st + value
-		set currentFOV to FOV1st
-		call aaKFOVSetFOV
-	else
-		set FOV3rd to FOV3rd + value
-		set currentFOV to FOV3rd
-		call aaKFOVSetFOV
+		set FOVOut to FOV1st
+		set FOVOut to FOVOut + value
+		set currentFOV to FOVOut
+		call aaKFOVSetFOV FOVOut
+	elseif IsThirdPerson == 1
+		set FOVOut to FOV3rd
+		set FOVOut to FOVOut + value
+		set currentFOV to FOVOut
+		call aaKFOVSetFOV FOVOut
 	endif
 	PrintC "FOV: %g", currentFOV
 end

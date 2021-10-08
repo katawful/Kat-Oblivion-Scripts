@@ -1,4 +1,4 @@
-﻿scn aaKFOVEqualsKeyEvent
+scn aaKFOVEqualsKeyEvent
 
 ; add variables for event parameters
 int iKey

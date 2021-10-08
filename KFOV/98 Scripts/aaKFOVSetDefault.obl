@@ -1,4 +1,4 @@
-﻿scn aaKFOVSetDefault
+scn aaKFOVSetDefault
 
 ; this sets the default FOV to 75 whereever needed
 ; this includes the ini file to hopefully fix issues
@@ -8,4 +8,10 @@ Begin Function {}
 	; we don't need to set the camera FOV just the settings to minimize damages
 	Con_SetINISetting "fDefaultFOV:Display" 75
 	SetNumericINISetting "fDefaultFOV:Display" 75
+	if FOV3rd == 0 ; not set basically
+		let FOV3rd := GetNumericINISetting "fDefaultFOV:Display"
+	endif
+	if FOV1st == 0 
+		let FOV1st := GetNumericINISetting "fDefaultFOV:Display"
+	endif
 end
