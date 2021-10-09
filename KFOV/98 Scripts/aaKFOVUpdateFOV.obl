@@ -6,7 +6,22 @@ int iControl
 int iAction
 
 begin function {iControl, iAction}
+	if MenuMode
+		return
+	endif
 	if iControl == 14 && iAction == 0
-		call aaKFOVSetFOV 0
+		; we don't need to run this during FOV since that always updates
+		if aaKFOV.iFOVMode == 1
+			return
+		endif
+		if IsThirdPerson == 1
+			; call aaKFOVSetFOV 0
+			con_SetCameraFOV FOV1st
+			SetNumericINISetting "fDefaultFOV:Display" FOV1st
+		elseif IsThirdPerson == 0
+			; call aaKFOVSetFOV 0
+			con_SetCameraFOV FOV3rd
+			SetNumericINISetting "fDefaultFOV:Display" FOV3rd
+		endif
 	endif
 end

@@ -153,7 +153,9 @@ end
 ; shit breaks outside of 75
 begin MenuMode
 	set fQuestDelayTime to 0.01 ; roughly 60FPS in case some weirdo doesn't cap FPS
-	call aaKFOVSetDefault	; set defaults for menus
+  ; NOTE not sure if i need to set defaults in menu???
+    ; seems to not break?
+	; call aaKFOVSetDefault	; set defaults for menus
 	if aaKFOVCheckOBSE.lRunINIFile == 1
 		if (IsModLoaded "LINK.esp" == 0) || (INIVersion < 1)
 			RunBatchScript "Data\Kats Fantastic Oblivion Viewport.ini" 0 1

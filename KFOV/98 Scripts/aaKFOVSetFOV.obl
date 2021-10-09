@@ -14,7 +14,7 @@ begin Function {iFOV}
 		call aaKFOVClampValues
 		con_SetCameraFOV FOV1st
 		SetNumericINISetting "fDefaultFOV:Display" FOV1st
-	else ; else if 3rd
+	elseif IsThirdPerson == 1 ; else if 3rd
     if iFOV != 0
       set FOV3rd to iFOV
     endif

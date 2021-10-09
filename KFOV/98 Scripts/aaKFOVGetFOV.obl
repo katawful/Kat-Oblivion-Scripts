@@ -14,14 +14,14 @@ begin function {}
   if aaKFOV.iLastFOV1st == FOV1st ; same FOV values
     return
   else
-    call aaKFOVSetFOV FOV1st
+    call aaKFOVSetFOV 0
     let aaKFOV.iLastFOV1st := FOV1st
   endif
 
   if aakfov.iLastFOV3rd == FOV3rd ; same FOV values
     return
   else
-    call aaKFOVSetFOV FOV3rd
+    call aaKFOVSetFOV 0
     let aaKFOV.iLastFOV3rd := FOV3rd
   endif
 end
