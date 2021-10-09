@@ -19,6 +19,7 @@ a modern solution. This mod is much more extensible and much less limited.
 * LINK support for real time mod adjustment of all features
 * speed, no more waiting for FOV to pop into position. everything is available immediately on gameload
 * all optional features
+* defaults control, run `SetStage aaKFOV 10` to set the mod to the default values/values from your INI
 
 # Controls
 The default key for entering `FOV Mode` is `P`, and the default key for entering `Weather Mode` is `I`. Set these as you see fit.
