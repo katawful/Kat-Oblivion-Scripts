@@ -26,7 +26,7 @@ begin MenuMode
 	SetStage aaKFOVCheckOBSE 0
 
 	; we can just do the whole check within the main menu
-	if (lVersion == 22 && lRevision >= 4)
+	if (lVersion == 22 && lRevision >= 6)
 		if lDoOnce == 0
 			; we need a flag to only run the INI file exactly once so LINK can work
 			; there are some checks here so when this script fires again it won't fire the INI again
@@ -54,9 +54,9 @@ begin gamemode
 		endif
 	endif
 	
-	if (lVersion == 22 && lRevision < 4)
+	if (lVersion == 22 && lRevision < 6)
 		if lDoOnce == 0
-			MessageBox "xOBSE version 22.4 or greater is required to use KFOV. Please install"
+			MessageBox "xOBSE version 22.6 or greater is required to use KFOV. Please install"
 			Player.KillActor
 			set lDoOnce to 1
 		endif

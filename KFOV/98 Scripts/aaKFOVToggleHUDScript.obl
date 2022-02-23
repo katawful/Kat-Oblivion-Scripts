@@ -7,14 +7,9 @@ int iKey
 int iAction
 
 begin function {iKey, iAction}
-	if MenuMode
-		return
-	endif
-	; add filter since OnKey event handler is broken in 22.4
-	; iKey must be our toggle key
-	; iAction must be our action key
-	if iKey == aaKFOV.ToggleHUDKey && iAction == 0
-		con_ToggleMenus
-	endif
+  if MenuMode
+    return
+  endif
+  con_ToggleMenus
 
 end

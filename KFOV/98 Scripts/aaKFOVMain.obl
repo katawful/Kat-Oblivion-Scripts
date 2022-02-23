@@ -18,6 +18,7 @@ int iFreecam ; is free cam on
 int iCurrentPerspective ; whatever the player was currently in
 int iLastFOV1st ; last 1st FOV set from the global
 int iLastFOV3rd ; last 3rd FOV set from the global
+int iFreeCamFOV ; the FOV used by freecam
 
 int iHasEW ; has EW from AN ini
 int iHasNW ; has NW from AN ini

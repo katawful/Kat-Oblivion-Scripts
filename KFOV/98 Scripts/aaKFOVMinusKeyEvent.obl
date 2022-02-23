@@ -4,20 +4,15 @@ int iKey
 int iAction
 
 begin function {iKey, iAction}
-	; add filter since OnKey event handler is broken in 22.4
-	; iKey must be our toggle key
-	; iAction must be our action key
-	if iKey == 12
-		if aaKFOV.iFOVMode == 1 && iAction == 2 ; we are in FOV mode
-			call aaKFOVChangeFOV 1 0 ; first is value, second is increment
-		elseif aaKFOV.iWeatherMode == 1 && iAction == 0 ; we are in weather mode
-			if IsKeyPressed3 42 == 1 || IsKeyPressed3 54 == 1 ; this is just held so we don't care
-				call aaKFOVLoadWeather 0 1
-			else ; shift isn't held
-				call aaKFOVLoadWeather 0 0
-			endif
-		else
-			return
-		endif
-	endif
+  if aaKFOV.iFOVMode == 1 && iAction == 2 ; we are in FOV mode
+    call aaKFOVChangeFOV 1 0 ; first is value, second is increment
+  elseif aaKFOV.iWeatherMode == 1 && iAction == 0 ; we are in weather mode
+    if IsKeyPressed3 42 == 1 || IsKeyPressed3 54 == 1 ; this is just held so we don't care
+      call aaKFOVLoadWeather 0 1
+    else ; shift isn't held
+      call aaKFOVLoadWeather 0 0
+    endif
+  else
+    return
+  endif
 end

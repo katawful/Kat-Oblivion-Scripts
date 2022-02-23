@@ -2,36 +2,17 @@ scn aaKFOVWArrayNAO
 
 ; this is for NAO
 
-ref temp
-int isArrayFound
+int modIndex
 
 begin function {}
 
-	let aaKFOV.aWNAO := ar_Construct Array
+  ; get mod index
+  let modIndex := GetModIndex "NAO.esp"
+  ; WTHR record is 45
+  let aaKFOV.aWNAO := GetLoadedTypeArray 45 modIndex
+
 	; add the notification thing
-	ar_Append aaKFOV.aWNAO "NAO"
-	
-	let temp := GetFormFromMod "NAO.esp" "000800" ; cloudy overcast
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000801" ; rain cloudy
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000802" ; clear mist
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000803" ; fog sun
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000804" ; clear cloudy
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000805" ; rain mist
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000806" ; dark overcast
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000807" ; clear sunset
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000808" ; cloudy sunset
-	ar_Append aaKFOV.aWNAO temp
-	let temp := GetFormFromMod "NAO.esp" "000808" ; clear cloudy sunset
-	ar_Append aaKFOV.aWNAO temp
-
-
+	ar_Insert aaKFOV.aWNAO 0 "NAO"
+  ; append to parent array
 	ar_Append aaKFOV.aWeather aaKFOV.aWNAO
 end
